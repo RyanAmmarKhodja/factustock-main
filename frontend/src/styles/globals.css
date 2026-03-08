@@ -1,0 +1,102 @@
+/* FactuStock Design System
+   Import this in your main index.css or App.css
+   ─────────────────────────────────────────── */
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap');
+
+:root {
+  /* Brand Colors */
+  --color-primary:      #2563EB;
+  --color-primary-dark: #1D4ED8;
+  --color-primary-light:#DBEAFE;
+  --color-success:      #10B981;
+  --color-success-light:#D1FAE5;
+  --color-danger:       #EF4444;
+  --color-danger-light: #FEE2E2;
+  --color-accent:       #6366F1;
+  --color-accent-light: #EEF2FF;
+  --color-warning:      #F59E0B;
+  --color-warning-light:#FEF3C7;
+
+  /* Neutrals */
+  --color-bg:           #F8FAFC;
+  --color-surface:      #FFFFFF;
+  --color-border:       #E2E8F0;
+  --color-border-light: #F1F5F9;
+  --color-text:         #1E293B;
+  --color-text-secondary: #64748B;
+  --color-text-muted:   #94A3B8;
+
+  /* Sidebar */
+  --sidebar-width:      260px;
+  --sidebar-bg:         #1E293B;
+  --sidebar-text:       #CBD5E1;
+  --sidebar-active-bg:  #2563EB;
+  --sidebar-active-text:#FFFFFF;
+  --sidebar-hover-bg:   #334155;
+
+  /* Shadows (Soft UI) */
+  --shadow-sm:   0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md:   0 4px 12px rgba(0,0,0,0.08), 0 2px 6px rgba(0,0,0,0.04);
+  --shadow-lg:   0 10px 30px rgba(0,0,0,0.10), 0 4px 12px rgba(0,0,0,0.06);
+  --shadow-focus:0 0 0 3px rgba(37,99,235,0.20);
+
+  /* Radius */
+  --radius-sm:   6px;
+  --radius-md:   10px;
+  --radius-lg:   14px;
+  --radius-xl:   20px;
+
+  /* Spacing scale */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+
+  /* Typography */
+  --font-body:  'DM Sans', system-ui, sans-serif;
+  --font-size-xs:   12px;
+  --font-size-sm:   14px;
+  --font-size-base: 16px;
+  --font-size-lg:   18px;
+  --font-size-xl:   20px;
+  --font-size-2xl:  24px;
+  --font-size-3xl:  30px;
+
+  /* Transitions */
+  --transition-fast: 0.15s ease;
+  --transition-base: 0.2s ease;
+}
+
+/* ── Global Reset ─────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { font-size: 16px; -webkit-font-smoothing: antialiased; }
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--font-size-base);
+  color: var(--color-text);
+  background: var(--color-bg);
+  line-height: 1.6;
+}
+
+/* Make all inputs/buttons inherit font */
+input, button, select, textarea {
+  font-family: inherit;
+}
+
+/* Focus visible only for keyboard nav */
+*:focus { outline: none; }
+*:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; }
+
+/* Scrollbar (subtle) */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--color-border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--color-text-muted); }
