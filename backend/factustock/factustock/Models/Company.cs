@@ -10,7 +10,7 @@ namespace factustock.Models
         public int Id { get; set; }
         public int? SubscriptionId { get; set; }
         public string Name { get; set; } = string.Empty;
-        public string LegalName { get; set; } = string.Empty;
+        public string? LegalName { get; set; } = string.Empty;
         public string? Email { get; set; }
         public string? Tel { get; set; }
         public string? Adresse { get; set; }

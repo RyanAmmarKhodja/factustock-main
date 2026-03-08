@@ -12,20 +12,7 @@ namespace factustock.Controllers;
 [Route("api/auth")]
 public class AuthController(IAuthService authService) : ControllerBase
 {
-    // ── GET /api/auth/setup-status ───────────────────────────────────────────
-    /// <summary>
-    /// React calls this on app load (before any auth).
-    /// Response tells the frontend which page to render:
-    ///   - IsAdminRegistered = false → /setup (one-time admin creation)
-    ///   - IsAdminRegistered = true  → /login
-    /// </summary>
-    [HttpGet("setup-status")]
-    [AllowAnonymous]
-    public async Task<ActionResult<SetupStatusResponse>> GetSetupStatus()
-    {
-        var status = await authService.GetSetupStatusAsync();
-        return Ok(status);
-    }
+    
 
     // ── POST /api/auth/register/admin ────────────────────────────────────────
     /// <summary>
@@ -41,6 +28,22 @@ public class AuthController(IAuthService authService) : ControllerBase
 
         var ip = GetClientIp();
         var (data, error) = await authService.RegisterAdminAsync(request, ip);
+
+        if (error is not null)
+            return Conflict(new { message = error });
+
+        return CreatedAtAction(nameof(RegisterAdmin), data);
+    }
+
+
+    [HttpPost("register/company")]
+    [AllowAnonymous]
+    public async Task<ActionResult<CompanyDto>> RegisterCompany([FromBody] CompanyDto request)
+    {
+        if (!ModelState.IsValid)
+            return BadRequest(ModelState);
+
+        var (data, error) = await authService.RegisterCompanyAsync(request);
 
         if (error is not null)
             return Conflict(new { message = error });
@@ -153,6 +156,14 @@ public class AuthController(IAuthService authService) : ControllerBase
             return BadRequest(new { message = error });
 
         return Ok(new { message = "User deactivated. Seat is now available." });
+    }
+
+    [HttpGet("test")]
+    public async Task<IActionResult> Test()
+    {
+        var userId = GetCurrentUserId();
+        var ip = GetClientIp();
+        return Ok("test");
     }
 
     // ── PRIVATE HELPERS ───────────────────────────────────────────────────────

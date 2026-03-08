@@ -45,7 +45,7 @@ export function CardHeader({ title, subtitle, action }) {
 export function Alert({ children, variant = "info", onDismiss }) {
   const icons = {
     success: "✓",
-    danger:  "✕",
+    danger:  "",
     warning: "⚠",
     info:    "ℹ",
   };
@@ -94,10 +94,11 @@ export function PageHeader({ title, subtitle, action }) {
 // ─────────────────────────────────────────────
 // SPINNER  — loading state
 // ─────────────────────────────────────────────
-export function Spinner({ size = "md", label = "Chargement..." }) {
+export function Loading({ size = "md", label = "Chargement..." }) {
   return (
     <div className={styles.spinnerWrapper} aria-label={label}>
       <div className={[styles.spinner, styles[`spinner_${size}`]].join(" ")} />
     </div>
   );
 }
+

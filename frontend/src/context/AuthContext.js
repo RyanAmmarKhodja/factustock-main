@@ -1,6 +1,6 @@
 import { useContext, createContext, useState, useEffect } from "react";
 import api from "../api/api";
-import { Spinner as Loading } from "../components/ui/Spinner";
+import Loading from "../components/ui/Loading";
 
 const AuthContext = createContext();
 
@@ -29,7 +29,7 @@ const AuthProvider = ({ children }) => {
   // ── LOGIN ──────────────────────────────────────────────────────────────────
   // Just updates state. Navigation is handled by the calling component (LoginPage).
   const login = async (email, password) => {
-    const response = await api.post("/api/auth/login", { email, password });
+    const response = await api.post("/auth/login", { email, password });
     const { token: newToken, ...userData } = response.data;
 
     setToken(newToken);

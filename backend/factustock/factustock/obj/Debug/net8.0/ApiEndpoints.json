@@ -69,6 +69,32 @@
   },
   {
     "ContainingType": "factustock.Controllers.AuthController",
+    "Method": "RegisterCompany",
+    "RelativePath": "api/auth/register/company",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "factustock.DTOs.CompanyDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "factustock.DTOs.CompanyDto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "factustock.Controllers.AuthController",
     "Method": "RegisterEmployee",
     "RelativePath": "api/auth/register/employee",
     "HttpMethod": "POST",
@@ -95,23 +121,13 @@
   },
   {
     "ContainingType": "factustock.Controllers.AuthController",
-    "Method": "GetSetupStatus",
-    "RelativePath": "api/auth/setup-status",
+    "Method": "Test",
+    "RelativePath": "api/auth/test",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [],
-    "ReturnTypes": [
-      {
-        "Type": "factustock.DTOs.SetupStatusResponse",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
+    "ReturnTypes": []
   },
   {
     "ContainingType": "factustock.Controllers.AuthController",
@@ -179,5 +195,51 @@
       }
     ],
     "ReturnTypes": []
+  },
+  {
+    "ContainingType": "factustock.Controllers.SystemController",
+    "Method": "CompleteSetupAsync",
+    "RelativePath": "api/system/complete-setup",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "factustock.DTOs.SetupStatusResponse",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "factustock.DTOs.SetupStatusResponse",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "factustock.Controllers.SystemController",
+    "Method": "GetSetupStatus",
+    "RelativePath": "api/system/setup-status",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "factustock.DTOs.SetupStatusResponse",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
   }
 ]

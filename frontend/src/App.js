@@ -4,13 +4,16 @@ import "./styles/globals.css";
 import AuthProvider from "./context/AuthContext";
 import AppRouter from "./router/AppRouter";
 import { BrowserRouter } from "react-router-dom";
+import StartupGate from "./api/StartupGate";
 
 function App() {
   return (
-    <div className="App">
+    <div>
       <AuthProvider>
         <BrowserRouter>
-          <AppRouter />
+          <StartupGate>
+            <AppRouter />
+          </StartupGate>
         </BrowserRouter>
       </AuthProvider>
     </div>

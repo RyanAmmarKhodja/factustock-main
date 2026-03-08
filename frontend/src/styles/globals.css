@@ -1,51 +1,48 @@
-/* FactuStock Design System
-   Import this in your main index.css or App.css
+/* FactuStock — Microsoft Fluent Design System
    ─────────────────────────────────────────── */
 
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap');
-
 :root {
-  /* Brand Colors */
-  --color-primary:      #2563EB;
-  --color-primary-dark: #1D4ED8;
-  --color-primary-light:#DBEAFE;
-  --color-success:      #10B981;
-  --color-success-light:#D1FAE5;
-  --color-danger:       #EF4444;
-  --color-danger-light: #FEE2E2;
-  --color-accent:       #6366F1;
-  --color-accent-light: #EEF2FF;
-  --color-warning:      #F59E0B;
-  --color-warning-light:#FEF3C7;
+  /* Brand Colors — Microsoft Palette */
+  --color-primary:      #0078D4;
+  --color-primary-dark: #106EBE;
+  --color-primary-light:#DEECF9;
+  --color-success:      #107C10;
+  --color-success-light:#DFF6DD;
+  --color-danger:       #D13438;
+  --color-danger-light: #FDE7E9;
+  --color-accent:       #0078D4;
+  --color-accent-light: #DEECF9;
+  --color-warning:      #FFB900;
+  --color-warning-light:#FFF4CE;
 
-  /* Neutrals */
-  --color-bg:           #F8FAFC;
+  /* Neutrals — Fluent neutral ramp */
+  --color-bg:           #FAF9F8;
   --color-surface:      #FFFFFF;
-  --color-border:       #E2E8F0;
-  --color-border-light: #F1F5F9;
-  --color-text:         #1E293B;
-  --color-text-secondary: #64748B;
-  --color-text-muted:   #94A3B8;
+  --color-border:       #EDEBE9;
+  --color-border-light: #F3F2F1;
+  --color-text:         #323130;
+  --color-text-secondary: #605E5C;
+  --color-text-muted:   #A19F9D;
 
-  /* Sidebar */
+  /* Sidebar — Light nav pane (Office 365 style) */
   --sidebar-width:      260px;
-  --sidebar-bg:         #1E293B;
-  --sidebar-text:       #CBD5E1;
-  --sidebar-active-bg:  #2563EB;
-  --sidebar-active-text:#FFFFFF;
-  --sidebar-hover-bg:   #334155;
+  --sidebar-bg:         #F3F2F1;
+  --sidebar-text:       #605E5C;
+  --sidebar-active-bg:  #DEECF9;
+  --sidebar-active-text:#0078D4;
+  --sidebar-hover-bg:   #EDEBE9;
 
-  /* Shadows (Soft UI) */
-  --shadow-sm:   0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
-  --shadow-md:   0 4px 12px rgba(0,0,0,0.08), 0 2px 6px rgba(0,0,0,0.04);
-  --shadow-lg:   0 10px 30px rgba(0,0,0,0.10), 0 4px 12px rgba(0,0,0,0.06);
-  --shadow-focus:0 0 0 3px rgba(37,99,235,0.20);
+  /* Shadows — Fluent depth levels */
+  --shadow-sm:   0 1.6px 3.6px rgba(0,0,0,0.13), 0 0.3px 0.9px rgba(0,0,0,0.10);
+  --shadow-md:   0 3.2px 7.2px rgba(0,0,0,0.13), 0 0.6px 1.8px rgba(0,0,0,0.10);
+  --shadow-lg:   0 6.4px 14.4px rgba(0,0,0,0.13), 0 1.2px 3.6px rgba(0,0,0,0.10);
+  --shadow-focus:0 0 0 2px #000000;
 
-  /* Radius */
-  --radius-sm:   6px;
-  --radius-md:   10px;
-  --radius-lg:   14px;
-  --radius-xl:   20px;
+  /* Radius — Microsoft sharp corners */
+  --radius-sm:   2px;
+  --radius-md:   4px;
+  --radius-lg:   4px;
+  --radius-xl:   4px;
 
   /* Spacing scale */
   --space-1: 4px;
@@ -58,32 +55,32 @@
   --space-10: 40px;
   --space-12: 48px;
 
-  /* Typography */
-  --font-body:  'DM Sans', system-ui, sans-serif;
+  /* Typography — Segoe UI */
+  --font-body:  'Segoe UI', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
   --font-size-xs:   12px;
   --font-size-sm:   14px;
-  --font-size-base: 16px;
-  --font-size-lg:   18px;
+  --font-size-base: 14px;
+  --font-size-lg:   16px;
   --font-size-xl:   20px;
   --font-size-2xl:  24px;
-  --font-size-3xl:  30px;
+  --font-size-3xl:  28px;
 
-  /* Transitions */
-  --transition-fast: 0.15s ease;
-  --transition-base: 0.2s ease;
+  /* Transitions — Fluent motion */
+  --transition-fast: 0.1s ease;
+  --transition-base: 0.2s cubic-bezier(0.33, 0, 0.67, 1);
 }
 
 /* ── Global Reset ─────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-html { font-size: 16px; -webkit-font-smoothing: antialiased; }
+html { font-size: 14px; -webkit-font-smoothing: antialiased; }
 
 body {
   font-family: var(--font-body);
   font-size: var(--font-size-base);
   color: var(--color-text);
   background: var(--color-bg);
-  line-height: 1.6;
+  line-height: 1.5;
 }
 
 /* Make all inputs/buttons inherit font */
@@ -91,11 +88,11 @@ input, button, select, textarea {
   font-family: inherit;
 }
 
-/* Focus visible only for keyboard nav */
+/* Focus visible — Fluent black outline */
 *:focus { outline: none; }
-*:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; }
+*:focus-visible { outline: 2px solid #000; outline-offset: 1px; }
 
-/* Scrollbar (subtle) */
+/* Scrollbar — Fluent thin style */
 ::-webkit-scrollbar { width: 6px; height: 6px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: var(--color-border); border-radius: 3px; }

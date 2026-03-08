@@ -23,7 +23,7 @@
     public record CompanyDto(
         int Id,
         string Name,
-        string LegalName,
+        string? LegalName,
         string? Email,
         string? Tel,
         string? Adresse,
@@ -31,11 +31,10 @@
         string? AI,
         string? NIF,
         string? NIS,
+        string? N_BL,
+        string? N_BP,
+        string? N_Facture,
         string? LogoUrl,
-        string? Website,
-        string PlanName,
-        int MaxTotalAccounts,
-        int CurrentUserCount,
-        DateTime? PaidUntil
+        string? Website
     );
 }

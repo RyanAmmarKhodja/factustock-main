@@ -1,7 +1,6 @@
 using factustock.Data;
 using factustock.Services;
-using factustock.Data;
-using factustock.Services;
+using factustock.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -56,11 +55,14 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
+
+
 builder.Services.AddAuthorization();
 
 // ── SERVICES (Dependency Injection) ──────────────────────────────────────────
 builder.Services.AddScoped<IAuditService, AuditService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<ISystemSettingsService, SystemSettingsService>();
 // Future modules: add their services here
 // builder.Services.AddScoped<IProductService, ProductService>();
 // builder.Services.AddScoped<IInvoiceService, InvoiceService>();
@@ -73,7 +75,6 @@ builder.Services.AddCors(options =>
     {
         policy
             .WithOrigins(
-                "http://localhost:5173",    // Vite dev server
                 "http://localhost:3000",    // CRA dev server (fallback)
                 "http://127.0.0.1:5173",
                 "http://127.0.0.1:3000"
@@ -125,6 +126,8 @@ builder.Services.AddSwaggerGen(c =>
 // ─────────────────────────────────────────────────────────────────────────────
 var app = builder.Build();
 
+
+
 // ── MIDDLEWARE PIPELINE ───────────────────────────────────────────────────────
 if (app.Environment.IsDevelopment())
 {
@@ -150,6 +153,18 @@ using (var scope = app.Services.CreateScope())
 {
     var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
     dbContext.Database.Migrate();
+
+
+    if (!dbContext.SystemSettings.Any())
+    {
+        dbContext.SystemSettings.Add(new SystemSettings
+        {
+            SetupCompleted = false,
+            Version = "1.0.0"
+        });
+
+        dbContext.SaveChanges();
+    }
 }
 
 app.Run();

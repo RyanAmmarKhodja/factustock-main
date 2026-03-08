@@ -1,9 +1,10 @@
 import { useState, useEffect, useCallback } from "react";
 import { getUsers, registerEmployee, updateUser, deactivateUser } from "../../api/authApi";
-import { PageHeader, Card, CardHeader, Badge, Alert, Spinner } from "../../components/ui/UI";
+import { PageHeader, Card, CardHeader, Badge, Alert } from "../../components/ui/UI";
 import Button from "../../components/ui/Button";
 import UserFormModal from "../../components/users/UserFormModal";
 import styles from "./UsersPage.module.css";
+import Loading from "../../components/ui/Loading"
 
 export default function UsersPage() {
   const [users, setUsers]         = useState([]);
@@ -124,7 +125,7 @@ export default function UsersPage() {
         />
 
         {loading ? (
-          <Spinner />
+          <Loading />
         ) : users.length === 0 ? (
           <div className={styles.empty}>
             <span className={styles.emptyIcon}>👤</span>

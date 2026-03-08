@@ -223,10 +223,10 @@ C:\Dev\factustock\backend\factustock\factustock\obj\Debug\net8.0\staticwebassets
 C:\Dev\factustock\backend\factustock\factustock\obj\Debug\net8.0\staticwebassets.development.json
 C:\Dev\factustock\backend\factustock\factustock\obj\Debug\net8.0\staticwebassets.build.endpoints.json
 C:\Dev\factustock\backend\factustock\factustock\obj\Debug\net8.0\swae.build.ex.cache
-C:\Dev\factustock\backend\factustock\factustock\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
 C:\Dev\factustock\backend\factustock\factustock\obj\Debug\net8.0\factustock.csproj.Up2Date
 C:\Dev\factustock\backend\factustock\factustock\obj\Debug\net8.0\factustock.dll
 C:\Dev\factustock\backend\factustock\factustock\obj\Debug\net8.0\refint\factustock.dll
 C:\Dev\factustock\backend\factustock\factustock\obj\Debug\net8.0\factustock.pdb
 C:\Dev\factustock\backend\factustock\factustock\obj\Debug\net8.0\factustock.genruntimeconfig.cache
 C:\Dev\factustock\backend\factustock\factustock\obj\Debug\net8.0\ref\factustock.dll
+C:\Dev\factustock\backend\factustock\factustock\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt

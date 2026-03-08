@@ -34,9 +34,10 @@ public record RegisterResponse(
 ///   - IsAdminRegistered = true  → show normal login page
 /// </summary>
 public record SetupStatusResponse(
-    bool IsAdminRegistered,
-    bool IsCompanyConfigured,
-    string? CompanyName
+    bool SetupCompleted,
+    string? version,
+    string? LicenseKey,
+    DateTime InstalledAt
 );
 
 

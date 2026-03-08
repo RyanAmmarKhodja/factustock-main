@@ -11,7 +11,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
     // ── DbSets ──────────────────────────────────────────────────────────────
     public DbSet<Plan> Plans => Set<Plan>();
     public DbSet<Subscription> Subscriptions => Set<Subscription>();
-    public DbSet<Company> Companies => Set<Company>();
+    public DbSet<Company> Company => Set<Company>();
     public DbSet<Role> Roles => Set<Role>();
     public DbSet<User> Users => Set<User>();
     public DbSet<Client> Clients => Set<Client>();
@@ -22,6 +22,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
     public DbSet<StockMovement> StockMovements => Set<StockMovement>();
     public DbSet<AuditLog> AuditLogs => Set<AuditLog>();
     public DbSet<Notification> Notifications => Set<Notification>();
+    public DbSet<SystemSettings> SystemSettings { get; set; }
 
     protected override void OnModelCreating(ModelBuilder b)
     {

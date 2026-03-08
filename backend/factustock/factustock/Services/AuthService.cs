@@ -1,77 +1,23 @@
-﻿namespace factustock.Services
+﻿using factustock.Data;
+using factustock.DTOs;
+using factustock.Models;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
+using System.Text.Json;
+using System.Xml.Linq;
+
+namespace factustock.Services
 {
-    using System.IdentityModel.Tokens.Jwt;
-    using System.Security.Claims;
-    using System.Text;
-    using System.Text.Json;
-    using factustock.Data;
-    using factustock.DTOs;
-    using factustock.Models;
-    using Microsoft.EntityFrameworkCore;
-    using Microsoft.IdentityModel.Tokens;
-
- 
-
-    // ─────────────────────────────────────────────
-    // INTERFACE
-    // ─────────────────────────────────────────────
-    public interface IAuthService
-    {
-        /// <summary>
-        /// Returns current setup state. React calls this on app load
-        /// to decide whether to show admin setup or login page.
-        /// </summary>
-        Task<SetupStatusResponse> GetSetupStatusAsync();
-
-        /// <summary>
-        /// One-time admin registration. Fails if admin already exists.
-        /// </summary>
-        Task<(RegisterResponse? Data, string? Error)> RegisterAdminAsync(RegisterRequest request, string? ipAddress);
-
-        /// <summary>
-        /// Admin creates an employee account. Enforces seat limit.
-        /// </summary>
-        Task<(RegisterResponse? Data, string? Error)> RegisterEmployeeAsync(CreateEmployeeRequest request, int adminUserId, string? ipAddress);
-
-        Task<(LoginResponse? Data, string? Error)> LoginAsync(LoginRequest request, string? ipAddress);
-
-        Task<(bool Success, string? Error)> ChangePasswordAsync(int userId, ChangePasswordRequest request, string? ipAddress);
-
-        Task<UserListResponse> GetUsersAsync();
-
-        Task<(UserDto? Data, string? Error)> UpdateUserAsync(int targetUserId, UpdateUserRequest request, int adminUserId, string? ipAddress);
-
-        /// <summary>
-        /// Deactivating frees up a seat. Does not delete data.
-        /// </summary>
-        Task<(bool Success, string? Error)> DeactivateUserAsync(int targetUserId, int adminUserId, string? ipAddress);
-    }
-
-    // ─────────────────────────────────────────────
-    // IMPLEMENTATION
-    // ─────────────────────────────────────────────
     public class AuthService(
-        AppDbContext db,
-        IConfiguration config,
-        IAuditService audit) : IAuthService
+         AppDbContext _context,
+         IConfiguration config,
+         IAuditService audit) : IAuthService
     {
-        // ── SETUP STATUS ────────────────────────────────────────────────────────
-        public async Task<SetupStatusResponse> GetSetupStatusAsync()
-        {
-            var adminRoleId = await GetRoleIdAsync("admin");
-
-            var adminExists = await db.Users
-                .AnyAsync(u => u.RoleId == adminRoleId && u.Active);
-
-            var company = await db.Companies.FirstOrDefaultAsync();
-
-            return new SetupStatusResponse(
-                IsAdminRegistered: adminExists,
-                IsCompanyConfigured: company is not null,
-                CompanyName: company?.Name
-            );
-        }
-
+        
+       
         // ── ADMIN REGISTRATION (one-time) ────────────────────────────────────────
         public async Task<(RegisterResponse? Data, string? Error)> RegisterAdminAsync(
             RegisterRequest request, string? ipAddress)
@@ -79,18 +25,18 @@
             var adminRoleId = await GetRoleIdAsync("admin");
 
             // Guard: only one admin ever
-            var adminAlreadyExists = await db.Users
+            var adminAlreadyExists = await _context.Users
                 .AnyAsync(u => u.RoleId == adminRoleId);
 
             if (adminAlreadyExists)
                 return (null, "An administrator account already exists. Use the login page.");
 
             // Guard: email uniqueness
-            if (await db.Users.AnyAsync(u => u.Email == request.Email))
+            if (await _context.Users.AnyAsync(u => u.Email == request.Email))
                 return (null, "This email address is already in use.");
 
             // Company must exist before admin is created (setup flow)
-            var company = await db.Companies.FirstOrDefaultAsync();
+            var company = await _context.Company.FirstOrDefaultAsync();
             if (company is null)
                 return (null, "Company profile not found. Complete company setup first.");
 
@@ -107,8 +53,8 @@
                 CreatedAt = DateTime.UtcNow
             };
 
-            db.Users.Add(user);
-            await db.SaveChangesAsync();
+            _context.Users.Add(user);
+            await _context.SaveChangesAsync();
 
             await audit.LogAsync(
                 userId: user.Id,
@@ -129,12 +75,63 @@
             ), null);
         }
 
+        // ── COMPANY REGISTRATION (one-time) ────────────────────────────────────────
+        public async Task<(CompanyDto? Data, string? Error)> RegisterCompanyAsync(
+            CompanyDto request)
+        {
+            var companyExists = await _context.Company.AnyAsync();
+            if (companyExists)
+                return (null, "A company profile already exists. Complete company setup first.");
+
+            var company = new Company
+            {
+                Name = request.Name.Trim(),
+                //LegalName = request.LegalName.Trim(),
+                Email = request.Email.Trim().ToLower(),
+                Tel = request.Tel,
+                Adresse = request.Adresse.Trim(),
+                RC = request.RC,
+                AI = request.AI,
+                NIF = request.NIF,
+                NIS = request.NIS,
+                N_BL = request.N_BL,
+                N_BP = request.N_BP,
+                N_Facture = request.N_Facture,
+                LogoUrl = request.LogoUrl,
+                Website = request.Website
+            };
+
+            _context.Company.Add(company);
+            await _context.SaveChangesAsync();
+
+            company = await _context.Company.FirstOrDefaultAsync(c => c.Id == company.Id);
+
+
+            return (new CompanyDto(
+                Id: company.Id,
+                Name : request.Name,
+                LegalName : request.LegalName,
+                Email: request.Email,
+                Tel: request.Tel,
+                Adresse: request.Adresse,
+                RC: request.RC,
+                AI: request.AI,
+                NIF: request.NIF,
+                NIS: request.NIS,
+                N_BL: request.N_BL,
+                N_BP: request.N_BP,
+                N_Facture: request.N_Facture,
+                LogoUrl : request.LogoUrl,
+                Website : request.Website
+            ), null);
+        }
+
         // ── EMPLOYEE REGISTRATION (admin only) ───────────────────────────────────
         public async Task<(RegisterResponse? Data, string? Error)> RegisterEmployeeAsync(
             CreateEmployeeRequest request, int adminUserId, string? ipAddress)
         {
             // Load subscription + plan to check seat limit
-            var company = await db.Companies
+            var company = await _context.Company
                 .Include(c => c.Subscription)
                     .ThenInclude(s => s!.Plan)
                 .FirstOrDefaultAsync();
@@ -145,13 +142,13 @@
             var plan = company.Subscription.Plan;
 
             // Count active users (admin + employees)
-            var currentTotal = await db.Users
+            var currentTotal = await _context.Users
                 .CountAsync(u => u.CompanyId == company.Id && u.Active);
 
             if (currentTotal >= plan.MaxTotalAccounts)
                 return (null, $"Seat limit reached ({plan.MaxTotalAccounts} accounts on the {plan.Name} plan). Upgrade to add more users.");
 
-            if (await db.Users.AnyAsync(u => u.Email == request.Email))
+            if (await _context.Users.AnyAsync(u => u.Email == request.Email))
                 return (null, "This email address is already in use.");
 
             var employeeRoleId = await GetRoleIdAsync("employee");
@@ -169,8 +166,8 @@
                 CreatedAt = DateTime.UtcNow
             };
 
-            db.Users.Add(user);
-            await db.SaveChangesAsync();
+            _context.Users.Add(user);
+            await _context.SaveChangesAsync();
 
             await audit.LogAsync(
                 userId: adminUserId,
@@ -195,7 +192,7 @@
         public async Task<(LoginResponse? Data, string? Error)> LoginAsync(
             LoginRequest request, string? ipAddress)
         {
-            var user = await db.Users
+            var user = await _context.Users
                 .Include(u => u.Role)
                 .FirstOrDefaultAsync(u => u.Email == request.Email.Trim().ToLower());
 
@@ -207,7 +204,7 @@
 
             // Update last login
             user.LastLoginAt = DateTime.UtcNow;
-            await db.SaveChangesAsync();
+            await _context.SaveChangesAsync();
 
             var token = GenerateJwtToken(user);
 
@@ -237,14 +234,14 @@
         public async Task<(bool Success, string? Error)> ChangePasswordAsync(
             int userId, ChangePasswordRequest request, string? ipAddress)
         {
-            var user = await db.Users.FindAsync(userId);
+            var user = await _context.Users.FindAsync(userId);
             if (user is null) return (false, "User not found.");
 
             if (!BCrypt.Net.BCrypt.Verify(request.CurrentPassword, user.PasswordHash))
                 return (false, "Current password is incorrect.");
 
             user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(request.NewPassword);
-            await db.SaveChangesAsync();
+            await _context.SaveChangesAsync();
 
             await audit.LogAsync(
                 userId: userId,
@@ -261,14 +258,14 @@
         // ── GET USERS ────────────────────────────────────────────────────────────
         public async Task<UserListResponse> GetUsersAsync()
         {
-            var company = await db.Companies
+            var company = await _context.Company
                 .Include(c => c.Subscription)
                     .ThenInclude(s => s!.Plan)
                 .FirstOrDefaultAsync();
 
             var maxAllowed = company?.Subscription?.Plan.MaxTotalAccounts ?? 0;
 
-            var users = await db.Users
+            var users = await _context.Users
                 .Include(u => u.Role)
                 .OrderBy(u => u.CreatedAt)
                 .Select(u => new UserDto(
@@ -291,7 +288,7 @@
         public async Task<(UserDto? Data, string? Error)> UpdateUserAsync(
             int targetUserId, UpdateUserRequest request, int adminUserId, string? ipAddress)
         {
-            var user = await db.Users.Include(u => u.Role).FirstOrDefaultAsync(u => u.Id == targetUserId);
+            var user = await _context.Users.Include(u => u.Role).FirstOrDefaultAsync(u => u.Id == targetUserId);
             if (user is null) return (null, "User not found.");
 
             // Snapshot before
@@ -301,7 +298,7 @@
             user.LastName = request.LastName.Trim();
             user.Phone = request.Phone?.Trim();
             user.Active = request.Active;
-            await db.SaveChangesAsync();
+            await _context.SaveChangesAsync();
 
             var after = JsonSerializer.Serialize(new { user.FirstName, user.LastName, user.Phone, user.Active });
 
@@ -329,14 +326,14 @@
             if (targetUserId == adminUserId)
                 return (false, "You cannot deactivate your own account.");
 
-            var user = await db.Users.Include(u => u.Role).FirstOrDefaultAsync(u => u.Id == targetUserId);
+            var user = await _context.Users.Include(u => u.Role).FirstOrDefaultAsync(u => u.Id == targetUserId);
             if (user is null) return (false, "User not found.");
 
             if (user.Role.Name == "admin")
                 return (false, "Admin account cannot be deactivated through this endpoint.");
 
             user.Active = false;
-            await db.SaveChangesAsync();
+            await _context.SaveChangesAsync();
 
             await audit.LogAsync(
                 userId: adminUserId,
@@ -390,9 +387,10 @@
 
         private async Task<int> GetRoleIdAsync(string roleName)
         {
-            var role = await db.Roles.FirstOrDefaultAsync(r => r.Name == roleName)
+            var role = await _context.Roles.FirstOrDefaultAsync(r => r.Name == roleName)
                 ?? throw new InvalidOperationException($"Role '{roleName}' not found in database. Run migrations and seed data.");
             return role.Id;
         }
     }
+
 }

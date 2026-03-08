@@ -25,18 +25,18 @@
 .seatFull { font-size: var(--font-size-sm); font-weight: 600; color: var(--color-danger); }
 
 .seatBar {
-  height: 8px;
-  background: var(--color-border-light);
-  border-radius: 4px;
+  height: 4px;
+  background: var(--color-border);
+  border-radius: 2px;
   overflow: hidden;
 }
 .seatBarFill {
   height: 100%;
-  border-radius: 4px;
-  transition: width 0.4s ease, background 0.3s ease;
+  border-radius: 2px;
+  transition: width 0.3s ease, background 0.2s ease;
 }
 
-/* Table */
+/* Table — Fluent DetailsList */
 .tableCard { margin-top: var(--space-6); }
 .tableWrapper { overflow-x: auto; }
 
@@ -46,32 +46,32 @@
   font-size: var(--font-size-sm);
 }
 .table thead tr {
-  background: var(--color-bg);
+  background: transparent;
 }
 .table th {
-  padding: 12px 16px;
+  padding: 10px 16px;
   text-align: left;
   font-size: var(--font-size-xs);
-  font-weight: 700;
+  font-weight: 600;
   color: var(--color-text-secondary);
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
+  text-transform: none;
+  letter-spacing: normal;
   white-space: nowrap;
   border-bottom: 1px solid var(--color-border);
 }
 .table td {
-  padding: 14px 16px;
+  padding: 12px 16px;
   color: var(--color-text);
   border-bottom: 1px solid var(--color-border-light);
   vertical-align: middle;
 }
 
-/* Zebra striping */
+/* No zebra — Fluent uses clean rows with hover */
 .rowEven { background: var(--color-surface); }
-.rowOdd  { background: var(--color-bg); }
+.rowOdd  { background: var(--color-surface); }
 
 .table tr:last-child td { border-bottom: none; }
-.table tbody tr:hover td { background: var(--color-primary-light); transition: background 0.1s; }
+.table tbody tr:hover td { background: var(--color-bg); transition: background 0.1s; }
 
 /* Name cell */
 .nameCell {
@@ -82,13 +82,13 @@
   white-space: nowrap;
 }
 .avatar {
-  width: 34px; height: 34px;
-  background: var(--color-accent-light);
-  color: var(--color-accent);
+  width: 32px; height: 32px;
+  background: var(--color-primary-light);
+  color: var(--color-primary);
   border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
   font-size: var(--font-size-xs);
-  font-weight: 700;
+  font-weight: 600;
   text-transform: uppercase;
   flex-shrink: 0;
 }
@@ -105,49 +105,49 @@
   text-align: center;
   color: var(--color-text-muted);
 }
-.emptyIcon { font-size: 40px; display: block; margin-bottom: var(--space-4); }
+.emptyIcon { font-size: 36px; display: block; margin-bottom: var(--space-4); }
 
-/* Confirm dialog */
+/* Confirm dialog — Fluent Dialog */
 .confirmBackdrop {
   position: fixed;
   inset: 0;
-  background: rgba(15,23,42,0.55);
-  backdrop-filter: blur(3px);
+  background: rgba(0,0,0,0.4);
+  backdrop-filter: blur(2px);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 300;
   padding: var(--space-4);
-  animation: fadeIn 0.15s ease;
+  animation: fadeIn 0.1s ease;
 }
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
 .confirmBox {
   background: var(--color-surface);
-  border-radius: var(--radius-xl);
+  border-radius: var(--radius-md);
   box-shadow: var(--shadow-lg);
-  border: 1px solid var(--color-border-light);
-  padding: var(--space-8);
+  border: 1px solid var(--color-border);
+  padding: var(--space-6);
   max-width: 420px;
   width: 100%;
-  animation: slideUp 0.2s ease;
+  animation: slideUp 0.15s ease;
 }
 @keyframes slideUp {
-  from { transform: translateY(12px); opacity: 0; }
-  to   { transform: translateY(0);    opacity: 1; }
+  from { transform: translateY(8px); opacity: 0; }
+  to   { transform: translateY(0);   opacity: 1; }
 }
 
 .confirmTitle {
   font-size: var(--font-size-xl);
-  font-weight: 700;
+  font-weight: 600;
   color: var(--color-text);
   margin-bottom: var(--space-3);
 }
 .confirmText {
   font-size: var(--font-size-base);
   color: var(--color-text-secondary);
-  line-height: 1.6;
-  margin-bottom: var(--space-6);
+  line-height: 1.5;
+  margin-bottom: var(--space-5);
 }
 .confirmActions {
   display: flex;
