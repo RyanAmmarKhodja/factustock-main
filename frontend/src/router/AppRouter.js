@@ -10,7 +10,7 @@ import UsersPage     from "../pages/users/UsersPage";
 
 
 export default function AppRouter() {
-  const { token, isAdmin } = useAuth();
+  const { token, isAdmin, setupCompleted } = useAuth();
 
   const PrivateRoute = () =>
     token ? (
@@ -27,15 +27,25 @@ export default function AppRouter() {
   const PublicRoute = () =>
     !token ? <Outlet /> : <Navigate to="/" replace />;
 
+  // Only accessible when setup is NOT completed
+  const SetupRoute = () =>
+    setupCompleted === false ? <Outlet /> : <Navigate to="/login" replace />;
+
   return (
     <Routes>
-      <Route element={<PublicRoute />}>
+      {/* Setup — only when setupCompleted === false */}
+      <Route element={<SetupRoute />}>
         <Route path="/setup" element={<SetupPage />} />
+      </Route>
+
+      <Route element={<PublicRoute />}>
         <Route path="/login" element={<LoginPage />} />
       </Route>
 
       <Route element={<PrivateRoute />}>
         <Route path="/" element={<DashboardPage />} />
+        <Route path="/dashboard" element={<DashboardPage />} />
+        <Route path="/home" element={<DashboardPage />} />
 
         {/* Admin-only routes */}
         <Route element={<AdminRoute />}>

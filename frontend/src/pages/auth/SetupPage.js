@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
 import { registerAdmin, registerCompany } from "../../api/authApi";
 import Input from "../../components/ui/Input";
 import Button from "../../components/ui/Button";
@@ -10,6 +11,7 @@ import api from "../../api/api";
 
 export default function SetupPage() {
   const navigate = useNavigate();
+  const { setSetupCompleted } = useAuth();
 
   const [adminForm, setAdminForm] = useState({
     firstName: "",
@@ -94,14 +96,14 @@ export default function SetupPage() {
         password: adminForm.password,
         phone: adminForm.phone.trim() || undefined,
       });
+      await api.put("/system/complete-setup", { setupCompleted: true });
+      setSetupCompleted(true);
       setSuccess(true);
       setTimeout(() => navigate("/login", { replace: true }), 2500);
     } catch (err) {
       setApiError(err.response?.data?.message || "Une erreur s'est produite.");
     } finally {
-
       setLoading(false);
-      api.put("/system/complete-setup",{setupCompleted: true})
     }
   };
 

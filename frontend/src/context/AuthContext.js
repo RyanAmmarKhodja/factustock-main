@@ -15,6 +15,7 @@ const AuthProvider = ({ children }) => {
   });
   const [token, setToken]     = useState(localStorage.getItem("fs_token") || "");
   const [loading, setLoading] = useState(true);
+  const [setupCompleted, setSetupCompleted] = useState(null); // null = unknown
 
   // On refresh: re-attach token to axios headers
   useEffect(() => {
@@ -59,7 +60,7 @@ const AuthProvider = ({ children }) => {
   const isAdmin = user?.role === "admin";
 
   return (
-    <AuthContext.Provider value={{ token, user, isAdmin, login, logout }}>
+    <AuthContext.Provider value={{ token, user, isAdmin, login, logout, setupCompleted, setSetupCompleted }}>
       {!loading
         ? children
         : (

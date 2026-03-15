@@ -31,12 +31,12 @@
       "RelativeMoniker": "D:0:0:{E18BBE56-A3C8-25C9-4002-0A649BDD2B53}|factustock\\factustock.csproj|solutionrelative:factustock\\models\\company.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Dev\\factustock\\backend\\factustock\\factustock\\Migrations\\20260308212039_CompanyTableRenamed.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:factustock\\Migrations\\20260308212039_CompanyTableRenamed.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{E18BBE56-A3C8-25C9-4002-0A649BDD2B53}|factustock\\factustock.csproj|c:\\dev\\factustock\\backend\\factustock\\factustock\\dtos\\companydto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E18BBE56-A3C8-25C9-4002-0A649BDD2B53}|factustock\\factustock.csproj|solutionrelative:factustock\\dtos\\companydto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E18BBE56-A3C8-25C9-4002-0A649BDD2B53}|factustock\\factustock.csproj|c:\\dev\\factustock\\backend\\factustock\\factustock\\migrations\\20260308212039_companytablerenamed.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E18BBE56-A3C8-25C9-4002-0A649BDD2B53}|factustock\\factustock.csproj|solutionrelative:factustock\\migrations\\20260308212039_companytablerenamed.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -62,8 +62,7 @@
               "RelativeToolTip": "factustock\\Services\\SystemSettingsService.cs",
               "ViewState": "AgIAABAAAAAAAAAAAAAQwBoAAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-08T21:36:17.224Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-08T21:36:17.224Z"
             },
             {
               "$type": "Document",
@@ -75,8 +74,7 @@
               "RelativeToolTip": "factustock\\Services\\ISystemSettingsService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-08T21:35:35.988Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-08T21:35:35.988Z"
             },
             {
               "$type": "Document",
@@ -86,7 +84,7 @@
               "RelativeDocumentMoniker": "factustock\\Controllers\\SystemController.cs",
               "ToolTip": "C:\\Dev\\factustock\\backend\\factustock\\factustock\\Controllers\\SystemController.cs",
               "RelativeToolTip": "factustock\\Controllers\\SystemController.cs",
-              "ViewState": "AgIAAAkAAAAAAAAAAAAAABgAAABAAAAAAAAAAA==",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAuwBgAAABAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-03-08T21:26:28.618Z",
               "EditorCaption": ""
@@ -101,8 +99,7 @@
               "RelativeToolTip": "factustock\\Models\\SystemSettings.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-08T21:26:07.327Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-08T21:26:07.327Z"
             },
             {
               "$type": "Document",
@@ -114,8 +111,7 @@
               "RelativeToolTip": "factustock\\Program.cs",
               "ViewState": "AgIAADAAAAAAAAAAAAAAAEAAAABIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-08T21:25:51.415Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-08T21:25:51.415Z"
             },
             {
               "$type": "Document",
@@ -127,8 +123,7 @@
               "RelativeToolTip": "factustock\\Models\\Company.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAWAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-08T21:22:22.952Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-08T21:22:22.952Z"
             },
             {
               "$type": "Document",
@@ -140,12 +135,11 @@
               "RelativeToolTip": "factustock\\Services\\AuthService.cs",
               "ViewState": "AgIAAAMAAAAAAAAAAAAmwBIAAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-08T21:21:58.067Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-08T21:21:58.067Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 8,
               "Title": "20260308212039_CompanyTableRenamed.cs",
               "DocumentMoniker": "C:\\Dev\\factustock\\backend\\factustock\\factustock\\Migrations\\20260308212039_CompanyTableRenamed.cs",
               "RelativeDocumentMoniker": "factustock\\Migrations\\20260308212039_CompanyTableRenamed.cs",
@@ -153,12 +147,11 @@
               "RelativeToolTip": "factustock\\Migrations\\20260308212039_CompanyTableRenamed.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-08T21:20:39.738Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-08T21:20:39.738Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 7,
               "Title": "CompanyDto.cs",
               "DocumentMoniker": "C:\\Dev\\factustock\\backend\\factustock\\factustock\\DTOs\\CompanyDto.cs",
               "RelativeDocumentMoniker": "factustock\\DTOs\\CompanyDto.cs",
@@ -166,8 +159,7 @@
               "RelativeToolTip": "factustock\\DTOs\\CompanyDto.cs",
               "ViewState": "AgIAABIAAAAAAAAAAAAkwB0AAAASAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-08T20:37:10.002Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-08T20:37:10.002Z"
             }
           ]
         }
