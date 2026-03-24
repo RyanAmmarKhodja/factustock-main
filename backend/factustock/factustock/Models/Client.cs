@@ -26,6 +26,8 @@ namespace factustock.Models
         public string? N_BP { get; set; }
         public string? N_Facture { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        public bool IsArchived { get; set; } = false;
+        public DateTime? ArchivedAt { get; set; }
 
         // Navigation
         public Company Company { get; set; } = null!;

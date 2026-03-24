@@ -3,10 +3,14 @@ import { useAuth } from "../context/AuthContext";
 
 import ClientLayout from "../components/layout/ClientLayout";
 
-import LoginPage     from "../pages/auth/LoginPage";
-import SetupPage     from "../pages/auth/SetupPage";
-import DashboardPage from "../pages/dashboard/DashboardPage";
-import UsersPage     from "../pages/users/UsersPage";
+import LoginPage       from "../pages/auth/LoginPage";
+import SetupPage       from "../pages/auth/SetupPage";
+import DashboardPage   from "../pages/dashboard/DashboardPage";
+import UsersPage       from "../pages/users/UsersPage";
+import ClientsPage     from "../pages/clients/ClientsPage";
+import ClientDetails   from "../pages/clients/ClientDetails";
+import ClientStats     from "../pages/clients/ClientStats";
+import ClientInvoices  from "../pages/clients/ClientInvoices";
 
 
 export default function AppRouter() {
@@ -53,7 +57,10 @@ export default function AppRouter() {
           {/* Future: <Route path="/journal" element={<AuditLogPage />} /> */}
         </Route>
 
-        {/* <Route path="/clients"    element={<ClientsPage />} /> */}
+        <Route path="/clients"    element={<ClientsPage />} />
+        <Route path="/clients/:id" element={<ClientDetails />} />
+        <Route path="/clients/:id/stats" element={<ClientStats/>} />
+        <Route path="/clients/:id/invoices" element={<ClientInvoices />} />
         {/* <Route path="/produits"   element={<ProduitsPage />} /> */}
         {/* <Route path="/factures"   element={<FacturesPage />} /> */}
         {/* <Route path="/parametres" element={<SettingsPage />} /> */}

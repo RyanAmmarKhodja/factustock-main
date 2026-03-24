@@ -48,21 +48,28 @@ const Icons = {
       <path d="M19.07 4.93l-1.41 1.41M4.93 4.93l1.41 1.41M12 2v2M12 20v2M20 12h2M2 12h2M19.07 19.07l-1.41-1.41M4.93 19.07l1.41-1.41"/>
     </svg>
   ),
+  Supplier: () => (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="12" cy="12" r="3"/>
+      <path d="M19.07 4.93l-1.41 1.41M4.93 4.93l1.41 1.41M12 2v2M12 20v2M20 12h2M2 12h2M19.07 19.07l-1.41-1.41M4.93 19.07l1.41-1.41"/>
+    </svg>
+  )
 };
 
 // Navigation items — some are admin-only
 const NAV_ITEMS = [
-  { to: "/",          label: "Tableau de bord", icon: "Dashboard", adminOnly: false },
+  { to: "/",          label: "Accueil", icon: "Dashboard", adminOnly: false },
   { to: "/clients",   label: "Clients",          icon: "Clients",  adminOnly: false },
-  { to: "/produits",  label: "Produits",          icon: "Package",  adminOnly: false },
-  { to: "/factures",  label: "Factures",          icon: "Invoice",  adminOnly: false },
-  { to: "/utilisateurs", label: "Utilisateurs",   icon: "Users",    adminOnly: true  },
-  { to: "/journal",   label: "Journal d'audit",   icon: "AuditLog", adminOnly: true  },
-  { to: "/parametres",label: "Paramètres",        icon: "Settings", adminOnly: false },
+  { to: "/products",  label: "Produits",          icon: "Package",  adminOnly: false },
+  { to: "/invoices",  label: "Factures",          icon: "Invoice",  adminOnly: false },
+  { to: "/users", label: "Utilisateurs",   icon: "Users",    adminOnly: true  },
+  { to: "/logs",   label: "Journal d'audit",   icon: "AuditLog", adminOnly: true  },
+  { to: "/settings",label: "Paramètres",        icon: "Settings", adminOnly: false },
+  { to: "/suppliers",label: "Fournisseurs",        icon: "Supplier", adminOnly: false },
 ];
 
 export default function Sidebar() {
-  const { user, isAdmin, logoutUser } = useAuth();
+  const { user, isAdmin, logout } = useAuth();
 
   return (
     <aside className={styles.sidebar}>
@@ -111,7 +118,7 @@ export default function Sidebar() {
             </span>
           </div>
         </div>
-        <button className={styles.logoutBtn} onClick={logoutUser} title="Se déconnecter">
+        <button className={styles.logoutBtn} onClick={logout} title="Se déconnecter">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
             <polyline points="16 17 21 12 16 7"/>

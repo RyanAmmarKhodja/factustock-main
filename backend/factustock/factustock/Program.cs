@@ -63,6 +63,7 @@ builder.Services.AddAuthorization();
 builder.Services.AddScoped<IAuditService, AuditService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<ISystemSettingsService, SystemSettingsService>();
+builder.Services.AddScoped<IClientService, ClientService>();
 // Future modules: add their services here
 // builder.Services.AddScoped<IProductService, ProductService>();
 // builder.Services.AddScoped<IInvoiceService, InvoiceService>();
