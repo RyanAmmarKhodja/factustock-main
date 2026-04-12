@@ -33,7 +33,6 @@ export default function SetupPage() {
     nis: "",
     n_bl: "",
     n_bp: "",
-    n_facture: "",
     logo: "",
     website: "",
   });
@@ -128,7 +127,6 @@ export default function SetupPage() {
         NIS: companyForm.nis.trim(),
         N_BL: companyForm.n_bl.trim(),
         N_BP: companyForm.n_bp.trim(),
-        N_Facture: companyForm.n_facture.trim(),
         LogoUrl: companyForm.logo.trim(),
         Website: companyForm.website.trim(),
       });

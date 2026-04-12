@@ -29,7 +29,6 @@ export default function ClientFormModal({ mode = "create", client = null, onClos
     nis:       client?.nis       ?? "",
     n_BL:      client?.n_BL      ?? "",
     n_BP:      client?.n_BP      ?? "",
-    n_Facture: client?.n_Facture ?? "",
   });
 
   const [errors, setErrors]     = useState({});
@@ -78,7 +77,6 @@ export default function ClientFormModal({ mode = "create", client = null, onClos
         nis:       form.nis.trim()       || undefined,
         n_BL:      form.n_BL.trim()      || undefined,
         n_BP:      form.n_BP.trim()      || undefined,
-        n_Facture: form.n_Facture.trim() || undefined,
       };
       await onSubmit(payload);
       onClose();
@@ -186,7 +184,6 @@ export default function ClientFormModal({ mode = "create", client = null, onClos
             <div className={styles.row3}>
               <Input id="n_BL"      name="n_BL"      label="N° BL"      value={form.n_BL}      onChange={handleChange} />
               <Input id="n_BP"      name="n_BP"      label="N° BP"      value={form.n_BP}      onChange={handleChange} />
-              <Input id="n_Facture" name="n_Facture" label="N° Facture" value={form.n_Facture} onChange={handleChange} />
             </div>
 
             {/* Actions */}
