@@ -1,3 +1,8 @@
+h1, h3, h2{
+  padding-top: .7em;
+  padding-bottom: .2em;
+}
+
 .statsGrid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
