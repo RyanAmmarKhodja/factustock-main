@@ -56,7 +56,7 @@ namespace factustock.Services
                 NIS = request.NIS?.Trim(),
                 N_BL = request.N_BL?.Trim(),
                 N_BP = request.N_BP?.Trim(),
-                N_Facture = request.N_Facture?.Trim(),
+               
                 IsArchived = false,
                 CreatedAt = DateTime.UtcNow,
             };
@@ -126,7 +126,7 @@ namespace factustock.Services
             client.NIS = request.NIS?.Trim();
             client.N_BL = request.N_BL?.Trim();
             client.N_BP = request.N_BP?.Trim();
-            client.N_Facture = request.N_Facture?.Trim();
+            
 
             await _context.SaveChangesAsync();
 
@@ -371,7 +371,7 @@ namespace factustock.Services
         private static ClientDto MapToDto(Client c) => new(
             c.Id, c.Type, c.LegalName, c.LastName, c.FirstName,
             c.Email, c.Tel, c.Adresse,
-            c.RC, c.AI, c.NIF, c.NIS, c.N_BL, c.N_BP, c.N_Facture,
+            c.RC, c.AI, c.NIF, c.NIS, c.N_BL, c.N_BP,
             c.IsArchived, c.ArchivedAt, c.CreatedAt
         );
     }

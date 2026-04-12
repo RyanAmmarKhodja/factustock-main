@@ -22,7 +22,6 @@ namespace factustock.Models
         public string? NIS { get; set; }                           // Numéro d'Identification Statistique
         public string? N_BL { get; set; }
         public string? N_BP { get; set; }
-        public string? N_Facture { get; set; }
         public string? LogoUrl { get; set; }
         public string? Website { get; set; }
 
@@ -30,7 +29,9 @@ namespace factustock.Models
         public Subscription? Subscription { get; set; }
         public ICollection<User> Users { get; set; } = [];
         public ICollection<Client> Clients { get; set; } = [];
+        public ICollection<Supplier> Suppliers { get; set; } = [];
         public ICollection<Product> Products { get; set; } = [];
         public ICollection<Invoice> Invoices { get; set; } = [];
+
     }
 }

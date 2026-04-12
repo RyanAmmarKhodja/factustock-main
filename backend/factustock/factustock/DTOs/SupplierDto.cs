@@ -1,15 +1,15 @@
-﻿using factustock.Enums;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using factustock.Enums;
+
 namespace factustock.DTOs
 {
+
     // ════════════════════════════════════════════
     // REQUEST DTOs
     // ════════════════════════════════════════════
 
-    public record CreateClientRequest(
-        [Required] ClientType Type,
-        [Required][MaxLength(200)] string LegalName,
+    public record CreateSupplierRequest(
+        [MaxLength(200)] string LegalName,
         [MaxLength(100)] string? LastName,
         [MaxLength(100)] string? FirstName,
         [EmailAddress][MaxLength(200)] string? Email,
@@ -23,9 +23,8 @@ namespace factustock.DTOs
         [MaxLength(50)] string? N_BP
     );
 
-    public record UpdateClientRequest(
-        [Required] ClientType Type,
-        [Required][MaxLength(200)] string LegalName,
+    public record UpdateSupplierRequest(
+        [MaxLength(200)] string LegalName,
         [MaxLength(100)] string? LastName,
         [MaxLength(100)] string? FirstName,
         [EmailAddress][MaxLength(200)] string? Email,
@@ -39,13 +38,12 @@ namespace factustock.DTOs
         [MaxLength(50)] string? N_BP
     );
 
-    
+
     /// Query parameters for GetAllClients / SearchAndFilter.
     /// All fields are optional — omitting them means "no filter on this field".
-   
-    public record ClientQueryRequest(
+
+    public record SupplierQueryRequest(
         string? Search = null,   // searches LegalName, FirstName, LastName, NIF, Tel
-        ClientType? Type = null,
         bool IncludeArchived = false,
         int Page = 1,
         int PageSize = 20
@@ -55,11 +53,10 @@ namespace factustock.DTOs
     // RESPONSE DTOs
     // ════════════════════════════════════════════
 
-    /// Full client detail — used on the client detail/edit page.
- 
-    public record ClientDto(
+    /// Full supplier detail — used on the supplier detail/edit page.
+
+    public record SupplierDto(
         int Id,
-        ClientType Type,
         string LegalName,
         string? LastName,
         string? FirstName,
@@ -77,11 +74,10 @@ namespace factustock.DTOs
         DateTime CreatedAt
     );
 
-    /// Lightweight row — used in the clients table list.
+    /// Lightweight row — used in the suppliers table list.
     /// Does not carry all legal fields to keep payload small.
-    public record ClientSummaryDto(
+    public record SupplierSummaryDto(
         int Id,
-        ClientType Type,
         string LegalName,
         string? FirstName,
         string? LastName,
@@ -93,11 +89,11 @@ namespace factustock.DTOs
         DateTime CreatedAt
     );
 
-    /// Financial stats shown on the client detail card.
+    /// Financial stats shown on the supplier detail card.
     /// All amounts are in DZD.
-    public record ClientStatsDto(
-        int ClientId,
-        string ClientName,
+    public record SupplierStatsDto(
+        int SupplierId,
+        string SupplierName,
         int TotalInvoices,
         int PaidInvoices,
         int PendingInvoices,
@@ -108,9 +104,9 @@ namespace factustock.DTOs
     );
 
 
-    /// Invoice row shown inside the client's invoice history tab.
+    /// Invoice row shown inside the supplier's invoice history tab.
     /// Kept minimal — full detail is in the invoice module.
-    public record ClientInvoiceRowDto(
+    public record SupplierInvoiceRowDto(
         int Id,
         string InvoiceNumber,
         DateTime InvoiceDate,
@@ -122,13 +118,12 @@ namespace factustock.DTOs
     );
 
 
-    /// Paginated wrapper used for GetAllClients response.
-    public record ClientPagedResult(
-        List<ClientSummaryDto> Items,
+    /// Paginated wrapper used for GetAllSuppliers response.
+    public record SupplierPagedResult(
+        List<SupplierSummaryDto> Items,
         int TotalCount,
         int Page,
         int PageSize,
         int TotalPages
     );
-
 }

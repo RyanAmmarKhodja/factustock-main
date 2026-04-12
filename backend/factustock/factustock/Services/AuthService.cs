@@ -96,7 +96,6 @@ namespace factustock.Services
                 NIS = request.NIS,
                 N_BL = request.N_BL,
                 N_BP = request.N_BP,
-                N_Facture = request.N_Facture,
                 LogoUrl = request.LogoUrl,
                 Website = request.Website
             };

@@ -1,15 +1,11 @@
 ﻿using factustock.Enums;
+
 namespace factustock.Models
 {
-    // ─────────────────────────────────────────────
-    // CLIENT
-    // The company's customers
-    // ─────────────────────────────────────────────
-    public class Client
+    public class Supplier
     {
         public int Id { get; set; }
         public int CompanyId { get; set; } = 1;
-        public ClientType Type { get; set; } = ClientType.Company;
         public string LegalName { get; set; } = string.Empty;
         public string? LastName { get; set; }
         public string? FirstName { get; set; }

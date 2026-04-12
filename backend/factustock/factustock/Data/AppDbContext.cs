@@ -15,6 +15,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
     public DbSet<Role> Roles => Set<Role>();
     public DbSet<User> Users => Set<User>();
     public DbSet<Client> Clients => Set<Client>();
+    public DbSet<Supplier> Suppliers => Set<Supplier>();
     public DbSet<Product> Produits => Set<Product>();
     public DbSet<Invoice> Invoices => Set<Invoice>();
     public DbSet<InvoiceItem> InvoiceItems => Set<InvoiceItem>();
@@ -113,6 +114,17 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
 
             e.HasOne(x => x.Company)
              .WithMany(x => x.Clients)
+             .HasForeignKey(x => x.CompanyId)
+             .OnDelete(DeleteBehavior.Restrict);
+        });
+
+        // ── SUPPLIER ───────────────────────────────────────────────────────
+        b.Entity<Supplier>(e =>
+        {
+            e.HasKey(x => x.Id);
+            e.Property(x => x.LegalName).HasMaxLength(200).IsRequired();
+            e.HasOne(x => x.Company)
+             .WithMany(x => x.Suppliers)
              .HasForeignKey(x => x.CompanyId)
              .OnDelete(DeleteBehavior.Restrict);
         });

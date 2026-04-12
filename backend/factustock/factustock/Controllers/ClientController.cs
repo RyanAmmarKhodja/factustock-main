@@ -1,6 +1,5 @@
 ﻿using factustock.DTOs;
 using factustock.Services;
-using factustock.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
