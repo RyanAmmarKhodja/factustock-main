@@ -25,7 +25,7 @@
   --color-text-muted:   #A19F9D;
 
   /* Sidebar — Light nav pane (Office 365 style) */
-  --sidebar-width:      260px;
+  --sidebar-width:      220px;
   --sidebar-bg:         #F3F2F1;
   --sidebar-text:       #605E5C;
   --sidebar-active-bg:  #DEECF9;
@@ -39,8 +39,9 @@
   --shadow-focus:0 0 0 2px #000000;
 
   /* Radius — Microsoft sharp corners */
+  --radius-none: 0px;
   --radius-sm:   2px;
-  --radius-md:   4px;
+  --radius-md:   0px;
   --radius-lg:   4px;
   --radius-xl:   4px;
 

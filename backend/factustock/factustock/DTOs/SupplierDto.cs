@@ -1,5 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
-using factustock.Enums;
+﻿using factustock.Enums;
+using System.ComponentModel.DataAnnotations;
 
 namespace factustock.DTOs
 {

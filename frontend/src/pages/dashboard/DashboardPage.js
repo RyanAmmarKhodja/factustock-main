@@ -103,7 +103,7 @@ export default function DashboardPage() {
                 width={70}
                 style={{ strokeWidth: "1.5px" }}
               />
-              <h3>Afficher toutes les factures</h3>
+              <h3>Consulter mes factures</h3>
             </DashboardTile>
             <div style={{ display: "flex", flexDirection: "column", gap }}>
               <DashboardTile
@@ -130,7 +130,7 @@ export default function DashboardPage() {
                   width={70}
                   style={{ strokeWidth: "1.5px" }}
                 />
-                <h3>Afficher tous les bons</h3>
+                <h3>Voir tous les bons</h3>
               </DashboardTile>
             </div>
           </div>
@@ -171,7 +171,7 @@ export default function DashboardPage() {
                 style={{ strokeWidth: "1.5px" }}
               />
 
-              <h3>Afficher les produits</h3>
+              <h3>Voir les produits</h3>
             </DashboardTile>
 
             <DashboardTile

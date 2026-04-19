@@ -1,10 +1,10 @@
 import { useState, useEffect, useCallback } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { getClientInvoices } from "../../api/clientApi";
+import { getSupplierInvoices } from "../../api/supplierApi";
 import { PageHeader, Card, CardHeader, Badge, Alert } from "../../components/ui/UI";
 import Loading from "../../components/ui/Loading";
 import Button from "../../components/ui/Button";
-import styles from "./ClientInvoices.module.css";
+import styles from "./SupplierInvoices.module.css";
 
 const statusConfig = {
   0: { label: "Brouillon",  variant: "neutral"  }, // Draft
@@ -27,7 +27,7 @@ const formatDZD = (amount) =>
 const formatDate = (d) =>
   new Date(d).toLocaleDateString("fr-DZ", { day: "2-digit", month: "2-digit", year: "numeric" });
 
-export default function ClientInvoices() {
+export default function SupplierInvoices() {
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -38,7 +38,7 @@ export default function ClientInvoices() {
   const fetchInvoices = useCallback(async () => {
     setLoading(true);
     try {
-      const res = await getClientInvoices(id);
+      const res = await getSupplierInvoices(id);
       setInvoices(res.data);
     } catch {
       setError("Impossible de charger les factures.");
@@ -59,11 +59,11 @@ export default function ClientInvoices() {
   return (
     <div>
       <PageHeader
-        title="Factures du client"
+        title="Factures du supplier"
         subtitle={`${invoices.length} facture${invoices.length !== 1 ? "s" : ""}`}
         action={
-          <Button variant="primary" size="md" onClick={() => navigate(`/clients/${id}`)}>
-            ← Retour au client
+          <Button variant="primary" size="md" onClick={() => navigate(`/suppliers/${id}`)}>
+            ← Retour au supplier
           </Button>
         }
       />
@@ -79,7 +79,7 @@ export default function ClientInvoices() {
         {invoices.length === 0 ? (
           <div className={styles.empty}>
             <span className={styles.emptyIcon}>📄</span>
-            <p>Aucune facture pour ce client.</p>
+            <p>Aucune facture pour ce supplier.</p>
           </div>
         ) : (
           <div className={styles.tableWrapper}>

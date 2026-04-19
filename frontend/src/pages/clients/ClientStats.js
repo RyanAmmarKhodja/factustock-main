@@ -39,7 +39,7 @@ export default function ClientStats() {
     return (
       <div>
         <Alert variant="danger">{error}</Alert>
-        <Button variant="secondary" onClick={() => navigate(`/clients/${id}`)} style={{ marginTop: 16 }}>
+        <Button variant="primary" size="md" onClick={() => navigate(`/clients/${id}`)} style={{ marginTop: 16 }}>
           ← Retour au client
         </Button>
       </div>
@@ -53,7 +53,7 @@ export default function ClientStats() {
         title={`Statistiques — ${stats.clientName}`}
         subtitle="Résumé financier du client."
         action={
-          <Button variant="ghost" onClick={() => navigate(`/clients/${id}`)}>
+          <Button variant="primary" size="md" onClick={() => navigate(`/clients/${id}`)}>
             ← Retour au client
           </Button>
         }
@@ -65,25 +65,25 @@ export default function ClientStats() {
           label="Total factures"
           value={stats.totalInvoices}
           color="primary"
-          icon="📄"
+          
         />
         <StatCard
           label="Payées"
           value={stats.paidInvoices}
           color="success"
-          icon="✓"
+          
         />
         <StatCard
           label="En attente"
           value={stats.pendingInvoices}
           color="warning"
-          icon="⏳"
+          
         />
         <StatCard
           label="En retard"
           value={stats.overdueInvoices}
           color="danger"
-          icon="⚠️"
+         
         />
       </div>
 
@@ -93,26 +93,26 @@ export default function ClientStats() {
           label="Total facturé (TTC)"
           value={formatDZD(stats.totalInvoicedTTC)}
           color="primary"
-          icon="💰"
+         
         />
         <StatCard
           label="Total encaissé"
           value={formatDZD(stats.totalPaid)}
           color="success"
-          icon="✅"
+         
         />
         <StatCard
           label="Restant dû"
           value={formatDZD(stats.totalOutstanding)}
           color={stats.totalOutstanding > 0 ? "danger" : "success"}
-          icon="📊"
+         
         />
       </div>
 
       {/* CTA */}
       <div className={styles.cta}>
         <Button onClick={() => navigate(`/clients/${id}/factures`)}>
-          📄 Voir les factures
+           Voir les factures
         </Button>
       </div>
     </div>

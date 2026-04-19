@@ -1,11 +1,12 @@
 using factustock.Data;
-using factustock.Services;
 using factustock.Models;
+using factustock.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
+using System.Text.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -55,8 +56,6 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
-
-
 builder.Services.AddAuthorization();
 
 // ── SERVICES (Dependency Injection) ──────────────────────────────────────────
@@ -88,7 +87,10 @@ builder.Services.AddCors(options =>
 });
 
 // ── CONTROLLERS & SWAGGER ─────────────────────────────────────────────────────
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+}); ;
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
@@ -128,8 +130,6 @@ builder.Services.AddSwaggerGen(c =>
 // ─────────────────────────────────────────────────────────────────────────────
 var app = builder.Build();
 
-
-
 // ── MIDDLEWARE PIPELINE ───────────────────────────────────────────────────────
 if (app.Environment.IsDevelopment())
 {
@@ -155,7 +155,6 @@ using (var scope = app.Services.CreateScope())
 {
     var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
     dbContext.Database.Migrate();
-
 
     if (!dbContext.SystemSettings.Any())
     {

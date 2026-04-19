@@ -1,6 +1,5 @@
 ﻿using factustock.Enums;
 using System.ComponentModel.DataAnnotations;
-using factustock.Enums;
 namespace factustock.DTOs
 {
     // ════════════════════════════════════════════
@@ -9,7 +8,7 @@ namespace factustock.DTOs
 
     public record CreateClientRequest(
         [Required] ClientType Type,
-        [Required][MaxLength(200)] string LegalName,
+        [MaxLength(200)] string LegalName,
         [MaxLength(100)] string? LastName,
         [MaxLength(100)] string? FirstName,
         [EmailAddress][MaxLength(200)] string? Email,

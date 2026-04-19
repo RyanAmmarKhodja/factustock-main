@@ -11,6 +11,10 @@ import ClientsPage     from "../pages/clients/ClientsPage";
 import ClientDetails   from "../pages/clients/ClientDetails";
 import ClientStats     from "../pages/clients/ClientStats";
 import ClientInvoices  from "../pages/clients/ClientInvoices";
+import SuppliersPage     from "../pages/suppliers/SuppliersPage";
+import SupplierDetails   from "../pages/suppliers/SupplierDetails";
+import SupplierInvoices  from "../pages/suppliers/SupplierInvoices";
+
 
 
 export default function AppRouter() {
@@ -61,6 +65,10 @@ export default function AppRouter() {
         <Route path="/clients/:id" element={<ClientDetails />} />
         <Route path="/clients/:id/stats" element={<ClientStats/>} />
         <Route path="/clients/:id/invoices" element={<ClientInvoices />} />
+
+        <Route path="/suppliers"    element={<SuppliersPage />} />
+        <Route path="/suppliers/:id" element={<SupplierDetails />} />
+        <Route path="/suppliers/:id/invoices" element={<SupplierInvoices />} />
         {/* <Route path="/produits"   element={<ProduitsPage />} /> */}
         {/* <Route path="/factures"   element={<FacturesPage />} /> */}
         {/* <Route path="/parametres" element={<SettingsPage />} /> */}
