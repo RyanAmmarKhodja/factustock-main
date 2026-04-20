@@ -64,8 +64,8 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<ISystemSettingsService, SystemSettingsService>();
 builder.Services.AddScoped<IClientService, ClientService>();
 builder.Services.AddScoped<ISupplierService, SupplierService>();
+builder.Services.AddScoped<IProductService, ProductService>();
 // Future modules: add their services here
-// builder.Services.AddScoped<IProductService, ProductService>();
 // builder.Services.AddScoped<IInvoiceService, InvoiceService>();
 
 // ── CORS ──────────────────────────────────────────────────────────────────────

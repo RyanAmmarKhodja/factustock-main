@@ -131,12 +131,12 @@ export default function SuppliersPage() {
                       <td>{supplier.email || <span className={styles.muted}>—</span>}</td>
                       <td>{supplier.nif || <span className={styles.muted}>—</span>}</td>
                       {/* <td className={styles.centered}>{supplier.totalInvoices}</td> */}
-                      <td>
+                      {/* <td>
                         {supplier.isArchived
                           ? <Badge variant="warning">Archivé</Badge>
                           : <Badge variant="success">Actif</Badge>
                         }
-                      </td>
+                      </td> */}
                       <td>
                         <div style={{ display: "flex", justifyContent: "center" }}>
                           <Button  variant="primary" size="md" onClick={() => navigate(`/suppliers/${supplier.id}`)}>

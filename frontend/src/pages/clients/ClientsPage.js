@@ -101,7 +101,7 @@ export default function ClientsPage() {
                     <th>E-mail</th>
                     <th>NIF</th>
                     {/* <th>Factures</th> */}
-                    <th>Statut</th>
+                    {/* <th>Statut</th> */}
                     <th>Actions</th>
                   </tr>
                 </thead>
@@ -131,12 +131,12 @@ export default function ClientsPage() {
                       <td>{client.email || <span className={styles.muted}>—</span>}</td>
                       <td>{client.nif || <span className={styles.muted}>—</span>}</td>
                       {/* <td className={styles.centered}>{client.totalInvoices}</td> */}
-                      <td>
+                      {/* <td>
                         {client.isArchived
                           ? <Badge variant="warning">Archivé</Badge>
                           : <Badge variant="success">Actif</Badge>
                         }
-                      </td>
+                      </td> */}
                       <td>
                         <div style={{ display: "flex", justifyContent: "center" }}>
                           <Button  variant="primary" size="md" onClick={() => navigate(`/clients/${client.id}`)}>

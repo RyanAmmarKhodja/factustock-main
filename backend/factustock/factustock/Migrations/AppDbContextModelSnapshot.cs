@@ -540,7 +540,7 @@ namespace factustock.Migrations
                     b.HasIndex("CompanyId", "Code")
                         .IsUnique();
 
-                    b.ToTable("Produits");
+                    b.ToTable("Products");
                 });
 
             modelBuilder.Entity("factustock.Models.Role", b =>
