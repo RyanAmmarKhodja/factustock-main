@@ -14,6 +14,8 @@ import ClientInvoices  from "../pages/clients/ClientInvoices";
 import SuppliersPage     from "../pages/suppliers/SuppliersPage";
 import SupplierDetails   from "../pages/suppliers/SupplierDetails";
 import SupplierInvoices  from "../pages/suppliers/SupplierInvoices";
+import ProductsPage from "../pages/products/ProductsPage";
+import ProductDetails from "../pages/products/ProductDetails";
 
 
 
@@ -72,6 +74,9 @@ export default function AppRouter() {
         {/* <Route path="/produits"   element={<ProduitsPage />} /> */}
         {/* <Route path="/factures"   element={<FacturesPage />} /> */}
         {/* <Route path="/parametres" element={<SettingsPage />} /> */}
+
+        <Route path="/products"    element={<ProductsPage />} />
+        <Route path="/products/:id" element={<ProductDetails />} />
       </Route>
 
       {/* Catch-all */}
