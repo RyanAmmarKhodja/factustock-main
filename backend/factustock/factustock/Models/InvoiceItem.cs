@@ -9,7 +9,7 @@
         public int Id { get; set; }
         public int InvoiceId { get; set; }
         public int ProductId { get; set; }
-        public string Reference { get; set; } = string.Empty;
+        public string Code { get; set; } = string.Empty;
         public string Designation { get; set; } = string.Empty;
         public decimal Quantity { get; set; }
         public string? Unit { get; set; }

@@ -410,6 +410,48 @@
     ]
   },
   {
+    "ContainingType": "factustock.Controllers.DocumentController",
+    "Method": "GenerateInvoice",
+    "RelativePath": "api/documents/invoice",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "factustock.DTOs.GenerateInvoiceRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "factustock.DTOs.GenerateInvoiceResponse",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "factustock.Controllers.DocumentController",
+    "Method": "DownloadInvoice",
+    "RelativePath": "api/documents/invoice/{id}/pdf",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "factustock.Controllers.ProductController",
     "Method": "CreateProduct",
     "RelativePath": "api/products",

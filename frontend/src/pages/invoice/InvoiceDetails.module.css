@@ -1,0 +1,68 @@
+/* ── Client Details Page ───────────────────── */
+
+.subtitleRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+/* Action bar */
+.actionBar {
+  display: flex;
+  gap: var(--space-3);
+  margin-bottom: var(--space-6);
+  flex-wrap: wrap;
+}
+
+/* Info card */
+.infoCard { margin-top: var(--space-2); }
+
+.infoGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: var(--space-5);
+}
+
+.infoItem {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.infoLabel {
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.infoValue {
+  font-size: var(--font-size-base);
+  color: var(--color-text);
+  font-weight: 400;
+}
+
+.muted { color: var(--color-text-muted); }
+
+/* Archived banner */
+.archivedBanner {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-top: var(--space-5);
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-warning-light);
+  border-left: 4px solid var(--color-warning);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-sm);
+  color: #835C00;
+}
+
+@media (max-width: 900px) {
+  .infoGrid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 500px) {
+  .infoGrid { grid-template-columns: 1fr; }
+  .actionBar { flex-direction: column; }
+}

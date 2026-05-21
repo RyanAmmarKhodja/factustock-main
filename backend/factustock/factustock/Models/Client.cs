@@ -15,7 +15,7 @@ namespace factustock.Models
         public string? FirstName { get; set; }
         public string? Email { get; set; }
         public string? Tel { get; set; }
-        public string? Adresse { get; set; }
+        public string? Address { get; set; }
 
         // Algerian legal identifiers
         public string? RC { get; set; }

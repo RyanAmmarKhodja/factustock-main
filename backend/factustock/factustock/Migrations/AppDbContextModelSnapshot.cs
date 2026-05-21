@@ -80,7 +80,7 @@ namespace factustock.Migrations
                     b.Property<string>("AI")
                         .HasColumnType("text");
 
-                    b.Property<string>("Adresse")
+                    b.Property<string>("Address")
                         .HasColumnType("text");
 
                     b.Property<DateTime?>("ArchivedAt")
@@ -225,6 +225,9 @@ namespace factustock.Migrations
                     b.Property<DateTime>("DueDate")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<string>("GeneratedPdfPath")
+                        .HasColumnType("text");
+
                     b.Property<DateTime>("InvoiceDate")
                         .HasColumnType("timestamp with time zone");
 
@@ -278,6 +281,10 @@ namespace factustock.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<string>("Designation")
                         .IsRequired()
                         .HasColumnType("text");
@@ -303,10 +310,6 @@ namespace factustock.Migrations
                     b.Property<decimal>("Quantity")
                         .HasPrecision(18, 3)
                         .HasColumnType("numeric(18,3)");
-
-                    b.Property<string>("Reference")
-                        .IsRequired()
-                        .HasColumnType("text");
 
                     b.Property<decimal>("TVA")
                         .HasPrecision(5, 2)

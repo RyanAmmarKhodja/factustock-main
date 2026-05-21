@@ -1,0 +1,334 @@
+@startuml
+!theme plain
+skinparam backgroundColor #FEFEFE
+skinparam shadowing false
+skinparam defaultFontName Consolas
+skinparam defaultFontSize 11
+skinparam packageStyle rectangle
+
+hide circle
+hide empty members
+
+' ============================================================
+' ENUMS
+' ============================================================
+enum InvoiceStatus {
+  Draft
+  Sent
+  Paid
+  Overdue
+  Cancelled
+}
+
+enum PaymentMethod {
+  Cash
+  BankTransfer
+  Cheque
+  CIB
+  Edahabia
+}
+
+enum ClientType {
+  Individual
+  Company
+}
+
+enum StockMovementType {
+  In
+  Out
+  Adjustment
+}
+
+enum NotificationType {
+  InvoiceOverdue
+  InvoiceDueSoon
+  LowStock
+  PaymentReceived
+  System
+}
+
+enum SubscriptionStatus {
+  Active
+  Suspended
+  Cancelled
+  Trial
+}
+
+enum BillingCycle {
+  Monthly
+  Yearly
+}
+
+' ============================================================
+' TENANT & SUBSCRIPTION
+' ============================================================
+class Plan {
+  + Id: int
+  + Name: string [50]
+  + MaxAdminAccounts: int
+  + MaxUserAccounts: int
+  + MaxTotalAccounts: int
+  + Price: decimal
+  + SetupFee: decimal
+  + IsActive: bool
+}
+
+class Subscription {
+  + Id: int
+  + CompanyId: int [unique]
+  + PlanId: int
+  + StartDate: DateTime
+  + RenewalDate: DateTime
+  + PaidUntil: DateTime
+  + Status: SubscriptionStatus
+  + BillingCycle: BillingCycle
+}
+
+class Company {
+  + Id: int
+  + SubscriptionId: int? [unique]
+  + Name: string [200]
+  + LegalName: string? [200]
+  + Email: string?
+  + Tel: string?
+  + Adresse: string?
+  + RC: string? [50]
+  + AI: string? [50]
+  + NIF: string? [20]
+  + NIS: string? [20]
+  + N_BL: string?
+  + N_BP: string?
+  + LogoUrl: string?
+  + Website: string?
+}
+
+Plan "1" -- "*" Subscription : has
+Subscription "1" -- "1" Company : belongs to
+
+' ============================================================
+' USERS & ROLES
+' ============================================================
+class Role {
+  + Id: int
+  + Name: string [50] [unique]
+  + Description: string?
+  + Permissions: string? (JSON)
+}
+
+class User {
+  + Id: int
+  + CompanyId: int
+  + RoleId: int
+  + Email: string [200] [unique]
+  + PasswordHash: string
+  + FirstName: string [100]
+  + LastName: string [100]
+  + Phone: string?
+  + Active: bool
+  + CreatedAt: DateTime
+  + LastLoginAt: DateTime?
+}
+
+Company "1" -- "*" User : employs
+Role "1" -- "*" User : has
+
+' ============================================================
+' CLIENTS & SUPPLIERS
+' ============================================================
+class Client {
+  + Id: int
+  + CompanyId: int
+  + Type: ClientType
+  + LegalName: string [200]
+  + LastName: string?
+  + FirstName: string?
+  + Email: string?
+  + Tel: string?
+  + Adresse: string?
+  + RC: string?
+  + AI: string?
+  + NIF: string?
+  + NIS: string?
+  + N_BL: string?
+  + N_BP: string?
+  + CreatedAt: DateTime
+  + IsArchived: bool
+  + ArchivedAt: DateTime?
+}
+
+class Supplier {
+  + Id: int
+  + CompanyId: int
+  + LegalName: string [200]
+  + LastName: string?
+  + FirstName: string?
+  + Email: string?
+  + Tel: string?
+  + Adresse: string?
+  + RC: string?
+  + AI: string?
+  + NIF: string?
+  + NIS: string?
+  + N_BL: string?
+  + N_BP: string?
+  + CreatedAt: DateTime
+  + IsArchived: bool
+  + ArchivedAt: DateTime?
+}
+
+Company "1" -- "*" Client : manages
+Company "1" -- "*" Supplier : manages
+
+' ============================================================
+' PRODUCTS
+' ============================================================
+class Product {
+  + Id: int
+  + CompanyId: int
+  + Code: string [50]
+  + Name: string [200]
+  + Description: string?
+  + Category: string?
+  + Price: decimal
+  + Unit: string?
+  + DefaultTaxRate: decimal
+  + StockQuantity: decimal
+  + MinStockLevel: decimal
+  + Barcode: string?
+  + Active: bool
+  + CreatedAt: DateTime
+}
+
+Company "1" -- "*" Product : catalogues
+note right of Product::Code
+  Composite unique index:
+  (CompanyId, Code)
+end note
+
+' ============================================================
+' INVOICES
+' ============================================================
+class Invoice {
+  + Id: int
+  + ClientId: int
+  + SupplierId: int?
+  + CompanyId: int
+  + CreatedByUserId: int
+  + InvoiceNumber: string [50]
+  + InvoiceDate: DateTime
+  + DueDate: DateTime
+  + Status: InvoiceStatus
+  + PaymentMethod: PaymentMethod?
+  + TotalHorsTaxe: decimal
+  + TTC: decimal
+  + Notes: string?
+  + GeneratedPdfPath: string?
+  + CreatedAt: DateTime
+}
+
+class InvoiceItem {
+  + Id: int
+  + InvoiceId: int
+  + ProductId: int
+  + Reference: string
+  + Designation: string
+  + Quantity: decimal
+  + Unit: string?
+  + PricePerUnit: decimal
+  + TVA: decimal
+  + PriceHorsTaxe: decimal
+  + PriceTTC: decimal
+}
+
+class Payment {
+  + Id: int
+  + InvoiceId: int
+  + RecordedByUserId: int
+  + Amount: decimal
+  + PaymentDate: DateTime
+  + Method: PaymentMethod
+  + Reference: string?
+  + Notes: string?
+  + CreatedAt: DateTime
+}
+
+Client "1" -- "*" Invoice : issues
+Supplier "1" -- "*" Invoice : supplies
+Company "1" -- "*" Invoice : owns
+User "1" -- "*" Invoice : created by
+
+Invoice "1" -- "*" InvoiceItem : contains (CASCADE)
+Invoice "1" -- "*" Payment : has (RESTRICT)
+Product "1" -- "*" InvoiceItem : lines (RESTRICT)
+User "1" -- "*" Payment : recorded by
+
+note top of Invoice
+  Totals are stored snapshots,
+  never recomputed after issue.
+  (legal document requirement)
+end note
+
+note top of InvoiceItem
+  Prices are snapshots at
+  sale time, never updated.
+end note
+
+' ============================================================
+' STOCK
+' ============================================================
+class StockMovement {
+  + Id: int
+  + ProductId: int
+  + UserId: int
+  + InvoiceId: int?
+  + Type: StockMovementType
+  + Quantity: decimal
+  + QuantityBefore: decimal
+  + QuantityAfter: decimal
+  + Reason: string?
+  + CreatedAt: DateTime
+}
+
+Product "1" -- "*" StockMovement : tracks (RESTRICT)
+User "1" -- "*" StockMovement : recorded by (RESTRICT)
+Invoice "1" -- "*" StockMovement : originates (RESTRICT)
+
+' ============================================================
+' SYSTEM
+' ============================================================
+class AuditLog {
+  + Id: int
+  + UserId: int
+  + EntityType: string [100]
+  + EntityId: int
+  + Action: string [50]
+  + OldValue: string? (JSON)
+  + NewValue: string? (JSON)
+  + Details: string?
+  + IpAddress: string? [45]
+  + CreatedAt: DateTime
+}
+
+class Notification {
+  + Id: int
+  + UserId: int
+  + InvoiceId: int?
+  + Type: NotificationType
+  + Message: string [500]
+  + IsRead: bool
+  + CreatedAt: DateTime
+}
+
+class SystemSettings {
+  + Id: int
+  + SetupCompleted: bool
+  + LicenseKey: string?
+  + Version: string?
+  + InstalledAt: DateTime
+}
+
+User "1" -- "*" AuditLog : logs (RESTRICT)
+User "1" -- "*" Notification : receives (CASCADE)
+Invoice "1" -- "*" Notification : triggers (SET NULL)
+
+@enduml

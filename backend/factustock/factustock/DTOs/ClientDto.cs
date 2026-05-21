@@ -87,6 +87,10 @@ namespace factustock.DTOs
         string? Tel,
         string? Email,
         string? NIF,
+        string? AI,
+        string? NIS,
+        string? RC,
+        string? Address,
         bool IsArchived,
         int TotalInvoices,
         DateTime CreatedAt

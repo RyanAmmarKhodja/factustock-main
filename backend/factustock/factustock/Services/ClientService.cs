@@ -4,6 +4,7 @@ using factustock.DTOs;
 using factustock.Enums;
 using factustock.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Net;
 using System.Text.Json;
 
 namespace factustock.Services
@@ -49,7 +50,7 @@ namespace factustock.Services
                 FirstName = request.FirstName?.Trim(),
                 Email = request.Email?.Trim().ToLower(),
                 Tel = request.Tel?.Trim(),
-                Adresse = request.Adresse?.Trim(),
+                Address = request.Adresse?.Trim(),
                 RC = request.RC?.Trim(),
                 AI = request.AI?.Trim(),
                 NIF = request.NIF?.Trim(),
@@ -110,7 +111,7 @@ namespace factustock.Services
                 client.Email,
                 client.Tel,
                 client.NIF,
-                client.Adresse
+                client.Address
             });
 
             client.Type = request.Type;
@@ -119,7 +120,7 @@ namespace factustock.Services
             client.FirstName = request.FirstName?.Trim();
             client.Email = request.Email?.Trim().ToLower();
             client.Tel = request.Tel?.Trim();
-            client.Adresse = request.Adresse?.Trim();
+            client.Address = request.Adresse?.Trim();
             client.RC = request.RC?.Trim();
             client.AI = request.AI?.Trim();
             client.NIF = request.NIF?.Trim();
@@ -137,7 +138,7 @@ namespace factustock.Services
                 client.Email,
                 client.Tel,
                 client.NIF,
-                client.Adresse
+                client.Address
             });
 
             await _audit.LogAsync(
@@ -254,7 +255,8 @@ namespace factustock.Services
                     (c.LastName != null && c.LastName.ToLower().Contains(term)) ||
                     (c.NIF != null && c.NIF.Contains(term)) ||
                     (c.Tel != null && c.Tel.Contains(term)) ||
-                    (c.Email != null && c.Email.ToLower().Contains(term))
+                    (c.Email != null && c.Email.ToLower().Contains(term)) ||
+                    (c.Address != null && c.Address.ToLower().Contains(term))
                 );
             }
 
@@ -274,6 +276,10 @@ namespace factustock.Services
                     c.Tel,
                     c.Email,
                     c.NIF,
+                    c.AI,
+        c.NIS,
+        c.RC,
+        c.Address,
                     c.IsArchived,
                     c.Invoices.Count,
                     c.CreatedAt
@@ -370,7 +376,7 @@ namespace factustock.Services
         // ─────────────────────────────────────────────────────────────────────────
         private static ClientDto MapToDto(Client c) => new(
             c.Id, c.Type, c.LegalName, c.LastName, c.FirstName,
-            c.Email, c.Tel, c.Adresse,
+            c.Email, c.Tel, c.Address,
             c.RC, c.AI, c.NIF, c.NIS, c.N_BL, c.N_BP,
             c.IsArchived, c.ArchivedAt, c.CreatedAt
         );

@@ -13,7 +13,7 @@ namespace factustock.Models
         public int CreatedByUserId { get; set; }
         public string InvoiceNumber { get; set; } = string.Empty;
         public DateTime InvoiceDate { get; set; }
-        public DateTime DueDate { get; set; }                      // needed for overdue notifications
+        public DateTime DueDate { get; set; }                      
         public InvoiceStatus Status { get; set; } = InvoiceStatus.Draft;
         public PaymentMethod? PaymentMethod { get; set; }
 
@@ -23,6 +23,8 @@ namespace factustock.Models
         public decimal TTC { get; set; }
 
         public string? Notes { get; set; }
+
+        public string? GeneratedPdfPath { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
         // Navigation

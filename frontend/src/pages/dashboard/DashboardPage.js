@@ -36,6 +36,7 @@ import {
 import DashboardTile from "../../components/dashboard/DashboardTile";
 import MiniBarChart from "../../components/dashboard/MiniBarChart";
 import SectionLabel from "../../components/dashboard/SectionLabel";
+import { useNavigate } from "react-router-dom";
 
 /* ─────────────────────────────────────────────
    Dashboard.jsx  (main page)
@@ -59,8 +60,11 @@ const gap = 8;
 const iconSize = 26;
 const iconProps = { size: iconSize, strokeWidth: 1.6 };
 
+
+
 export default function DashboardPage() {
   const noop = () => {};
+  const navigate = useNavigate();
 
   return (
     <div
@@ -81,7 +85,7 @@ export default function DashboardPage() {
           <DashboardTile
             color={C.white}
             backgroundColor={C.blue}
-            onClick={noop}
+            onClick={() => navigate("/invoices/generate")}
             height={200}
           >
             <FileText

@@ -16,6 +16,8 @@ import SupplierDetails   from "../pages/suppliers/SupplierDetails";
 import SupplierInvoices  from "../pages/suppliers/SupplierInvoices";
 import ProductsPage from "../pages/products/ProductsPage";
 import ProductDetails from "../pages/products/ProductDetails";
+import GenerateInvoice from "../pages/invoice/GenerateInvoice";
+import InvoicesPage from "../pages/invoice/InvoicesPage";
 
 
 
@@ -71,12 +73,14 @@ export default function AppRouter() {
         <Route path="/suppliers"    element={<SuppliersPage />} />
         <Route path="/suppliers/:id" element={<SupplierDetails />} />
         <Route path="/suppliers/:id/invoices" element={<SupplierInvoices />} />
-        {/* <Route path="/produits"   element={<ProduitsPage />} /> */}
-        {/* <Route path="/factures"   element={<FacturesPage />} /> */}
-        {/* <Route path="/parametres" element={<SettingsPage />} /> */}
 
         <Route path="/products"    element={<ProductsPage />} />
         <Route path="/products/:id" element={<ProductDetails />} />
+
+        <Route path="/invoices"    element={<InvoicesPage />} />
+        <Route path="/invoices/:id"    element={<SuppliersPage />} />
+        <Route path="/invoices/generate"    element={<GenerateInvoice />} />
+
       </Route>
 
       {/* Catch-all */}
