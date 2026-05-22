@@ -12,7 +12,6 @@ import {
 import Button from "../../components/ui/Button";
 import Loading from "../../components/ui/Loading";
 import SearchBar from "../../components/clients/SearchBar";
-import { useNavigate } from "react-router-dom";
 
 const typeLabel = (t) =>
   t === 1 || t === "Company" ? "Entreprise" : "Particulier";
@@ -34,8 +33,6 @@ export default function ClientSelectionFormModal({
   onClose,
   onSubmit,
 }) {
-  const isEdit = mode === "edit";
-  const navigate = useNavigate();
   const [localForm, setLocalForm] = useState(initialData);
 
   const [errors, setErrors] = useState({});
@@ -86,24 +83,17 @@ export default function ClientSelectionFormModal({
 
   const handleSelect = (client) => {
     const updatedData = {
-    ...localForm,
-    clientId: client.id || "",
-    legalName: client.legalName || "",
-    AI: client.ai || "",
-    NIF: client.nif || "",
-    RC: client.rc || "",
-    address: client.address || "",
-  };
-
-    setLocalForm(updatedData);
-
-    setLocalForm ({
       ...localForm,
-      address: client.address
-    });
-
-    onSave(updatedData); 
-  
+      clientId: client.id || "",
+      legalName: client.legalName || "",
+      AI: client.ai || "",
+      NIF: client.nif || "",
+      RC: client.rc || "",
+      address: client.address || "",
+      tel: client.tel || "",
+      email: client.email || "",
+    };
+    onSave(updatedData);
     onClose();
   };
 
@@ -180,12 +170,7 @@ export default function ClientSelectionFormModal({
                       {data.items.map((client) => (
                         <tr key={client.id}>
                           {/* Note: I added a wrapper div inside the td to keep the flex layout for the avatar */}
-                          <td
-                            className={styles.nameCell}
-                            onClick={() => navigate(`/clients/${client.id}`)}
-                            role="button"
-                            tabIndex={0}
-                          >
+                          <td className={styles.nameCell}>
                             <div className={styles.avatar}>
                               {(client.legalName || "?")[0]}
                             </div>

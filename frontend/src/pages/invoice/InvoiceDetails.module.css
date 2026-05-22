@@ -1,33 +1,24 @@
-/* ── Client Details Page ───────────────────── */
+/* ── Invoice Details Page ───────────────────────── */
 
-.subtitleRow {
-  display: flex;
-  align-items: center;
-  gap: var(--space-3);
-}
-
-/* Action bar */
-.actionBar {
-  display: flex;
-  gap: var(--space-3);
-  margin-bottom: var(--space-6);
-  flex-wrap: wrap;
-}
-
-/* Info card */
-.infoCard { margin-top: var(--space-2); }
-
-.infoGrid {
+.grid {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: var(--space-5);
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+  margin-top: var(--space-4);
 }
 
-.infoItem {
+/* Info list inside cards */
+.infoList { display: flex; flex-direction: column; gap: var(--space-2); }
+
+.infoRow {
   display: flex;
-  flex-direction: column;
-  gap: 2px;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: var(--space-1) 0;
+  border-bottom: 1px solid var(--color-border-light);
+  gap: var(--space-4);
 }
+.infoRow:last-child { border-bottom: none; }
 
 .infoLabel {
   font-size: var(--font-size-xs);
@@ -35,34 +26,64 @@
   color: var(--color-text-secondary);
   text-transform: uppercase;
   letter-spacing: 0.04em;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .infoValue {
-  font-size: var(--font-size-base);
+  font-size: var(--font-size-sm);
   color: var(--color-text);
-  font-weight: 400;
+  text-align: right;
 }
 
 .muted { color: var(--color-text-muted); }
 
-/* Archived banner */
-.archivedBanner {
-  display: flex;
-  align-items: center;
-  gap: var(--space-3);
-  margin-top: var(--space-5);
-  padding: var(--space-3) var(--space-4);
-  background: var(--color-warning-light);
-  border-left: 4px solid var(--color-warning);
-  border-radius: var(--radius-sm);
+/* Line items table */
+.tableWrapper { overflow-x: auto; }
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
   font-size: var(--font-size-sm);
-  color: #835C00;
+}
+.table th {
+  padding: 8px 14px;
+  text-align: center;
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  border-bottom: 1px solid var(--color-border);
+}
+.table td {
+  padding: 10px 14px;
+  vertical-align: middle;
+  text-align: center;
+  border-bottom: 1px solid var(--color-border-light);
+}
+.table tr:last-child td { border-bottom: none; }
+
+.designation { font-weight: 600; text-align: left !important; }
+.amount { font-weight: 600; }
+
+/* Footer totals */
+.table tfoot td { padding: 6px 14px; }
+.totalLabel {
+  text-align: right;
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+}
+.totalValue {
+  text-align: center;
+  font-weight: 600;
+}
+.totalTTCRow td {
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+  font-size: var(--font-size-base);
 }
 
-@media (max-width: 900px) {
-  .infoGrid { grid-template-columns: 1fr 1fr; }
-}
-@media (max-width: 500px) {
-  .infoGrid { grid-template-columns: 1fr; }
-  .actionBar { flex-direction: column; }
+@media (max-width: 768px) {
+  .grid { grid-template-columns: 1fr; }
 }

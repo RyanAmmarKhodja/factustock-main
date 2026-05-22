@@ -40,9 +40,9 @@ const NAV_ITEMS = [
   { to: "/products",  label: "Produits",          icon: "Package",  adminOnly: false },
   { to: "/invoices",  label: "Factures",          icon: "Invoice",  adminOnly: false },
   { to: "/suppliers",label: "Fournisseurs",        icon: "Supplier", adminOnly: false },
-  { to: "/users", label: "Utilisateurs",   icon: "Users",    adminOnly: true  },
-  { to: "/logs",   label: "Journal d'activités",   icon: "AuditLog", adminOnly: true  },
-  { to: "/settings",label: "Paramètres",        icon: "Settings", adminOnly: false },
+  { to: "/utilisateurs", label: "Utilisateurs",        icon: "Users",    adminOnly: true  },
+  { to: "/logs",         label: "Journal d'activités", icon: "AuditLog", adminOnly: false },
+  { to: "/settings",     label: "Paramètres",          icon: "Settings", adminOnly: false },
   
 ];
 

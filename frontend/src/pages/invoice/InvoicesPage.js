@@ -1,269 +1,162 @@
-// import { useState, useEffect, useCallback } from "react";
-// import { useNavigate } from "react-router-dom";
-// import { getInvoices, createInvoice } from "../../api/invoiceApi";
-// import {
-//   PageHeader,
-//   Card,
-//   CardHeader,
-//   Badge,
-//   Alert,
-// } from "../../components/ui/UI";
-// import Button from "../../components/ui/Button";
-// import Loading from "../../components/ui/Loading";
-// import SearchBar from "../../components/invoices/SearchBar";
-// import InvoiceFormModal from "../../components/invoices/InvoiceFormModal";
-// import styles from "./InvoicesPage.module.css";
+import { useState, useEffect, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
+import { getInvoices } from "../../api/invoiceApi";
+import { PageHeader, Card, CardHeader, Badge, Alert } from "../../components/ui/UI";
+import Button from "../../components/ui/Button";
+import Loading from "../../components/ui/Loading";
+import styles from "./InvoicesPage.module.css";
 
-// const typeLabel = (t) =>
-//   t === 1 || t === "Company" ? "Entreprise" : "Particulier";
-// const typeBadge = (t) => (t === 1 || t === "Company" ? "primary" : "neutral");
+const STATUS_BADGE = {
+  Draft:     "neutral",
+  Sent:      "primary",
+  Paid:      "success",
+  Overdue:   "danger",
+  Cancelled: "warning",
+};
 
-// export default function InvoicesPage() {
-//   const navigate = useNavigate();
+const STATUS_LABEL = {
+  Draft:     "Brouillon",
+  Sent:      "Envoyée",
+  Paid:      "Payée",
+  Overdue:   "En retard",
+  Cancelled: "Annulée",
+};
 
-//   const [data, setData] = useState({
-//     items: [],
-//     totalCount: 0,
-//     page: 1,
-//     pageSize: 20,
-//     totalPages: 0,
-//   });
-//   const [filters, setFilters] = useState({
-//     search: undefined,
-//     type: undefined,
-//     includeArchived: false,
-//   });
-//   const [page, setPage] = useState(1);
-//   const [loading, setLoading] = useState(true);
-//   const [error, setError] = useState("");
-//   const [success, setSuccess] = useState("");
-//   const [showCreate, setShowCreate] = useState(false);
+const formatDate = (d) =>
+  d ? new Date(d).toLocaleDateString("fr-DZ", { day: "2-digit", month: "2-digit", year: "numeric" }) : "—";
 
-//   const fetchInvoices = useCallback(
-//     async (p = page, f = filters) => {
-//       setLoading(true);
-//       setError("");
-//       try {
-//         const res = await getInvoices({ ...f, page: p, pageSize: 20 });
-//         setData(res.data);
-//       } catch {
-//         setError("Impossible de charger la liste des invoices.");
-//       } finally {
-//         setLoading(false);
-//       }
-//     },
-//     [page, filters],
-//   );
+const formatDA = (n) =>
+  Number(n).toLocaleString("fr-DZ", { minimumFractionDigits: 2 }) + " DA";
 
-//   useEffect(() => {
-//     fetchInvoices();
-//   }, [fetchInvoices]);
+export default function InvoicesPage() {
+  const navigate = useNavigate();
 
-//   // Search / filter callback
-//   const handleSearch = (newFilters) => {
-//     setFilters(newFilters);
-//     setPage(1);
-//     fetchInvoices(1, newFilters);
-//   };
+  const [data, setData]       = useState({ items: [], totalCount: 0, page: 1, pageSize: 20, totalPages: 0 });
+  const [search, setSearch]   = useState("");
+  const [page, setPage]       = useState(1);
+  const [loading, setLoading] = useState(true);
+  const [error, setError]     = useState("");
 
-//   // Create
-//   const handleCreate = async (formData) => {
-//     await createInvoice(formData);
-//     setSuccess("Invoice créé avec succès.");
-//     fetchInvoices();
-//   };
+  const fetchInvoices = useCallback(async (p = 1, s = "") => {
+    setLoading(true);
+    setError("");
+    try {
+      const res = await getInvoices({ search: s || undefined, page: p, pageSize: 20 });
+      setData(res.data);
+    } catch {
+      setError("Impossible de charger la liste des factures.");
+    } finally {
+      setLoading(false);
+    }
+  }, []);
 
-//   // Pagination
-//   const goTo = (p) => {
-//     setPage(p);
-//     fetchInvoices(p, filters);
-//   };
+  useEffect(() => { fetchInvoices(1, ""); }, [fetchInvoices]);
 
-//   return (
-//     <div>
-//       <PageHeader
-//         title="Invoices"
-//         subtitle="Gérez votre portefeuille invoices."
-//         action={
-//           <Button size="lg" onClick={() => setShowCreate(true)}>
-//             + Ajouter un invoice
-//           </Button>
-//         }
-//       />
+  const handleSearch = (e) => {
+    const val = e.target.value;
+    setSearch(val);
+    setPage(1);
+    fetchInvoices(1, val);
+  };
 
-//       <SearchBar onSearch={handleSearch} />
+  const goTo = (p) => { setPage(p); fetchInvoices(p, search); };
 
-//       {error && (
-//         <Alert variant="danger" onDismiss={() => setError("")}>
-//           {error}
-//         </Alert>
-//       )}
-//       {success && (
-//         <Alert variant="success" onDismiss={() => setSuccess("")}>
-//           {success}
-//         </Alert>
-//       )}
+  return (
+    <div>
+      <PageHeader
+        title="Factures"
+        subtitle="Historique de toutes les factures générées."
+        action={
+          <Button size="lg" onClick={() => navigate("/invoices/generate")}>
+            + Nouvelle facture
+          </Button>
+        }
+      />
 
-//       <Card padding="sm" className={styles.tableCard}>
-//         <div
-//           style={{
-//             display: "flex",
-//             flexDirection: "row",
-//             alignItems: "center",
-//             gap: "2em",
-//           }}
-//         >
-//           <CardHeader
-//             title="Liste des invoices"
-//             subtitle={`${data.totalCount} invoice${data.totalCount !== 1 ? "s" : ""} trouvé${data.totalCount !== 1 ? "s" : ""}`}
-//           />
-//           <Button size="lg" onClick={() => setShowCreate(true)}>
-//             + Ajouter un invoice
-//           </Button>
-//         </div>
+      {/* Search bar */}
+      <div className={styles.searchRow}>
+        <input
+          className={styles.searchInput}
+          type="text"
+          placeholder="Rechercher par N° ou client..."
+          value={search}
+          onChange={handleSearch}
+        />
+      </div>
 
-//         {loading ? (
-//           <Loading />
-//         ) : data.items.length === 0 ? (
-//           <div className={styles.empty}>
-//             <span className={styles.emptyIcon}>👤</span>
-//             <p>Aucun invoice trouvé.</p>
-//           </div>
-//         ) : (
-//           <>
-//             <div className={styles.tableWrapper}>
-//               <table className={styles.table}>
-//                 <thead>
-//                   <tr>
-//                     <th>Produit</th>
-//                     <th>Catégorie</th>
-//                     <th>Prix</th>
-//                     <th>Stock</th>
-//                     <th>Unité</th>
-//                     <th>Statut</th>
-//                     <th className={styles.centered}>Actions</th>
-//                   </tr>
-//                 </thead>
-//                 <tbody>
-//                   {data.items.map((invoice) => (
-//                     <tr key={invoice.id}>
-//                       <td
-//                         className={styles.nameCell}
-//                         onClick={() => navigate(`/invoices/${invoice.id}`)}
-//                         role="button"
-//                         tabIndex={0}
-//                       >
-//                         <div className={styles.avatar}>
-//                           {(invoice.name || "?")[0]}
-//                         </div>
-//                         <div className={styles.nameInfo}>
-//                           <span className={styles.namePrimary}>
-//                             {invoice.name}
-//                           </span>
-//                           <span className={styles.nameSecondary}>
-//                             {invoice.code}
-//                           </span>
-//                         </div>
-//                       </td>
-//                       <td>
-//                         {invoice.category || (
-//                           <span className={styles.muted}>Général</span>
-//                         )}
-//                       </td>
-//                       <td>
-//                         {invoice.price.toLocaleString("fr-DZ", {
-//                           style: "currency",
-//                           currency: "DZD",
-//                         })}
-//                       </td>
-//                       <td>
-//                         <div className={styles.nameInfo}>
-//                           <span
-//                             className={invoice.lowStock ? styles.danger : ""}
-//                           >
-//                             {invoice.stockQuantity}
-//                           </span>
-//                           {invoice.lowStock && (
-//                             <span
-//                               className={styles.nameSecondary}
-//                               style={{ color: "var(--danger)" }}
-//                             >
-//                               Stock faible (min: {invoice.minStockLevel})
-//                             </span>
-//                           )}
-//                         </div>
-//                       </td>
-//                       <td>
-//                         {invoice.unit || (
-//                           <span className={styles.muted}>—</span>
-//                         )}
-//                       </td>
-//                       <td>
-//                         {invoice.active ? (
-//                           <Badge variant="success">Actif</Badge>
-//                         ) : (
-//                           <Badge variant="warning">Inactif / Archivé</Badge>
-//                         )}
-//                       </td>
-//                       <td>
-//                         <div
-//                           style={{
-//                             display: "flex",
-//                             justifyContent: "center",
-//                             gap: "8px",
-//                           }}
-//                         >
-//                           <Button
-//                             variant="primary"
-//                             size="md"
-//                             onClick={() => navigate(`/invoices/${invoice.id}`)}
-//                           >
-//                             Détails
-//                           </Button>
-//                         </div>
-//                       </td>
-//                     </tr>
-//                   ))}
-//                 </tbody>
-//               </table>
-//             </div>
+      {error && <Alert variant="danger" onDismiss={() => setError("")}>{error}</Alert>}
 
-//             {/* Pagination */}
-//             {data.totalPages > 1 && (
-//               <div className={styles.pagination}>
-//                 <Button
-//                   variant="secondary"
-//                   size="sm"
-//                   disabled={page <= 1}
-//                   onClick={() => goTo(page - 1)}
-//                 >
-//                   ← Précédent
-//                 </Button>
-//                 <span className={styles.pageInfo}>
-//                   Page {data.page} / {data.totalPages}
-//                 </span>
-//                 <Button
-//                   variant="secondary"
-//                   size="sm"
-//                   disabled={page >= data.totalPages}
-//                   onClick={() => goTo(page + 1)}
-//                 >
-//                   Suivant →
-//                 </Button>
-//               </div>
-//             )}
-//           </>
-//         )}
-//       </Card>
+      <Card padding="sm" className={styles.tableCard}>
+        <CardHeader
+          title="Liste des factures"
+          subtitle={`${data.totalCount} facture${data.totalCount !== 1 ? "s" : ""} trouvée${data.totalCount !== 1 ? "s" : ""}`}
+        />
 
-//       {/* Create modal */}
-//       {showCreate && (
-//         <InvoiceFormModal
-//           mode="create"
-//           onClose={() => setShowCreate(false)}
-//           onSubmit={handleCreate}
-//         />
-//       )}
-//     </div>
-//   );
-// }
+        {loading ? (
+          <Loading />
+        ) : data.items.length === 0 ? (
+          <div className={styles.empty}>
+            <span className={styles.emptyIcon}>🧾</span>
+            <p>Aucune facture trouvée.</p>
+            <Button onClick={() => navigate("/invoices/generate")} style={{ marginTop: "1rem" }}>
+              Créer la première facture
+            </Button>
+          </div>
+        ) : (
+          <>
+            <div className={styles.tableWrapper}>
+              <table className={styles.table}>
+                <thead>
+                  <tr>
+                    <th>N° Facture</th>
+                    <th>Client</th>
+                    <th>Date</th>
+                    <th>Échéance</th>
+                    <th>Total TTC</th>
+                    <th>Statut</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {data.items.map((inv) => (
+                    <tr key={inv.id}>
+                      <td>
+                        <span className={styles.invoiceNumber}>{inv.invoiceNumber}</span>
+                      </td>
+                      <td>{inv.clientLegalName || <span className={styles.muted}>—</span>}</td>
+                      <td>{formatDate(inv.invoiceDate)}</td>
+                      <td>{formatDate(inv.dueDate)}</td>
+                      <td className={styles.amount}>{formatDA(inv.ttc)}</td>
+                      <td>
+                        <Badge variant={STATUS_BADGE[inv.status] || "neutral"}>
+                          {STATUS_LABEL[inv.status] || inv.status}
+                        </Badge>
+                      </td>
+                      <td>
+                        <Button variant="primary" size="sm" onClick={() => navigate(`/invoices/${inv.id}`)}>
+                          Détails
+                        </Button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            {data.totalPages > 1 && (
+              <div className={styles.pagination}>
+                <Button variant="secondary" size="sm" disabled={page <= 1} onClick={() => goTo(page - 1)}>
+                  ← Précédent
+                </Button>
+                <span className={styles.pageInfo}>Page {data.page} / {data.totalPages}</span>
+                <Button variant="secondary" size="sm" disabled={page >= data.totalPages} onClick={() => goTo(page + 1)}>
+                  Suivant →
+                </Button>
+              </div>
+            )}
+          </>
+        )}
+      </Card>
+    </div>
+  );
+}

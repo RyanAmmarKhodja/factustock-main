@@ -11,41 +11,34 @@ import ClientsPage     from "../pages/clients/ClientsPage";
 import ClientDetails   from "../pages/clients/ClientDetails";
 import ClientStats     from "../pages/clients/ClientStats";
 import ClientInvoices  from "../pages/clients/ClientInvoices";
-import SuppliersPage     from "../pages/suppliers/SuppliersPage";
-import SupplierDetails   from "../pages/suppliers/SupplierDetails";
-import SupplierInvoices  from "../pages/suppliers/SupplierInvoices";
-import ProductsPage from "../pages/products/ProductsPage";
-import ProductDetails from "../pages/products/ProductDetails";
+import SuppliersPage   from "../pages/suppliers/SuppliersPage";
+import SupplierDetails from "../pages/suppliers/SupplierDetails";
+import SupplierInvoices from "../pages/suppliers/SupplierInvoices";
+import ProductsPage    from "../pages/products/ProductsPage";
+import ProductDetails  from "../pages/products/ProductDetails";
 import GenerateInvoice from "../pages/invoice/GenerateInvoice";
-import InvoicesPage from "../pages/invoice/InvoicesPage";
-
-
+import InvoicesPage    from "../pages/invoice/InvoicesPage";
+import InvoiceDetails  from "../pages/invoice/InvoiceDetails";
+import AuditLogPage    from "../pages/logs/AuditLogPage";
+import SettingsPage    from "../pages/settings/SettingsPage";
 
 export default function AppRouter() {
   const { token, isAdmin, setupCompleted } = useAuth();
 
   const PrivateRoute = () =>
-    token ? (
-      <ClientLayout><Outlet /></ClientLayout>
-    ) : (
-      <Navigate to="/login" replace />
-    );
+    token ? <ClientLayout><Outlet /></ClientLayout> : <Navigate to="/login" replace />;
 
-  // Must be admin
   const AdminRoute = () =>
     token && isAdmin ? <Outlet /> : <Navigate to="/" replace />;
 
-  // Public only (logged out)
   const PublicRoute = () =>
     !token ? <Outlet /> : <Navigate to="/" replace />;
 
-  // Only accessible when setup is NOT completed
   const SetupRoute = () =>
     setupCompleted === false ? <Outlet /> : <Navigate to="/login" replace />;
 
   return (
     <Routes>
-      {/* Setup — only when setupCompleted === false */}
       <Route element={<SetupRoute />}>
         <Route path="/setup" element={<SetupPage />} />
       </Route>
@@ -55,36 +48,38 @@ export default function AppRouter() {
       </Route>
 
       <Route element={<PrivateRoute />}>
-        <Route path="/" element={<DashboardPage />} />
+        <Route path="/"         element={<DashboardPage />} />
         <Route path="/dashboard" element={<DashboardPage />} />
-        <Route path="/home" element={<DashboardPage />} />
+        <Route path="/home"     element={<DashboardPage />} />
 
-        {/* Admin-only routes */}
+        {/* Admin-only */}
         <Route element={<AdminRoute />}>
           <Route path="/utilisateurs" element={<UsersPage />} />
-          {/* Future: <Route path="/journal" element={<AuditLogPage />} /> */}
         </Route>
 
-        <Route path="/clients"    element={<ClientsPage />} />
-        <Route path="/clients/:id" element={<ClientDetails />} />
-        <Route path="/clients/:id/stats" element={<ClientStats/>} />
-        <Route path="/clients/:id/invoices" element={<ClientInvoices />} />
+        {/* CRM */}
+        <Route path="/clients"                   element={<ClientsPage />} />
+        <Route path="/clients/:id"               element={<ClientDetails />} />
+        <Route path="/clients/:id/stats"         element={<ClientStats />} />
+        <Route path="/clients/:id/invoices"      element={<ClientInvoices />} />
 
-        <Route path="/suppliers"    element={<SuppliersPage />} />
-        <Route path="/suppliers/:id" element={<SupplierDetails />} />
-        <Route path="/suppliers/:id/invoices" element={<SupplierInvoices />} />
+        <Route path="/suppliers"                 element={<SuppliersPage />} />
+        <Route path="/suppliers/:id"             element={<SupplierDetails />} />
+        <Route path="/suppliers/:id/invoices"    element={<SupplierInvoices />} />
 
-        <Route path="/products"    element={<ProductsPage />} />
-        <Route path="/products/:id" element={<ProductDetails />} />
+        <Route path="/products"                  element={<ProductsPage />} />
+        <Route path="/products/:id"              element={<ProductDetails />} />
 
-        <Route path="/invoices"    element={<InvoicesPage />} />
-        <Route path="/invoices/:id"    element={<SuppliersPage />} />
-        <Route path="/invoices/generate"    element={<GenerateInvoice />} />
+        {/* Invoices — order matters: /generate before /:id */}
+        <Route path="/invoices"                  element={<InvoicesPage />} />
+        <Route path="/invoices/generate"         element={<GenerateInvoice />} />
+        <Route path="/invoices/:id"              element={<InvoiceDetails />} />
 
+        {/* Journal & Settings */}
+        <Route path="/logs"                      element={<AuditLogPage />} />
+        <Route path="/settings"                  element={<SettingsPage />} />
       </Route>
 
-      {/* Catch-all */}
-      {/* <Route path="*" element={<PageNotFound />} /> */}
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );

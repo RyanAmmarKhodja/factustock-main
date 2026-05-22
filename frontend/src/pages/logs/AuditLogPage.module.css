@@ -1,8 +1,6 @@
-/* ── Invoices List Page ─────────────────────────── */
+/* ── Audit Log Page ─────────────────────────────── */
 
-.searchRow {
-  margin-bottom: var(--space-4);
-}
+.searchRow { margin-bottom: var(--space-4); }
 
 .searchInput {
   width: 100%;
@@ -19,7 +17,6 @@
 }
 .searchInput:focus { border-bottom: 2px solid var(--color-primary); }
 
-.tableCard { margin-top: var(--space-2); }
 .tableWrapper { overflow-x: auto; }
 
 .table {
@@ -29,7 +26,7 @@
 }
 .table th {
   padding: 10px 16px;
-  text-align: center;
+  text-align: left;
   font-size: var(--font-size-xs);
   font-weight: 600;
   color: var(--color-text-secondary);
@@ -37,25 +34,44 @@
   border-bottom: 1px solid var(--color-border);
 }
 .table td {
-  padding: 12px 16px;
+  padding: 10px 16px;
   color: var(--color-text);
   border-bottom: 1px solid var(--color-border-light);
   vertical-align: middle;
-  text-align: center;
 }
 .table tr:last-child td { border-bottom: none; }
 .table tbody tr:hover td { background: var(--color-bg); transition: background 0.1s; }
 
-.invoiceNumber {
-  font-weight: 700;
-  color: var(--color-primary);
-  font-family: monospace;
-  font-size: var(--font-size-sm);
+.dateCell {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+  white-space: nowrap;
 }
 
-.amount {
+.userCell {
   font-weight: 600;
-  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.actionBadge {
+  font-weight: 600;
+  font-size: var(--font-size-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.entityCell {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+}
+
+.detailsCell {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+  max-width: 360px;
 }
 
 .muted { color: var(--color-text-muted); }
