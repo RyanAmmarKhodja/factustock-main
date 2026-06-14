@@ -1,7 +1,8 @@
+import { useState, useEffect, useRef } from "react";
 import { NavLink } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext.js";
 import styles from "./Sidebar.module.css";
-import { Settings, Truck, History, Users, FileText, Package, User, House } from "lucide-react";
+import { Settings, Truck, History, Users, FileText, Package, User, House, FolderOpen, LogOut } from "lucide-react";
 
 // Icons as simple SVG components to avoid a full icon library dependency
 const Icons = {
@@ -28,9 +29,10 @@ const Icons = {
   ),
   Supplier: () => (
     <Truck />
-  )
-
-
+  ),
+  Documents: () => (
+    <FolderOpen />
+  ),
 };
 
 // Navigation items — some are admin-only
@@ -41,6 +43,7 @@ const NAV_ITEMS = [
   { to: "/invoices",  label: "Factures",          icon: "Invoice",  adminOnly: false },
   { to: "/suppliers",label: "Fournisseurs",        icon: "Supplier", adminOnly: false },
   { to: "/utilisateurs", label: "Utilisateurs",        icon: "Users",    adminOnly: true  },
+  { to: "/documents",    label: "Documents",            icon: "Documents",adminOnly: false },
   { to: "/logs",         label: "Journal d'activités", icon: "AuditLog", adminOnly: false },
   { to: "/settings",     label: "Paramètres",          icon: "Settings", adminOnly: false },
   
@@ -48,6 +51,23 @@ const NAV_ITEMS = [
 
 export default function Sidebar() {
   const { user, isAdmin, logout } = useAuth();
+  const [menuOpen, setMenuOpen] = useState(false);
+  const menuRef = useRef(null);
+
+  // Close on outside click or Escape
+  useEffect(() => {
+    if (!menuOpen) return;
+    const handleClick = (e) => {
+      if (menuRef.current && !menuRef.current.contains(e.target)) setMenuOpen(false);
+    };
+    const handleKey = (e) => { if (e.key === "Escape") setMenuOpen(false); };
+    document.addEventListener("mousedown", handleClick);
+    document.addEventListener("keydown", handleKey);
+    return () => {
+      document.removeEventListener("mousedown", handleClick);
+      document.removeEventListener("keydown", handleKey);
+    };
+  }, [menuOpen]);
 
   return (
     <aside className={styles.sidebar}>
@@ -84,8 +104,27 @@ export default function Sidebar() {
       </nav>
 
       {/* User footer */}
-      <div className={styles.userSection}>
-        <div className={styles.userInfo}>
+      <div className={styles.userSection} ref={menuRef}>
+        {/* Popup menu — appears above the badge */}
+        {menuOpen && (
+          <div className={styles.userMenu}>
+            <button
+              className={styles.userMenuItem}
+              onClick={() => { logout(); setMenuOpen(false); }}
+            >
+              <LogOut size={15} />
+              <span>Se déconnecter</span>
+            </button>
+          </div>
+        )}
+
+        {/* Clickable user badge */}
+        <button
+          className={`${styles.userInfo} ${menuOpen ? styles.userInfoActive : ""}`}
+          onClick={() => setMenuOpen((o) => !o)}
+          aria-haspopup="true"
+          aria-expanded={menuOpen}
+        >
           <div className={styles.userAvatar}>
             {user?.firstName?.[0]}{user?.lastName?.[0]}
           </div>
@@ -95,14 +134,7 @@ export default function Sidebar() {
               {user?.role === "admin" ? "Administrateur" : "Employé"}
             </span>
           </div>
-        </div>
-        <button className={styles.logoutBtn} onClick={logout} title="Se déconnecter">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
-            <polyline points="16 17 21 12 16 7"/>
-            <line x1="21" y1="12" x2="9" y2="12"/>
-          </svg>
-          <span>Déconnecter</span>
+          <span className={styles.userChevron}>{menuOpen ? "▲" : "▼"}</span>
         </button>
       </div>
     </aside>

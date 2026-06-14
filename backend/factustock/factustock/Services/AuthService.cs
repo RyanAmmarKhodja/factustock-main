@@ -166,6 +166,7 @@ namespace factustock.Services
             };
 
             _context.Users.Add(user);
+            company.Subscription.ActiveUsers++;
             await _context.SaveChangesAsync();
 
             await audit.LogAsync(
@@ -262,7 +263,7 @@ namespace factustock.Services
                     .ThenInclude(s => s!.Plan)
                 .FirstOrDefaultAsync();
 
-            var maxAllowed = company?.Subscription?.Plan.MaxTotalAccounts ?? 0;
+            var maxAllowed = company?.Subscription?.Plan.MaxTotalAccounts ?? 1;
 
             var users = await _context.Users
                 .Include(u => u.Role)
@@ -317,6 +318,35 @@ namespace factustock.Services
             ), null);
         }
 
+        // ── CHANGE EMAIL (admin only) ─────────────────────────────────────────────
+        public async Task<(bool Success, string? Error)> ChangeEmailAsync(
+            int userId, ChangeEmailRequest request, string? ipAddress)
+        {
+            var user = await _context.Users.FindAsync(userId);
+            if (user is null) return (false, "User not found.");
+
+            if (!BCrypt.Net.BCrypt.Verify(request.CurrentPassword, user.PasswordHash))
+                return (false, "Mot de passe actuel incorrect.");
+
+            var newEmail = request.NewEmail.Trim().ToLower();
+            if (await _context.Users.AnyAsync(u => u.Email == newEmail && u.Id != userId))
+                return (false, "Cette adresse e-mail est déjà utilisée.");
+
+            user.Email = newEmail;
+            await _context.SaveChangesAsync();
+
+            await audit.LogAsync(
+                userId: userId,
+                entityType: "User",
+                entityId: userId,
+                action: "EmailChanged",
+                details: $"Admin changed their own email to {newEmail}",
+                ipAddress: ipAddress
+            );
+
+            return (true, null);
+        }
+
         // ── DEACTIVATE USER ───────────────────────────────────────────────────────
         public async Task<(bool Success, string? Error)> DeactivateUserAsync(
             int targetUserId, int adminUserId, string? ipAddress)
@@ -330,6 +360,11 @@ namespace factustock.Services
 
             if (user.Role.Name == "admin")
                 return (false, "Admin account cannot be deactivated through this endpoint.");
+
+            // Decrement active users seat count
+            var company = await _context.Company.Include(c => c.Subscription).FirstOrDefaultAsync();
+            if (company?.Subscription != null)
+                company.Subscription.ActiveUsers = Math.Max(0, company.Subscription.ActiveUsers - 1);
 
             user.Active = false;
             await _context.SaveChangesAsync();
@@ -372,7 +407,7 @@ namespace factustock.Services
                 issuer: jwtIssuer,
                 audience: jwtIssuer,
                 claims: claims,
-                expires: DateTime.UtcNow.AddHours(GetTokenExpiryHours()),
+                expires: DateTime.UtcNow.AddYears(1),
                 signingCredentials: creds
             );
 

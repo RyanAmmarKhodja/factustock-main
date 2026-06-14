@@ -1,4 +1,4 @@
-﻿namespace factustock.Services
+namespace factustock.Services
 {
     using factustock.Data;
     using factustock.DTOs;
@@ -11,10 +11,7 @@
     using factustock.Templates;
 
 
-    // ════════════════════════════════════════════
-    // IMPLEMENTATION
-    // ════════════════════════════════════════════
-    public class DocumentService: IDocumentService
+    public class DocumentService : IDocumentService
     {
         private const int CompanyId = 1;
 
@@ -35,15 +32,44 @@
         public async Task<(GenerateInvoiceResponse? Data, string? Error)> GenerateInvoiceAsync(
             GenerateInvoiceRequest request, int userId)
         {
-            // ── 1. Validate client ────────────────────────────────────────────────
-            var client = await _context.Clients
-                .FirstOrDefaultAsync(c => c.Id == request.ClientId && c.CompanyId == CompanyId);
+            // ── 1. Resolve client snapshot ────────────────────────────────────────
+            string? clientLegalName;
+            string? clientAddress, clientTel, clientEmail, clientRC, clientNIF, clientNIS, clientAI;
+            string? clientFirstName = null, clientLastName = null;
 
-            if (client is null)
-                return (null, "Client introuvable.");
+            if (request.ClientId.HasValue)
+            {
+                var client = await _context.Clients
+                    .FirstOrDefaultAsync(c => c.Id == request.ClientId.Value && c.CompanyId == CompanyId);
 
-            if (client.IsArchived)
-                return (null, "Impossible de facturer un client archivé.");
+                if (client is null) return (null, "Client introuvable.");
+                if (client.IsArchived) return (null, "Impossible de facturer un client archivé.");
+
+                clientLegalName = client.LegalName;
+                clientAddress = client.Address;
+                clientTel = client.Tel;
+                clientEmail = client.Email;
+                clientRC = client.RC;
+                clientNIF = client.NIF;
+                clientNIS = client.NIS;
+                clientAI = client.AI;
+                clientFirstName = client.FirstName;
+                clientLastName = client.LastName;
+            }
+            else
+            {
+                if (string.IsNullOrWhiteSpace(request.ClientLegalName))
+                    return (null, "Le nom du client est obligatoire.");
+
+                clientLegalName = request.ClientLegalName.Trim();
+                clientAddress = request.ClientAddress;
+                clientTel = request.ClientTel;
+                clientEmail = request.ClientEmail;
+                clientRC = request.ClientRC;
+                clientNIF = request.ClientNIF;
+                clientNIS = request.ClientNIS;
+                clientAI = request.ClientAI;
+            }
 
             // ── 2. Validate and resolve line items ────────────────────────────────
             if (!request.Lines.Any())
@@ -106,7 +132,6 @@
             var totalTVA = Math.Round(resolvedLines.Sum(l => l.TVAAmount), 2);
             var totalTTC = Math.Round(totalHT + totalTVA, 2);
 
-            // TVA breakdown grouped by rate
             var tvaBreakdown = resolvedLines
                 .GroupBy(l => l.TVARate)
                 .OrderBy(g => g.Key)
@@ -125,27 +150,36 @@
                 CreatedByUserId = userId,
                 InvoiceNumber = invoiceNumber,
                 InvoiceDate = request.InvoiceDate.Date,
-                DueDate = request.DueDate.Date,
+                DueDate = request.DueDate?.Date,
                 Status = InvoiceStatus.Draft,
                 PaymentMethod = request.PaymentMethod,
                 TotalHorsTaxe = totalHT,
                 TTC = totalTTC,
                 Notes = request.Notes?.Trim(),
-                GeneratedPdfPath = null,        // filled after PDF generation
+                GeneratedPdfPath = null,
                 CreatedAt = DateTime.UtcNow,
+
+                // Store client snapshot at creation time
+                ClientLegalName = clientLegalName,
+                ClientAddress = clientAddress,
+                ClientTel = clientTel,
+                ClientEmail = clientEmail,
+                ClientRC = clientRC,
+                ClientNIF = clientNIF,
+                ClientNIS = clientNIS,
+                ClientAI = clientAI,
             };
 
             _context.Invoices.Add(invoice);
             await _context.SaveChangesAsync();
 
-            // Attach invoice ID to items then save
             foreach (var item in invoiceItems)
                 item.InvoiceId = invoice.Id;
 
             _context.InvoiceItems.AddRange(invoiceItems);
             await _context.SaveChangesAsync();
 
-            // ── 6. Decrement stock for each line ──────────────────────────────────
+            // ── 6. Decrement stock ────────────────────────────────────────────────
             foreach (var line in request.Lines)
             {
                 var product = productMap[line.ProductId];
@@ -169,7 +203,7 @@
 
             await _context.SaveChangesAsync();
 
-            // ── 7. Load company data for template header ──────────────────────────
+            // ── 7. Load company data for PDF header ───────────────────────────────
             var company = await _context.Company.FindAsync(CompanyId)
                 ?? throw new InvalidOperationException("Company record not found.");
 
@@ -180,15 +214,22 @@
                 DueDate: invoice.DueDate,
                 PaymentMethodLabel: TranslatePaymentMethod(request.PaymentMethod),
                 Seller: new CompanyCoordinates(
-                    company.Name, company.LegalName, company.Adresse,
+                    company.Name, company.LegalName ?? company.Name, company.Adresse,
                     company.Tel, company.Email,
                     company.RC, company.AI, company.NIF, company.NIS,
                     company.LogoUrl
                 ),
+                // Always use the snapshot — never live client data
                 Buyer: new ClientCoordinates(
-                    client.LegalName, client.FirstName, client.LastName,
-                    client.Address, client.Tel, client.Email,
-                    client.RC, client.NIF, client.NIS
+                    clientLegalName ?? "",
+                    clientFirstName,
+                    clientLastName,
+                    clientAddress,
+                    clientTel,
+                    clientEmail,
+                    clientRC,
+                    clientNIF,
+                    clientNIS
                 ),
                 Lines: resolvedLines,
                 TVABreakdownLines: tvaBreakdown,
@@ -219,6 +260,7 @@
                     invoice.InvoiceNumber,
                     invoice.TTC,
                     ClientId = request.ClientId,
+                    ClientName = clientLegalName,
                     Lines = request.Lines.Count
                 }),
                 details: $"Facture {invoiceNumber} générée — TTC: {totalTTC:N2} DA"
@@ -260,23 +302,16 @@
         // PRIVATE HELPERS
         // ─────────────────────────────────────────────────────────────────────────
 
-        /// <summary>
-        /// Generates next invoice number in format YYYY/NNN.
-        /// Thread-safe: uses a DB query to find the current max within the year.
-        /// </summary>
         private async Task<string> GenerateInvoiceNumberAsync(int year)
         {
             var prefix = $"{year}/";
 
-            var lastNumber = await _context.Invoices
-                .Where(i =>
-                    i.CompanyId == CompanyId &&
-                    i.InvoiceNumber.StartsWith(prefix))
+            var lastNumbers = await _context.Invoices
+                .Where(i => i.CompanyId == CompanyId && i.InvoiceNumber.StartsWith(prefix))
                 .Select(i => i.InvoiceNumber)
                 .ToListAsync();
 
-            // Parse existing sequence numbers and take max
-            var maxSeq = lastNumber
+            var maxSeq = lastNumbers
                 .Select(n =>
                 {
                     var parts = n.Split('/');
@@ -285,43 +320,30 @@
                 .DefaultIfEmpty(0)
                 .Max();
 
-            return $"{year}/{(maxSeq + 1):D3}";   // e.g. "2025/001", "2025/012"
+            return $"{year}/{(maxSeq + 1):D3}";
         }
 
-        /// <summary>
-        /// Renders the QuestPDF template to bytes in memory.
-        /// </summary>
         private static byte[] GeneratePdfBytes(InvoiceDocument invoiceDoc)
         {
             QuestPDF.Settings.License = LicenseType.Community;
-
             var template = new InvoiceTemplate(invoiceDoc);
             return template.GeneratePdf();
         }
 
-        /// <summary>
-        /// Saves PDF bytes to /storage/invoices/YYYY/filename.pdf.
-        /// Returns the absolute file path for storage in DB.
-        /// </summary>
         private async Task<string> SavePdfAsync(byte[] bytes, string invoiceNumber, int year)
         {
             var storageRoot = _config["Storage:InvoicesPath"] ?? "storage/invoices";
             var yearDir = Path.Combine(storageRoot, year.ToString());
-
             Directory.CreateDirectory(yearDir);
 
-            var safeNumber = invoiceNumber.Replace("/", "-");   // "2025-001"
+            var safeNumber = invoiceNumber.Replace("/", "-");
             var fileName = $"Facture-{safeNumber}.pdf";
             var fullPath = Path.Combine(yearDir, fileName);
 
             await File.WriteAllBytesAsync(fullPath, bytes);
-
             return fullPath;
         }
 
-        /// <summary>
-        /// Maps enum to French display label for the PDF.
-        /// </summary>
         private static string TranslatePaymentMethod(PaymentMethod method) => method switch
         {
             PaymentMethod.Cash => "Espèces",

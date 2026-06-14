@@ -66,6 +66,7 @@ builder.Services.AddScoped<IClientService, ClientService>();
 builder.Services.AddScoped<ISupplierService, SupplierService>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IDocumentService, DocumentService>();
+builder.Services.AddScoped<IBonService, BonService>();
 // Future modules: add their services here
 // builder.Services.AddScoped<IInvoiceService, InvoiceService>();
 

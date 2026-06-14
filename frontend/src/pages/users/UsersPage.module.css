@@ -47,10 +47,11 @@
 }
 .table thead tr {
   background: transparent;
+
 }
 .table th {
   padding: 10px 16px;
-  text-align: left;
+  text-align: center;
   font-size: var(--font-size-xs);
   font-weight: 600;
   color: var(--color-text-secondary);
@@ -91,6 +92,7 @@
   font-weight: 600;
   text-transform: uppercase;
   flex-shrink: 0;
+  display: none;
 }
 
 .dateCell { color: var(--color-text-secondary); white-space: nowrap; }

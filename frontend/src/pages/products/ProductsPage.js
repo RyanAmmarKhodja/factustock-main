@@ -31,7 +31,7 @@ export default function ProductsPage() {
   const [filters, setFilters] = useState({
     search: undefined,
     type: undefined,
-    includeArchived: false,
+    active: true,
   });
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(true);

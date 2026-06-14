@@ -229,7 +229,6 @@ C:\Dev\factustock\backend\factustock\factustock\obj\Debug\net8.0\refint\factusto
 C:\Dev\factustock\backend\factustock\factustock\obj\Debug\net8.0\factustock.pdb
 C:\Dev\factustock\backend\factustock\factustock\obj\Debug\net8.0\factustock.genruntimeconfig.cache
 C:\Dev\factustock\backend\factustock\factustock\obj\Debug\net8.0\ref\factustock.dll
-C:\Dev\factustock\backend\factustock\factustock\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
 C:\Dev\factustock\backend\factustock\factustock\bin\Debug\net8.0\LatoFont\Lato-Black.ttf
 C:\Dev\factustock\backend\factustock\factustock\bin\Debug\net8.0\LatoFont\Lato-BlackItalic.ttf
 C:\Dev\factustock\backend\factustock\factustock\bin\Debug\net8.0\LatoFont\Lato-Bold.ttf
@@ -272,3 +271,4 @@ C:\Dev\factustock\backend\factustock\factustock\bin\Debug\net8.0\runtimes\win-x8
 C:\Dev\factustock\backend\factustock\factustock\bin\Debug\net8.0\runtimes\win-x86\native\libwinpthread-1.dll
 C:\Dev\factustock\backend\factustock\factustock\bin\Debug\net8.0\runtimes\win-x86\native\qpdf.dll
 C:\Dev\factustock\backend\factustock\factustock\bin\Debug\net8.0\runtimes\win-x86\native\zlib1.dll
+C:\Dev\factustock\backend\factustock\factustock\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt

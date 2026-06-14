@@ -30,8 +30,8 @@
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
-            // Basic date sanity check
-            if (request.DueDate < request.InvoiceDate)
+            // Basic date sanity check (only when DueDate is provided)
+            if (request.DueDate.HasValue && request.DueDate.Value < request.InvoiceDate)
                 return BadRequest(new { message = "La date d'échéance ne peut pas être antérieure à la date de facture." });
 
             var (data, error) = await documentService.GenerateInvoiceAsync(request, GetUserId());

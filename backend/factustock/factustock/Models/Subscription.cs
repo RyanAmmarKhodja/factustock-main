@@ -18,6 +18,10 @@ namespace factustock.Models
         public SubscriptionStatus Status { get; set; } = SubscriptionStatus.Active;
         public BillingCycle BillingCycle { get; set; } = BillingCycle.Monthly;
 
+        // Seat tracking — updated when users are created / deactivated
+        public int ActiveUsers { get; set; } = 0;
+        public int ActiveAdmins { get; set; } = 1;
+
         // Navigation
         public Company Company { get; set; } = null!;
         public Plan Plan { get; set; } = null!;

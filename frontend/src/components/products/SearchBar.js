@@ -19,7 +19,8 @@ export default function SearchBar({ onSearch }) {
     debounceRef.current = setTimeout(() => {
       onSearch({
         search: search.trim() || undefined,
-        includeArchived,
+        // Unchecked: only active products. Checked: omit filter → backend returns active + archived.
+        active: includeArchived ? undefined : true,
       });
     }, 350);
     return () => clearTimeout(debounceRef.current);

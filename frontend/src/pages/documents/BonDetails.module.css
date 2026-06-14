@@ -1,0 +1,86 @@
+/* ── Bon Details ───────────────────────────── */
+
+.headerActions { display: flex; gap: var(--space-3); }
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+  margin-bottom: var(--space-4);
+}
+
+.dl {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 6px 16px;
+  font-size: var(--font-size-sm);
+  margin: 0;
+}
+
+dt {
+  color: var(--color-text-secondary);
+  font-weight: 500;
+}
+
+dd {
+  color: var(--color-text);
+  margin: 0;
+}
+
+.bold  { font-weight: 600; }
+.muted { color: var(--color-text-muted); }
+.ttc   { font-size: var(--font-size-base); font-weight: 700; color: var(--color-primary); }
+.notes { font-style: italic; color: var(--color-text-secondary); }
+
+.linesCard { margin-top: 0; }
+
+.tableWrapper { overflow-x: auto; }
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--font-size-sm);
+}
+
+.table thead tr {
+  background: var(--color-bg);
+  border-bottom: 2px solid var(--color-border);
+}
+
+.table th {
+  padding: 10px 12px;
+  text-align: left;
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+.table td {
+  padding: 12px 12px;
+  border-bottom: 1px solid var(--color-border-light);
+  vertical-align: middle;
+}
+
+.table tbody tr:hover { background: var(--color-bg); }
+
+.desig { font-weight: 600; }
+.ref   { font-family: monospace; color: var(--color-text-muted); font-size: var(--font-size-xs); }
+
+.totalRow td, .totalRowTTC td {
+  padding: 10px 12px;
+  border-top: 2px solid var(--color-border);
+}
+
+.totalLabel     { font-weight: 600; color: var(--color-text-secondary); }
+.totalValue     { font-weight: 600; text-align: right; }
+.totalRowTTC td { background: var(--color-primary); }
+.totalValueTTC  { font-weight: 700; font-size: var(--font-size-base); color: #fff; text-align: right; }
+.totalRowTTC .totalLabel { color: #fff; }
+
+@media (max-width: 768px) {
+  .grid { grid-template-columns: 1fr; }
+  .headerActions { flex-direction: column-reverse; }
+}

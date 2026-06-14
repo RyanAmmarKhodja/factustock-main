@@ -38,6 +38,11 @@
 
         Task<(bool Success, string? Error)> ChangePasswordAsync(int userId, ChangePasswordRequest request, string? ipAddress);
 
+        /// <summary>
+        /// Admin changes their own email address (requires current password confirmation).
+        /// </summary>
+        Task<(bool Success, string? Error)> ChangeEmailAsync(int userId, ChangeEmailRequest request, string? ipAddress);
+
         Task<UserListResponse> GetUsersAsync();
 
         Task<(UserDto? Data, string? Error)> UpdateUserAsync(int targetUserId, UpdateUserRequest request, int adminUserId, string? ipAddress);

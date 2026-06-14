@@ -3,60 +3,48 @@
   "WorkspaceRootPath": "C:\\Dev\\factustock\\backend\\factustock\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{E18BBE56-A3C8-25C9-4002-0A649BDD2B53}|factustock\\factustock.csproj|c:\\dev\\factustock\\backend\\factustock\\factustock\\migrations\\20260517222248_referencerenamedtocode.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E18BBE56-A3C8-25C9-4002-0A649BDD2B53}|factustock\\factustock.csproj|solutionrelative:factustock\\migrations\\20260517222248_referencerenamedtocode.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E18BBE56-A3C8-25C9-4002-0A649BDD2B53}|factustock\\factustock.csproj|c:\\dev\\factustock\\backend\\factustock\\factustock\\services\\documentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E18BBE56-A3C8-25C9-4002-0A649BDD2B53}|factustock\\factustock.csproj|solutionrelative:factustock\\services\\documentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E18BBE56-A3C8-25C9-4002-0A649BDD2B53}|factustock\\factustock.csproj|c:\\dev\\factustock\\backend\\factustock\\factustock\\models\\invoiceitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E18BBE56-A3C8-25C9-4002-0A649BDD2B53}|factustock\\factustock.csproj|solutionrelative:factustock\\models\\invoiceitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E18BBE56-A3C8-25C9-4002-0A649BDD2B53}|factustock\\factustock.csproj|c:\\dev\\factustock\\backend\\factustock\\factustock\\dtos\\productdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E18BBE56-A3C8-25C9-4002-0A649BDD2B53}|factustock\\factustock.csproj|solutionrelative:factustock\\dtos\\productdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{E18BBE56-A3C8-25C9-4002-0A649BDD2B53}|factustock\\factustock.csproj|c:\\dev\\factustock\\backend\\factustock\\factustock\\services\\productservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E18BBE56-A3C8-25C9-4002-0A649BDD2B53}|factustock\\factustock.csproj|solutionrelative:factustock\\services\\productservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E18BBE56-A3C8-25C9-4002-0A649BDD2B53}|factustock\\factustock.csproj|c:\\dev\\factustock\\backend\\factustock\\factustock\\dtos\\invoicedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E18BBE56-A3C8-25C9-4002-0A649BDD2B53}|factustock\\factustock.csproj|solutionrelative:factustock\\dtos\\invoicedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E18BBE56-A3C8-25C9-4002-0A649BDD2B53}|factustock\\factustock.csproj|c:\\dev\\factustock\\backend\\factustock\\factustock\\models\\invoice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E18BBE56-A3C8-25C9-4002-0A649BDD2B53}|factustock\\factustock.csproj|solutionrelative:factustock\\models\\invoice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E18BBE56-A3C8-25C9-4002-0A649BDD2B53}|factustock\\factustock.csproj|c:\\dev\\factustock\\backend\\factustock\\factustock\\models\\client.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E18BBE56-A3C8-25C9-4002-0A649BDD2B53}|factustock\\factustock.csproj|solutionrelative:factustock\\models\\client.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{E18BBE56-A3C8-25C9-4002-0A649BDD2B53}|factustock\\factustock.csproj|c:\\dev\\factustock\\backend\\factustock\\factustock\\services\\clientservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E18BBE56-A3C8-25C9-4002-0A649BDD2B53}|factustock\\factustock.csproj|solutionrelative:factustock\\services\\clientservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E18BBE56-A3C8-25C9-4002-0A649BDD2B53}|factustock\\factustock.csproj|c:\\dev\\factustock\\backend\\factustock\\factustock\\dtos\\clientdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E18BBE56-A3C8-25C9-4002-0A649BDD2B53}|factustock\\factustock.csproj|solutionrelative:factustock\\dtos\\clientdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{E18BBE56-A3C8-25C9-4002-0A649BDD2B53}|factustock\\factustock.csproj|c:\\dev\\factustock\\backend\\factustock\\factustock\\controllers\\clientcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E18BBE56-A3C8-25C9-4002-0A649BDD2B53}|factustock\\factustock.csproj|solutionrelative:factustock\\controllers\\clientcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E18BBE56-A3C8-25C9-4002-0A649BDD2B53}|factustock\\factustock.csproj|c:\\dev\\factustock\\backend\\factustock\\factustock\\templates\\invoicetemplate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E18BBE56-A3C8-25C9-4002-0A649BDD2B53}|factustock\\factustock.csproj|solutionrelative:factustock\\templates\\invoicetemplate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E18BBE56-A3C8-25C9-4002-0A649BDD2B53}|factustock\\factustock.csproj|c:\\dev\\factustock\\backend\\factustock\\factustock\\controllers\\productcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E18BBE56-A3C8-25C9-4002-0A649BDD2B53}|factustock\\factustock.csproj|solutionrelative:factustock\\controllers\\productcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E18BBE56-A3C8-25C9-4002-0A649BDD2B53}|factustock\\factustock.csproj|c:\\dev\\factustock\\backend\\factustock\\factustock\\dtos\\documentdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E18BBE56-A3C8-25C9-4002-0A649BDD2B53}|factustock\\factustock.csproj|solutionrelative:factustock\\dtos\\documentdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E18BBE56-A3C8-25C9-4002-0A649BDD2B53}|factustock\\factustock.csproj|c:\\dev\\factustock\\backend\\factustock\\factustock\\services\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E18BBE56-A3C8-25C9-4002-0A649BDD2B53}|factustock\\factustock.csproj|solutionrelative:factustock\\services\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E18BBE56-A3C8-25C9-4002-0A649BDD2B53}|factustock\\factustock.csproj|c:\\dev\\factustock\\backend\\factustock\\factustock\\controllers\\documentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E18BBE56-A3C8-25C9-4002-0A649BDD2B53}|factustock\\factustock.csproj|solutionrelative:factustock\\controllers\\documentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E18BBE56-A3C8-25C9-4002-0A649BDD2B53}|factustock\\factustock.csproj|c:\\dev\\factustock\\backend\\factustock\\factustock\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E18BBE56-A3C8-25C9-4002-0A649BDD2B53}|factustock\\factustock.csproj|solutionrelative:factustock\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E18BBE56-A3C8-25C9-4002-0A649BDD2B53}|factustock\\factustock.csproj|c:\\dev\\factustock\\backend\\factustock\\factustock\\enums\\billingcycle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E18BBE56-A3C8-25C9-4002-0A649BDD2B53}|factustock\\factustock.csproj|solutionrelative:factustock\\enums\\billingcycle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E18BBE56-A3C8-25C9-4002-0A649BDD2B53}|factustock\\factustock.csproj|c:\\dev\\factustock\\backend\\factustock\\factustock\\models\\subscription.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E18BBE56-A3C8-25C9-4002-0A649BDD2B53}|factustock\\factustock.csproj|solutionrelative:factustock\\models\\subscription.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E18BBE56-A3C8-25C9-4002-0A649BDD2B53}|factustock\\factustock.csproj|c:\\dev\\factustock\\backend\\factustock\\factustock\\controllers\\systemcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E18BBE56-A3C8-25C9-4002-0A649BDD2B53}|factustock\\factustock.csproj|solutionrelative:factustock\\controllers\\systemcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E18BBE56-A3C8-25C9-4002-0A649BDD2B53}|factustock\\factustock.csproj|c:\\dev\\factustock\\backend\\factustock\\factustock\\services\\documentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E18BBE56-A3C8-25C9-4002-0A649BDD2B53}|factustock\\factustock.csproj|solutionrelative:factustock\\services\\documentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E18BBE56-A3C8-25C9-4002-0A649BDD2B53}|factustock\\factustock.csproj|c:\\dev\\factustock\\backend\\factustock\\factustock\\migrations\\20260607082655_synchingsubscriptions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E18BBE56-A3C8-25C9-4002-0A649BDD2B53}|factustock\\factustock.csproj|solutionrelative:factustock\\migrations\\20260607082655_synchingsubscriptions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -76,176 +64,150 @@
         },
         {
           "DockedWidth": 116,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "20260517222248_ReferenceRenamedToCode.cs",
-              "DocumentMoniker": "C:\\Dev\\factustock\\backend\\factustock\\factustock\\Migrations\\20260517222248_ReferenceRenamedToCode.cs",
-              "RelativeDocumentMoniker": "factustock\\Migrations\\20260517222248_ReferenceRenamedToCode.cs",
-              "ToolTip": "C:\\Dev\\factustock\\backend\\factustock\\factustock\\Migrations\\20260517222248_ReferenceRenamedToCode.cs",
-              "RelativeToolTip": "factustock\\Migrations\\20260517222248_ReferenceRenamedToCode.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-17T22:22:49.197Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "InvoiceItem.cs",
-              "DocumentMoniker": "C:\\Dev\\factustock\\backend\\factustock\\factustock\\Models\\InvoiceItem.cs",
-              "RelativeDocumentMoniker": "factustock\\Models\\InvoiceItem.cs",
-              "ToolTip": "C:\\Dev\\factustock\\backend\\factustock\\factustock\\Models\\InvoiceItem.cs",
-              "RelativeToolTip": "factustock\\Models\\InvoiceItem.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAAAkAAAAqAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-17T22:21:06.752Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "ProductService.cs",
-              "DocumentMoniker": "C:\\Dev\\factustock\\backend\\factustock\\factustock\\Services\\ProductService.cs",
-              "RelativeDocumentMoniker": "factustock\\Services\\ProductService.cs",
-              "ToolTip": "C:\\Dev\\factustock\\backend\\factustock\\factustock\\Services\\ProductService.cs",
-              "RelativeToolTip": "factustock\\Services\\ProductService.cs",
-              "ViewState": "AgIAAM0AAAAAAAAAAAAmwNoAAAAdAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-17T21:50:58.6Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "ProductDto.cs",
-              "DocumentMoniker": "C:\\Dev\\factustock\\backend\\factustock\\factustock\\DTOs\\ProductDto.cs",
-              "RelativeDocumentMoniker": "factustock\\DTOs\\ProductDto.cs",
-              "ToolTip": "C:\\Dev\\factustock\\backend\\factustock\\factustock\\DTOs\\ProductDto.cs",
-              "RelativeToolTip": "factustock\\DTOs\\ProductDto.cs",
-              "ViewState": "AgIAACQAAAAAAAAAAAAYwCkAAAAeAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-17T21:20:38.082Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "InvoiceDto.cs",
-              "DocumentMoniker": "C:\\Dev\\factustock\\backend\\factustock\\factustock\\DTOs\\InvoiceDto.cs",
-              "RelativeDocumentMoniker": "factustock\\DTOs\\InvoiceDto.cs",
-              "ToolTip": "C:\\Dev\\factustock\\backend\\factustock\\factustock\\DTOs\\InvoiceDto.cs",
-              "RelativeToolTip": "factustock\\DTOs\\InvoiceDto.cs",
-              "ViewState": "AgIAABMAAAAAAAAAAAAQwBAAAAADAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-17T20:44:16.056Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "Client.cs",
-              "DocumentMoniker": "C:\\Dev\\factustock\\backend\\factustock\\factustock\\Models\\Client.cs",
-              "RelativeDocumentMoniker": "factustock\\Models\\Client.cs",
-              "ToolTip": "C:\\Dev\\factustock\\backend\\factustock\\factustock\\Models\\Client.cs",
-              "RelativeToolTip": "factustock\\Models\\Client.cs",
-              "ViewState": "AgIAAAgAAAAAAAAAAAAAwA8AAAAqAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-15T07:00:33.078Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "ClientDto.cs",
-              "DocumentMoniker": "C:\\Dev\\factustock\\backend\\factustock\\factustock\\DTOs\\ClientDto.cs",
-              "RelativeDocumentMoniker": "factustock\\DTOs\\ClientDto.cs",
-              "ToolTip": "C:\\Dev\\factustock\\backend\\factustock\\factustock\\DTOs\\ClientDto.cs",
-              "RelativeToolTip": "factustock\\DTOs\\ClientDto.cs",
-              "ViewState": "AgIAAEoAAAAAAAAAAAASwFAAAAASAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-15T06:55:37.596Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 1,
               "Title": "ClientService.cs",
               "DocumentMoniker": "C:\\Dev\\factustock\\backend\\factustock\\factustock\\Services\\ClientService.cs",
               "RelativeDocumentMoniker": "factustock\\Services\\ClientService.cs",
               "ToolTip": "C:\\Dev\\factustock\\backend\\factustock\\factustock\\Services\\ClientService.cs",
               "RelativeToolTip": "factustock\\Services\\ClientService.cs",
-              "ViewState": "AgIAAGYBAAAAAAAAAAAkwHoBAAAlAAAAAAAAAA==",
+              "ViewState": "AgIAAOoAAAAAAAAAAAAhwPEAAAAwAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-15T06:53:35.138Z"
+              "WhenOpened": "2026-06-14T13:41:37.539Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 2,
               "Title": "ClientController.cs",
               "DocumentMoniker": "C:\\Dev\\factustock\\backend\\factustock\\factustock\\Controllers\\ClientController.cs",
               "RelativeDocumentMoniker": "factustock\\Controllers\\ClientController.cs",
               "ToolTip": "C:\\Dev\\factustock\\backend\\factustock\\factustock\\Controllers\\ClientController.cs",
               "RelativeToolTip": "factustock\\Controllers\\ClientController.cs",
-              "ViewState": "AgIAAEIAAAAAAAAAAAAgwFMAAAA7AAAAAAAAAA==",
+              "ViewState": "AgIAAE0AAAAAAAAAAAAkwFMAAAA7AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-15T06:52:50.715Z"
+              "WhenOpened": "2026-06-14T13:41:02.069Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ProductController.cs",
+              "DocumentMoniker": "C:\\Dev\\factustock\\backend\\factustock\\factustock\\Controllers\\ProductController.cs",
+              "RelativeDocumentMoniker": "factustock\\Controllers\\ProductController.cs",
+              "ToolTip": "C:\\Dev\\factustock\\backend\\factustock\\factustock\\Controllers\\ProductController.cs",
+              "RelativeToolTip": "factustock\\Controllers\\ProductController.cs",
+              "ViewState": "AgIAAEoAAAAAAAAAAAAgwE0AAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-14T13:29:28.965Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ProductService.cs",
+              "DocumentMoniker": "C:\\Dev\\factustock\\backend\\factustock\\factustock\\Services\\ProductService.cs",
+              "RelativeDocumentMoniker": "factustock\\Services\\ProductService.cs",
+              "ToolTip": "C:\\Dev\\factustock\\backend\\factustock\\factustock\\Services\\ProductService.cs",
+              "RelativeToolTip": "factustock\\Services\\ProductService.cs",
+              "ViewState": "AgIAALAAAAAAAAAAAAAuwL4AAAA7AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-14T13:19:38.042Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 6,
-              "Title": "Invoice.cs",
-              "DocumentMoniker": "C:\\Dev\\factustock\\backend\\factustock\\factustock\\Models\\Invoice.cs",
-              "RelativeDocumentMoniker": "factustock\\Models\\Invoice.cs",
-              "ToolTip": "C:\\Dev\\factustock\\backend\\factustock\\factustock\\Models\\Invoice.cs",
-              "RelativeToolTip": "factustock\\Models\\Invoice.cs",
-              "ViewState": "AgIAAB8AAAAAAAAAAAAqwCEAAAAmAAAAAAAAAA==",
+              "Title": "BillingCycle.cs",
+              "DocumentMoniker": "C:\\Dev\\factustock\\backend\\factustock\\factustock\\Enums\\BillingCycle.cs",
+              "RelativeDocumentMoniker": "factustock\\Enums\\BillingCycle.cs",
+              "ToolTip": "C:\\Dev\\factustock\\backend\\factustock\\factustock\\Enums\\BillingCycle.cs",
+              "RelativeToolTip": "factustock\\Enums\\BillingCycle.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAIAAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-03T18:40:26.811Z"
+              "WhenOpened": "2026-06-07T08:28:29.364Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "DocumentDto.cs",
-              "DocumentMoniker": "C:\\Dev\\factustock\\backend\\factustock\\factustock\\DTOs\\DocumentDto.cs",
-              "RelativeDocumentMoniker": "factustock\\DTOs\\DocumentDto.cs",
-              "ToolTip": "C:\\Dev\\factustock\\backend\\factustock\\factustock\\DTOs\\DocumentDto.cs",
-              "RelativeToolTip": "factustock\\DTOs\\DocumentDto.cs",
-              "ViewState": "AgIAAAcAAAAAAAAAAAAqwFoAAAAGAAAAAAAAAA==",
+              "DocumentIndex": 10,
+              "Title": "20260607082655_SynchingSubscriptions.cs",
+              "DocumentMoniker": "C:\\Dev\\factustock\\backend\\factustock\\factustock\\Migrations\\20260607082655_SynchingSubscriptions.cs",
+              "RelativeDocumentMoniker": "factustock\\Migrations\\20260607082655_SynchingSubscriptions.cs",
+              "ToolTip": "C:\\Dev\\factustock\\backend\\factustock\\factustock\\Migrations\\20260607082655_SynchingSubscriptions.cs",
+              "RelativeToolTip": "factustock\\Migrations\\20260607082655_SynchingSubscriptions.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAiwAgAAAAWAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-26T17:39:20.585Z"
+              "WhenOpened": "2026-06-07T08:26:56.008Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "DocumentController.cs",
-              "DocumentMoniker": "C:\\Dev\\factustock\\backend\\factustock\\factustock\\Controllers\\DocumentController.cs",
-              "RelativeDocumentMoniker": "factustock\\Controllers\\DocumentController.cs",
-              "ToolTip": "C:\\Dev\\factustock\\backend\\factustock\\factustock\\Controllers\\DocumentController.cs",
-              "RelativeToolTip": "factustock\\Controllers\\DocumentController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAkAAAAcAAAAAAAAAA==",
+              "DocumentIndex": 7,
+              "Title": "Subscription.cs",
+              "DocumentMoniker": "C:\\Dev\\factustock\\backend\\factustock\\factustock\\Models\\Subscription.cs",
+              "RelativeDocumentMoniker": "factustock\\Models\\Subscription.cs",
+              "ToolTip": "C:\\Dev\\factustock\\backend\\factustock\\factustock\\Models\\Subscription.cs",
+              "RelativeToolTip": "factustock\\Models\\Subscription.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAABYAAAATAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-26T15:15:04.12Z"
+              "WhenOpened": "2026-06-07T08:25:35.98Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "InvoiceTemplate.cs",
-              "DocumentMoniker": "C:\\Dev\\factustock\\backend\\factustock\\factustock\\Templates\\InvoiceTemplate.cs",
-              "RelativeDocumentMoniker": "factustock\\Templates\\InvoiceTemplate.cs",
-              "ToolTip": "C:\\Dev\\factustock\\backend\\factustock\\factustock\\Templates\\InvoiceTemplate.cs",
-              "RelativeToolTip": "factustock\\Templates\\InvoiceTemplate.cs",
-              "ViewState": "AgIAAEIAAAAAAAAAAAAUwE8AAAAAAAAAAAAAAA==",
+              "DocumentIndex": 4,
+              "Title": "AuthService.cs",
+              "DocumentMoniker": "C:\\Dev\\factustock\\backend\\factustock\\factustock\\Services\\AuthService.cs",
+              "RelativeDocumentMoniker": "factustock\\Services\\AuthService.cs",
+              "ToolTip": "C:\\Dev\\factustock\\backend\\factustock\\factustock\\Services\\AuthService.cs",
+              "RelativeToolTip": "factustock\\Services\\AuthService.cs",
+              "ViewState": "AgIAAI8BAAAAAAAAAAAawJQBAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-26T14:43:37.681Z"
+              "WhenOpened": "2026-06-07T08:16:50.696Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 5,
+              "Title": "AuthController.cs",
+              "DocumentMoniker": "C:\\Dev\\factustock\\backend\\factustock\\factustock\\Controllers\\AuthController.cs",
+              "RelativeDocumentMoniker": "factustock\\Controllers\\AuthController.cs",
+              "ToolTip": "C:\\Dev\\factustock\\backend\\factustock\\factustock\\Controllers\\AuthController.cs",
+              "RelativeToolTip": "factustock\\Controllers\\AuthController.cs",
+              "ViewState": "AgIAAEoAAAAAAAAAAAAYwFQAAAA4AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-07T08:04:06.227Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "SystemController.cs",
+              "DocumentMoniker": "C:\\Dev\\factustock\\backend\\factustock\\factustock\\Controllers\\SystemController.cs",
+              "RelativeDocumentMoniker": "factustock\\Controllers\\SystemController.cs",
+              "ToolTip": "C:\\Dev\\factustock\\backend\\factustock\\factustock\\Controllers\\SystemController.cs",
+              "RelativeToolTip": "factustock\\Controllers\\SystemController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-22T22:38:42.502Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
               "Title": "DocumentService.cs",
               "DocumentMoniker": "C:\\Dev\\factustock\\backend\\factustock\\factustock\\Services\\DocumentService.cs",
               "RelativeDocumentMoniker": "factustock\\Services\\DocumentService.cs",
               "ToolTip": "C:\\Dev\\factustock\\backend\\factustock\\factustock\\Services\\DocumentService.cs",
               "RelativeToolTip": "factustock\\Services\\DocumentService.cs",
-              "ViewState": "AgIAAFEAAAAAAAAAAAAMwFwAAAArAAAAAAAAAA==",
+              "ViewState": "AgIAACUBAAAAAAAAAAAWwCIAAABVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-26T14:07:37.863Z"
+              "WhenOpened": "2026-04-26T14:07:37.863Z",
+              "EditorCaption": ""
             }
           ]
         }

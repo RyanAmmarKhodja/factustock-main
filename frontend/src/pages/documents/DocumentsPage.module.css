@@ -1,0 +1,98 @@
+/* ── Documents Page ─────────────────────────── */
+
+.filters {
+  display: flex;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.searchInput {
+  flex: 1;
+  min-width: 200px;
+  padding: 8px 12px;
+  font-size: var(--font-size-sm);
+  font-family: var(--font-body);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  color: var(--color-text);
+  outline: none;
+  transition: border-color var(--transition-fast);
+}
+.searchInput:focus { border-color: var(--color-primary); }
+
+.typeSelect {
+  padding: 8px 12px;
+  font-size: var(--font-size-sm);
+  font-family: var(--font-body);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  color: var(--color-text);
+  cursor: pointer;
+  outline: none;
+}
+.typeSelect:focus { border-color: var(--color-primary); }
+
+.tableCard { margin-top: 0; }
+
+.tableWrapper { overflow-x: auto; }
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--font-size-sm);
+}
+
+.table thead tr {
+  background: var(--color-bg);
+  border-bottom: 2px solid var(--color-border);
+}
+
+.table th {
+  padding: 10px 12px;
+  text-align: left;
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+.table td {
+  padding: 12px 12px;
+  border-bottom: 1px solid var(--color-border-light);
+  color: var(--color-text);
+  vertical-align: middle;
+}
+
+.table tbody tr:hover { background: var(--color-bg); }
+
+.numberCell { font-weight: 600; font-family: monospace; }
+.ttcCell    { font-weight: 600; color: var(--color-primary); }
+.muted      { color: var(--color-text-muted); }
+
+.actions { display: flex; gap: var(--space-2); justify-content: center; }
+
+.empty {
+  text-align: center;
+  padding: 48px 24px;
+  color: var(--color-text-secondary);
+}
+.emptyIcon { font-size: 40px; display: block; margin-bottom: 12px; }
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
+  padding: var(--space-4);
+  border-top: 1px solid var(--color-border-light);
+}
+
+.pageInfo {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}

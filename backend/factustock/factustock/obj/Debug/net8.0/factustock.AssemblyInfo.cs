@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("factustock")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6d3f48ed122130ee75c025fcf708eabfe5c24dd2")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0cb4441ebb64f81adaff601883620883dfb8c828")]
 [assembly: System.Reflection.AssemblyProductAttribute("factustock")]
 [assembly: System.Reflection.AssemblyTitleAttribute("factustock")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

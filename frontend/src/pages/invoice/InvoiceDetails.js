@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { getInvoice } from "../../api/invoiceApi";
+import api from "../../api/api";
 import { PageHeader, Card, CardHeader, Badge, Alert } from "../../components/ui/UI";
 import Button from "../../components/ui/Button";
 import Loading from "../../components/ui/Loading";
@@ -48,10 +49,20 @@ export default function InvoiceDetails() {
 
   useEffect(() => { fetchInvoice(); }, [fetchInvoice]);
 
-  const handleDownload = () => {
+  const handleDownload = async () => {
     if (!invoice?.pdfDownloadUrl) return;
-    const apiBase = process.env.REACT_APP_API_URL || "http://localhost:5000";
-    window.open(apiBase + invoice.pdfDownloadUrl, "_blank");
+    // pdfDownloadUrl starts with "/api/..." but the Axios instance baseURL already
+    // includes "/api", so strip the leading "/api" to avoid "/api/api/..." doubling.
+    const path = invoice.pdfDownloadUrl.replace(/^\/api/, "");
+    const res = await api.get(path, { responseType: "blob" });
+    const url = window.URL.createObjectURL(new Blob([res.data], { type: "application/pdf" }));
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `facture-${invoice.invoiceNumber}.pdf`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    window.URL.revokeObjectURL(url);
   };
 
   if (loading) return <Loading />;

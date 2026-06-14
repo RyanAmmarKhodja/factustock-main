@@ -7,26 +7,23 @@ namespace factustock.Templates;
 
 /// <summary>
 /// QuestPDF invoice template.
-/// All colors are hex strings — avoids Color vs string ambiguity errors.
-/// Bold() takes no arguments — conditional bold uses explicit if/else.
-/// DocumentMetadata is a plain class — no "with" expression.
+/// DataCell is a function returning the styled IContainer — callers chain content on the return value.
 /// </summary>
 public class InvoiceTemplate(InvoiceDocument data) : IDocument
 {
-    // ── Colours — all hex strings ─────────────────────────────────────────────
-    private const string Primary = "#2563EB";
-    private const string White = "#FFFFFF";
-    private const string TextDark = "#1E293B";
+    // ── Colours ───────────────────────────────────────────────────────────────
+    private const string Primary   = "#2563EB";
+    private const string White     = "#FFFFFF";
+    private const string TextDark  = "#1E293B";
     private const string TextMuted = "#64748B";
     private const string BorderGray = "#E2E8F0";
-    private const string RowAlt = "#F8FAFC";
-    private const string HeaderBg = "#F1F5F9";
+    private const string RowAlt    = "#F8FAFC";
+    private const string HeaderBg  = "#F1F5F9";
 
     public DocumentMetadata GetMetadata()
     {
-        // DocumentMetadata is a plain class — cannot use "with" expression
         var meta = new DocumentMetadata();
-        meta.Title = $"Facture {data.InvoiceNumber}";
+        meta.Title  = $"Facture {data.InvoiceNumber}";
         meta.Author = data.Seller.LegalName;
         return meta;
     }
@@ -96,9 +93,10 @@ public class InvoiceTemplate(InvoiceDocument data) : IDocument
                         .Text($"Date : {data.InvoiceDate:dd/MM/yyyy}")
                         .FontSize(9).FontColor(TextMuted);
 
-                    title.Item().AlignRight()
-                        .Text($"Échéance : {data.DueDate:dd/MM/yyyy}")
-                        .FontSize(9).FontColor(TextMuted);
+                    if (data.DueDate.HasValue)
+                        title.Item().AlignRight()
+                            .Text($"Échéance : {data.DueDate.Value:dd/MM/yyyy}")
+                            .FontSize(9).FontColor(TextMuted);
 
                     title.Item().PaddingTop(4).AlignRight()
                         .Text($"Règlement : {data.PaymentMethodLabel}")
@@ -112,21 +110,19 @@ public class InvoiceTemplate(InvoiceDocument data) : IDocument
             // Seller legal IDs + Client block
             col.Item().Row(row =>
             {
-                // Seller legal identifiers
                 row.RelativeItem().Column(legal =>
                 {
                     legal.Item().Text("Coordonnées du vendeur")
                         .FontSize(7).Italic().FontColor(TextMuted);
 
-                    LegalRow(legal, "RC", data.Seller.RC);
+                    LegalRow(legal, "RC",  data.Seller.RC);
                     LegalRow(legal, "NIF", data.Seller.NIF);
                     LegalRow(legal, "NIS", data.Seller.NIS);
-                    LegalRow(legal, "AI", data.Seller.AI);
+                    LegalRow(legal, "AI",  data.Seller.AI);
                 });
 
                 row.ConstantItem(20);
 
-                // Client block
                 row.RelativeItem()
                     .Border(1).BorderColor(BorderGray)
                     .Padding(10)
@@ -176,7 +172,6 @@ public class InvoiceTemplate(InvoiceDocument data) : IDocument
 
             col.Item().Row(row =>
             {
-                // Notes (left)
                 row.RelativeItem().Column(notes =>
                 {
                     if (!string.IsNullOrWhiteSpace(data.Notes))
@@ -190,8 +185,6 @@ public class InvoiceTemplate(InvoiceDocument data) : IDocument
                 });
 
                 row.ConstantItem(20);
-
-                // Totals (right)
                 row.ConstantItem(220).Element(ComposeTotals);
             });
         });
@@ -204,84 +197,69 @@ public class InvoiceTemplate(InvoiceDocument data) : IDocument
         {
             table.ColumnsDefinition(cols =>
             {
-                cols.RelativeColumn(4);     // Désignation
-                cols.RelativeColumn(1.2f);  // Qté
-                cols.RelativeColumn(1);     // Unité
-                cols.RelativeColumn(1.8f);  // Prix unitaire HT
-                cols.RelativeColumn(1);     // TVA %
-                cols.RelativeColumn(1.8f);  // Total HT
-                cols.RelativeColumn(1.8f);  // Total TTC
+                cols.RelativeColumn(4);
+                cols.RelativeColumn(1.2f);
+                cols.RelativeColumn(1);
+                cols.RelativeColumn(1.8f);
+                cols.RelativeColumn(1);
+                cols.RelativeColumn(1.8f);
+                cols.RelativeColumn(1.8f);
             });
 
             // Header row
             table.Header(header =>
             {
-                void HeaderCell(IContainer c, string text) =>
-                    c.Background(Primary).Padding(6).AlignCenter()
-                     .Text(text).FontColor(White).Bold().FontSize(8);
+                // Returns the styled container so the caller can set content on it
+                IContainer HeaderCell(IContainer c) =>
+                    c.Background(Primary).Padding(6).AlignCenter();
 
-                header.Cell().Element(c => HeaderCell(c, "Désignation"));
-                header.Cell().Element(c => HeaderCell(c, "Qté"));
-                header.Cell().Element(c => HeaderCell(c, "Unité"));
-                header.Cell().Element(c => HeaderCell(c, "P.U. HT"));
-                header.Cell().Element(c => HeaderCell(c, "TVA %"));
-                header.Cell().Element(c => HeaderCell(c, "Total HT"));
-                header.Cell().Element(c => HeaderCell(c, "Total TTC"));
+                header.Cell().Element(c => HeaderCell(c).Text("Désignation").FontColor(White).Bold().FontSize(8));
+                header.Cell().Element(c => HeaderCell(c).Text("Qté").FontColor(White).Bold().FontSize(8));
+                header.Cell().Element(c => HeaderCell(c).Text("Unité").FontColor(White).Bold().FontSize(8));
+                header.Cell().Element(c => HeaderCell(c).Text("P.U. HT").FontColor(White).Bold().FontSize(8));
+                header.Cell().Element(c => HeaderCell(c).Text("TVA %").FontColor(White).Bold().FontSize(8));
+                header.Cell().Element(c => HeaderCell(c).Text("Total HT").FontColor(White).Bold().FontSize(8));
+                header.Cell().Element(c => HeaderCell(c).Text("Total TTC").FontColor(White).Bold().FontSize(8));
             });
 
-            // Data rows — zebra striping
+            // Data rows
             for (int i = 0; i < data.Lines.Count; i++)
             {
                 var line = data.Lines[i];
                 var bg = i % 2 == 0 ? White : RowAlt;
 
-                void DataCell(IContainer c) =>
+                // Returns the styled container — chain content on the return value
+                IContainer DataCell(IContainer c) =>
                     c.Background(bg)
                      .BorderBottom(1).BorderColor(BorderGray)
                      .PaddingVertical(6).PaddingHorizontal(6);
 
-                // Désignation cell — has sub-text for reference
-                table.Cell().Element(c =>
+                // Désignation — with reference sub-text
+                table.Cell().Element(c => DataCell(c).Column(d =>
                 {
-                    DataCell(c);
-                    c.Column(d =>
-                    {
-                        d.Item().Text(line.Designation).Bold().FontSize(8);
-                        if (!string.IsNullOrEmpty(line.Reference))
-                            d.Item().Text($"Réf: {line.Reference}")
-                                .FontSize(7).FontColor(TextMuted).Italic();
-                    });
-                });
+                    d.Item().Text(line.Designation).Bold().FontSize(8);
+                    if (!string.IsNullOrEmpty(line.Reference))
+                        d.Item().Text($"Réf: {line.Reference}")
+                            .FontSize(7).FontColor(TextMuted).Italic();
+                }));
 
-                table.Cell().Element(c => {
-                    DataCell(c); c.AlignCenter()
-                    .Text(line.Quantity.ToString("G29")).FontSize(8);
-                });
+                table.Cell().Element(c => DataCell(c).AlignCenter()
+                    .Text(line.Quantity.ToString("G29")).FontSize(8));
 
-                table.Cell().Element(c => {
-                    DataCell(c); c.AlignCenter()
-                    .Text(line.Unit ?? "—").FontSize(8).FontColor(TextMuted);
-                });
+                table.Cell().Element(c => DataCell(c).AlignCenter()
+                    .Text(line.Unit ?? "—").FontSize(8).FontColor(TextMuted));
 
-                table.Cell().Element(c => {
-                    DataCell(c); c.AlignRight()
-                    .Text(FormatDA(line.PricePerUnit)).FontSize(8);
-                });
+                table.Cell().Element(c => DataCell(c).AlignRight()
+                    .Text(FormatDA(line.PricePerUnit)).FontSize(8));
 
-                table.Cell().Element(c => {
-                    DataCell(c); c.AlignCenter()
-                    .Text($"{line.TVARate:0.##}%").FontSize(8);
-                });
+                table.Cell().Element(c => DataCell(c).AlignCenter()
+                    .Text($"{line.TVARate:0.##}%").FontSize(8));
 
-                table.Cell().Element(c => {
-                    DataCell(c); c.AlignRight()
-                    .Text(FormatDA(line.PriceHorsTaxe)).FontSize(8);
-                });
+                table.Cell().Element(c => DataCell(c).AlignRight()
+                    .Text(FormatDA(line.PriceHorsTaxe)).FontSize(8));
 
-                table.Cell().Element(c => {
-                    DataCell(c); c.AlignRight()
-                    .Text(FormatDA(line.PriceTTC)).Bold().FontSize(8);
-                });
+                table.Cell().Element(c => DataCell(c).AlignRight()
+                    .Text(FormatDA(line.PriceTTC)).Bold().FontSize(8));
             }
         });
     }
@@ -305,33 +283,27 @@ public class InvoiceTemplate(InvoiceDocument data) : IDocument
 
                 tva.Header(h =>
                 {
-                    void TVAHead(IContainer c, string text) =>
-                        c.Background(HeaderBg).Padding(4)
-                         .Text(text).FontSize(7).Bold();
+                    IContainer TVAHead(IContainer c) =>
+                        c.Background(HeaderBg).Padding(4);
 
-                    h.Cell().Element(c => TVAHead(c, "Taux"));
-                    h.Cell().Element(c => TVAHead(c, "Base HT"));
-                    h.Cell().Element(c => TVAHead(c, "TVA"));
+                    h.Cell().Element(c => TVAHead(c).Text("Taux").FontSize(7).Bold());
+                    h.Cell().Element(c => TVAHead(c).Text("Base HT").FontSize(7).Bold());
+                    h.Cell().Element(c => TVAHead(c).Text("TVA").FontSize(7).Bold());
                 });
 
                 foreach (var band in data.TVABreakdownLines)
                 {
-                    tva.Cell().Padding(4)
-                        .Text($"{band.Rate:0.##}%").FontSize(7);
-                    tva.Cell().Padding(4).AlignRight()
-                        .Text(FormatDA(band.BaseHT)).FontSize(7);
-                    tva.Cell().Padding(4).AlignRight()
-                        .Text(FormatDA(band.TVAAmount)).FontSize(7);
+                    tva.Cell().Padding(4).Text($"{band.Rate:0.##}%").FontSize(7);
+                    tva.Cell().Padding(4).AlignRight().Text(FormatDA(band.BaseHT)).FontSize(7);
+                    tva.Cell().Padding(4).AlignRight().Text(FormatDA(band.TVAAmount)).FontSize(7);
                 }
             });
 
             col.Item().PaddingTop(8).LineHorizontal(1).LineColor(BorderGray);
 
-            // HT and TVA rows — not bold
-            TotalRow(col, "Total HT", FormatDA(data.TotalHorsTaxe), bold: false);
-            TotalRow(col, "Total TVA", FormatDA(data.TotalTVA), bold: false);
+            TotalRow(col, "Total HT",  FormatDA(data.TotalHorsTaxe), bold: false);
+            TotalRow(col, "Total TVA", FormatDA(data.TotalTVA),      bold: false);
 
-            // TTC row — highlighted
             col.Item()
                 .Background(Primary)
                 .Padding(8)
@@ -376,9 +348,6 @@ public class InvoiceTemplate(InvoiceDocument data) : IDocument
 
     // ── HELPERS ───────────────────────────────────────────────────────────────
 
-    /// <summary>
-    /// Bold() has no bool overload — use explicit if/else for conditional bold.
-    /// </summary>
     static void TotalRow(ColumnDescriptor col, string label, string value, bool bold)
     {
         col.Item().PaddingVertical(3).Row(r =>
@@ -402,10 +371,6 @@ public class InvoiceTemplate(InvoiceDocument data) : IDocument
         col.Item().Text($"{label} : {value}").FontSize(7).FontColor(TextMuted);
     }
 
-    /// <summary>
-    /// Format decimal as Algerian Dinar.
-    /// e.g. 125000.50 → "125 000,50 DA"
-    /// </summary>
     static string FormatDA(decimal amount) =>
         amount.ToString("N2", new System.Globalization.CultureInfo("fr-DZ")) + " DA";
 }

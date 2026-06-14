@@ -117,7 +117,7 @@ namespace factustock.DTOs
         int Id,
         string InvoiceNumber,
         DateTime InvoiceDate,
-        DateTime DueDate,
+        DateTime? DueDate,
         InvoiceStatus Status,
         decimal TTC,
         decimal AmountPaid,

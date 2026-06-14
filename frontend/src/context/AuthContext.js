@@ -1,5 +1,5 @@
 import { useContext, createContext, useState, useEffect } from "react";
-import api from "../api/api";
+import api, { setLogoutCallback } from "../api/api";
 import Loading from "../components/ui/Loading";
 
 const AuthContext = createContext();
@@ -17,8 +17,9 @@ const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [setupCompleted, setSetupCompleted] = useState(null); // null = unknown
 
-  // On refresh: re-attach token to axios headers
+  // On mount: re-attach token to axios headers + wire up the 401 auto-logout.
   useEffect(() => {
+    setLogoutCallback(logoutClean);
     if (token) {
       api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
       if (!user) logoutClean();

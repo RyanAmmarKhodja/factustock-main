@@ -10,16 +10,16 @@ export const createSupplier = (data) =>
     api.post(`/suppliers`, data)
 
 export const updateSupplier = (id, data) =>
-  api.put(`/supplier/${id}`, data);
+  api.put(`/suppliers/${id}`, data);
 
 export const archiveSupplier = (id) =>
-  api.patch(`/supplier/${id}/archive`);
+  api.patch(`/suppliers/${id}/archive`);
 
 export const restoreSupplier = (id) =>
-  api.patch(`/supplier/${id}/restore`);
+  api.patch(`/suppliers/${id}/restore`);
 
 // export const getSupplierStats = (id) =>
-//   api.get(`/supplier/${id}/stats`);
+//   api.get(`/suppliers/${id}/stats`);
 
 export const getSupplierInvoices = (id) =>
   api.get(`/suppliers/${id}/invoices`);

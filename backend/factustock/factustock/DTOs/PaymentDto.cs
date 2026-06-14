@@ -1,4 +1,4 @@
-﻿using factustock.Enums;
+using factustock.Enums;
 
 namespace factustock.DTOs
 {
@@ -33,19 +33,15 @@ namespace factustock.DTOs
         string EntityType,
         int EntityId,
         string Action,
-        string? OldValue,
-        string? NewValue,
         string? Details,
-        string? IpAddress,
         DateTime CreatedAt
     );
 
-    public record AuditLogFilterRequest(
-        string? EntityType,
-        int? UserId,
-        DateTime? From,
-        DateTime? To,
-        int Page = 1,
-        int PageSize = 50
+    public record AuditLogPagedResult(
+        List<AuditLogDto> Items,
+        int TotalCount,
+        int Page,
+        int PageSize,
+        int TotalPages
     );
 }

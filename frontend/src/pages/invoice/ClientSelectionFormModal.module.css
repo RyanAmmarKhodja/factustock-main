@@ -20,7 +20,7 @@
   box-shadow: var(--shadow-lg);
   border: 1px solid var(--color-border);
   width: 100%;
-  max-width: 640px;
+  max-width: 80%;
   max-height: 90vh;
   overflow-y: auto;
   animation: slideUp 0.15s ease;

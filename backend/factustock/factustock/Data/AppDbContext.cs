@@ -24,6 +24,8 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
     public DbSet<AuditLog> AuditLogs => Set<AuditLog>();
     public DbSet<Notification> Notifications => Set<Notification>();
     public DbSet<SystemSettings> SystemSettings { get; set; }
+    public DbSet<Bon> Bons => Set<Bon>();
+    public DbSet<BonItem> BonItems => Set<BonItem>();
 
     protected override void OnModelCreating(ModelBuilder b)
     {
@@ -163,6 +165,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
             e.HasOne(x => x.Client)
              .WithMany(x => x.Invoices)
              .HasForeignKey(x => x.ClientId)
+             .IsRequired(false)
              .OnDelete(DeleteBehavior.Restrict);
 
             e.HasOne(x => x.Company)
@@ -273,6 +276,54 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
              .HasForeignKey(x => x.InvoiceId)
              .IsRequired(false)
              .OnDelete(DeleteBehavior.SetNull);
+        });
+
+        // ── BON ──────────────────────────────────────────────────────────────────
+        b.Entity<Bon>(e =>
+        {
+            e.HasKey(x => x.Id);
+            e.Property(x => x.BonNumber).HasMaxLength(50).IsRequired();
+            e.Property(x => x.Type).HasConversion<string>().HasMaxLength(20);
+            e.Property(x => x.TotalHorsTaxe).HasPrecision(18, 2);
+            e.Property(x => x.TTC).HasPrecision(18, 2);
+
+            e.HasIndex(x => new { x.CompanyId, x.BonNumber }).IsUnique();
+
+            e.HasOne(x => x.Client)
+             .WithMany()
+             .HasForeignKey(x => x.ClientId)
+             .IsRequired(false)
+             .OnDelete(DeleteBehavior.Restrict);
+
+            e.HasOne(x => x.Company)
+             .WithMany()
+             .HasForeignKey(x => x.CompanyId)
+             .OnDelete(DeleteBehavior.Restrict);
+
+            e.HasOne(x => x.CreatedByUser)
+             .WithMany()
+             .HasForeignKey(x => x.CreatedByUserId)
+             .OnDelete(DeleteBehavior.Restrict);
+        });
+
+        b.Entity<BonItem>(e =>
+        {
+            e.HasKey(x => x.Id);
+            e.Property(x => x.Quantity).HasPrecision(18, 3);
+            e.Property(x => x.PricePerUnit).HasPrecision(18, 2);
+            e.Property(x => x.TVA).HasPrecision(5, 2);
+            e.Property(x => x.PriceHorsTaxe).HasPrecision(18, 2);
+            e.Property(x => x.PriceTTC).HasPrecision(18, 2);
+
+            e.HasOne(x => x.Bon)
+             .WithMany(x => x.Items)
+             .HasForeignKey(x => x.BonId)
+             .OnDelete(DeleteBehavior.Cascade);
+
+            e.HasOne(x => x.Product)
+             .WithMany()
+             .HasForeignKey(x => x.ProductId)
+             .OnDelete(DeleteBehavior.Restrict);
         });
 
         // ── SEED: Default Roles ───────────────────────────────────────────────

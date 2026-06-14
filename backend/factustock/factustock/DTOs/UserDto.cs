@@ -24,6 +24,11 @@
         string NewPassword
     );
 
+    public record ChangeEmailRequest(
+        string CurrentPassword,
+        string NewEmail
+    );
+
     public record UserDto(
         int Id,
         string Email,

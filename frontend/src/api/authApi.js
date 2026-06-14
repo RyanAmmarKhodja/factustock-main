@@ -54,3 +54,9 @@ export const deactivateUser = (id) =>
 // ─────────────────────────────────────────────
 export const changePassword = (data) =>
   api.post("/auth/change-password", data);
+
+// ─────────────────────────────────────────────
+// Admin changes own email (requires password)
+// ─────────────────────────────────────────────
+export const changeEmail = (data) =>
+  api.post("/auth/change-email", data);

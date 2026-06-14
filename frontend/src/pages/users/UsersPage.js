@@ -138,9 +138,9 @@ export default function UsersPage() {
                 <tr>
                   <th>Nom complet</th>
                   <th>Adresse e-mail</th>
-                  <th>Téléphone</th>
+                  {/* <th>Téléphone</th> */}
                   <th>Rôle</th>
-                  <th>Statut</th>
+                  {/* <th>Statut</th> */}
                   <th>Dernière connexion</th>
                   <th>Actions</th>
                 </tr>
@@ -155,13 +155,13 @@ export default function UsersPage() {
                       <span>{user.firstName} {user.lastName}</span>
                     </td>
                     <td>{user.email}</td>
-                    <td>{user.phone || <span className={styles.empty_val}>—</span>}</td>
+                    {/* <td>{user.phone || <span className={styles.empty_val}>—</span>}</td> */}
                     <td><Badge variant={roleBadge(user.role)}>{roleLabel(user.role)}</Badge></td>
-                    <td>
+                    {/* <td>
                       <Badge variant={user.active ? "success" : "neutral"}>
                         {user.active ? "Actif" : "Inactif"}
                       </Badge>
-                    </td>
+                    </td> */}
                     <td className={styles.dateCell}>
                       {user.lastLoginAt
                         ? new Date(user.lastLoginAt).toLocaleDateString("fr-DZ", { day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit" })
@@ -171,7 +171,7 @@ export default function UsersPage() {
                     <td>
                       <div className={styles.rowActions}>
                         <Button
-                          variant="ghost"
+                          variant="primary"
                           size="sm"
                           onClick={() => setEditingUser(user)}
                         >

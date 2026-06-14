@@ -21,6 +21,9 @@ import InvoicesPage    from "../pages/invoice/InvoicesPage";
 import InvoiceDetails  from "../pages/invoice/InvoiceDetails";
 import AuditLogPage    from "../pages/logs/AuditLogPage";
 import SettingsPage    from "../pages/settings/SettingsPage";
+import DocumentsPage  from "../pages/documents/DocumentsPage";
+import GenerateBon    from "../pages/documents/GenerateBon";
+import BonDetails     from "../pages/documents/BonDetails";
 
 export default function AppRouter() {
   const { token, isAdmin, setupCompleted } = useAuth();
@@ -74,6 +77,11 @@ export default function AppRouter() {
         <Route path="/invoices"                  element={<InvoicesPage />} />
         <Route path="/invoices/generate"         element={<GenerateInvoice />} />
         <Route path="/invoices/:id"              element={<InvoiceDetails />} />
+
+        {/* Documents (Bons) — order: /create before /:id */}
+        <Route path="/documents"                 element={<DocumentsPage />} />
+        <Route path="/documents/create"          element={<GenerateBon />} />
+        <Route path="/documents/:id"             element={<BonDetails />} />
 
         {/* Journal & Settings */}
         <Route path="/logs"                      element={<AuditLogPage />} />

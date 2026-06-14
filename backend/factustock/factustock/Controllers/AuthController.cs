@@ -1,7 +1,5 @@
 ﻿using factustock.DTOs;
 using factustock.Services;
-using factustock.DTOs;
-using factustock.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -109,6 +107,26 @@ public class AuthController(IAuthService authService) : ControllerBase
             return BadRequest(new { message = error });
 
         return Ok(new { message = "Password changed successfully." });
+    }
+
+    // ── POST /api/auth/change-email ──────────────────────────────────────────
+    /// <summary>
+    /// Admin changes their own email address. Requires current password.
+    /// </summary>
+    [HttpPost("change-email")]
+    [Authorize(Roles = "admin")]
+    public async Task<IActionResult> ChangeEmail([FromBody] ChangeEmailRequest request)
+    {
+        if (!ModelState.IsValid) return BadRequest(ModelState);
+
+        var userId = GetCurrentUserId();
+        var ip = GetClientIp();
+
+        var (success, error) = await authService.ChangeEmailAsync(userId, request, ip);
+
+        if (!success) return BadRequest(new { message = error });
+
+        return Ok(new { message = "Adresse e-mail mise à jour avec succès." });
     }
 
     // ── GET /api/auth/users ───────────────────────────────────────────────────

@@ -69,6 +69,139 @@ namespace factustock.Migrations
                     b.ToTable("AuditLogs");
                 });
 
+            modelBuilder.Entity("factustock.Models.Bon", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("BonDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("BonNumber")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<string>("ClientAI")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ClientAddress")
+                        .HasColumnType("text");
+
+                    b.Property<int?>("ClientId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("ClientLegalName")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ClientNIF")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ClientNIS")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ClientRC")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ClientTel")
+                        .HasColumnType("text");
+
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("CreatedByUserId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("GeneratedPdfPath")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Notes")
+                        .HasColumnType("text");
+
+                    b.Property<decimal>("TTC")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("numeric(18,2)");
+
+                    b.Property<decimal>("TotalHorsTaxe")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("numeric(18,2)");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClientId");
+
+                    b.HasIndex("CreatedByUserId");
+
+                    b.HasIndex("CompanyId", "BonNumber")
+                        .IsUnique();
+
+                    b.ToTable("Bons");
+                });
+
+            modelBuilder.Entity("factustock.Models.BonItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("BonId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Code")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Designation")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<decimal>("PriceHorsTaxe")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("numeric(18,2)");
+
+                    b.Property<decimal>("PricePerUnit")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("numeric(18,2)");
+
+                    b.Property<decimal>("PriceTTC")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("numeric(18,2)");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("integer");
+
+                    b.Property<decimal>("Quantity")
+                        .HasPrecision(18, 3)
+                        .HasColumnType("numeric(18,3)");
+
+                    b.Property<decimal>("TVA")
+                        .HasPrecision(5, 2)
+                        .HasColumnType("numeric(5,2)");
+
+                    b.Property<string>("Unit")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BonId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("BonItems");
+                });
+
             modelBuilder.Entity("factustock.Models.Client", b =>
                 {
                     b.Property<int>("Id")
@@ -210,8 +343,32 @@ namespace factustock.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("ClientId")
+                    b.Property<string>("ClientAI")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ClientAddress")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ClientEmail")
+                        .HasColumnType("text");
+
+                    b.Property<int?>("ClientId")
                         .HasColumnType("integer");
+
+                    b.Property<string>("ClientLegalName")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ClientNIF")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ClientNIS")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ClientRC")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ClientTel")
+                        .HasColumnType("text");
 
                     b.Property<int>("CompanyId")
                         .HasColumnType("integer");
@@ -222,7 +379,7 @@ namespace factustock.Migrations
                     b.Property<int>("CreatedByUserId")
                         .HasColumnType("integer");
 
-                    b.Property<DateTime>("DueDate")
+                    b.Property<DateTime?>("DueDate")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("GeneratedPdfPath")
@@ -652,6 +809,12 @@ namespace factustock.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("ActiveAdmins")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("ActiveUsers")
+                        .HasColumnType("integer");
+
                     b.Property<string>("BillingCycle")
                         .IsRequired()
                         .HasMaxLength(20)
@@ -845,6 +1008,51 @@ namespace factustock.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("factustock.Models.Bon", b =>
+                {
+                    b.HasOne("factustock.Models.Client", "Client")
+                        .WithMany()
+                        .HasForeignKey("ClientId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("factustock.Models.Company", "Company")
+                        .WithMany()
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("factustock.Models.User", "CreatedByUser")
+                        .WithMany()
+                        .HasForeignKey("CreatedByUserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Client");
+
+                    b.Navigation("Company");
+
+                    b.Navigation("CreatedByUser");
+                });
+
+            modelBuilder.Entity("factustock.Models.BonItem", b =>
+                {
+                    b.HasOne("factustock.Models.Bon", "Bon")
+                        .WithMany("Items")
+                        .HasForeignKey("BonId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("factustock.Models.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Bon");
+
+                    b.Navigation("Product");
+                });
+
             modelBuilder.Entity("factustock.Models.Client", b =>
                 {
                     b.HasOne("factustock.Models.Company", "Company")
@@ -861,8 +1069,7 @@ namespace factustock.Migrations
                     b.HasOne("factustock.Models.Client", "Client")
                         .WithMany("Invoices")
                         .HasForeignKey("ClientId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("factustock.Models.Company", "Company")
                         .WithMany("Invoices")
@@ -1027,6 +1234,11 @@ namespace factustock.Migrations
                     b.Navigation("Company");
 
                     b.Navigation("Role");
+                });
+
+            modelBuilder.Entity("factustock.Models.Bon", b =>
+                {
+                    b.Navigation("Items");
                 });
 
             modelBuilder.Entity("factustock.Models.Client", b =>

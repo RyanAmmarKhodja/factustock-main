@@ -1,32 +1,61 @@
-﻿using factustock.Enums;
+using factustock.Enums;
 
 namespace factustock.DTOs
 {
     // ════════════════════════════════════════════
-    // INVOICE
+    // INVOICE — LIST / DETAIL DTOs
     // ════════════════════════════════════════════
-    public record CreateInvoiceRequest(
-        int ClientId,
+
+    public record InvoiceListItem(
+        int Id,
+        string InvoiceNumber,
         DateTime InvoiceDate,
-        DateTime DueDate,
-        PaymentMethod? PaymentMethod,
+        DateTime? DueDate,
+        int? ClientId,
+        string? ClientLegalName,
+        string Status,
+        decimal TotalHorsTaxe,
+        decimal TTC,
+        string? PaymentMethod,
+        DateTime CreatedAt
+    );
+
+    public record InvoicePagedResult(
+        List<InvoiceListItem> Items,
+        int TotalCount,
+        int Page,
+        int PageSize,
+        int TotalPages
+    );
+
+    public record InvoiceDetailDto(
+        int Id,
+        string InvoiceNumber,
+        DateTime InvoiceDate,
+        DateTime? DueDate,
+        int? ClientId,
+        string? ClientLegalName,
+        string? ClientAddress,
+        string? ClientTel,
+        string? ClientEmail,
+        string? ClientRC,
+        string? ClientNIF,
+        string? ClientNIS,
+        string? ClientAI,
+        string Status,
+        string? PaymentMethod,
+        decimal TotalHorsTaxe,
+        decimal TTC,
         string? Notes,
-        List<CreateInvoiceItemRequest> Items
+        string? PdfDownloadUrl,
+        DateTime CreatedAt,
+        List<InvoiceItemDto> Items
     );
-
-    public record CreateInvoiceItemRequest(
-        int ProductId,
-        decimal Quantity,
-        decimal? PricePerUnitOverride,   // null = use product's current price
-        decimal? TVAOverride             // null = use product's DefaultTaxRate
-    );
-
-    public record UpdateInvoiceStatusRequest(InvoiceStatus Status);
 
     public record InvoiceItemDto(
         int Id,
         int ProductId,
-        string Reference,
+        string? Code,
         string Designation,
         decimal Quantity,
         string? Unit,
@@ -36,31 +65,13 @@ namespace factustock.DTOs
         decimal PriceTTC
     );
 
-    public record InvoiceDto(
-        int Id,
-        string InvoiceNumber,
-        DateTime InvoiceDate,
-        DateTime DueDate,
-        InvoiceStatus Status,
-        string ClientName,
-        int ClientId,
-        string CreatedByUser,
-        decimal TotalHorsTaxe,
-        decimal TTC,
-        PaymentMethod? PaymentMethod,
-        string? Notes,
-        DateTime CreatedAt,
-        List<InvoiceItemDto> Items,
-        List<PaymentDto> Payments
-    );
-
     public record InvoiceSummaryDto(
         int Id,
         string InvoiceNumber,
         DateTime InvoiceDate,
-        DateTime DueDate,
-        InvoiceStatus Status,
-        string ClientName,
+        DateTime? DueDate,
+        string Status,
+        string? ClientLegalName,
         decimal TTC
     );
 }

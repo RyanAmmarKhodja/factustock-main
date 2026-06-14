@@ -1,7 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Input from "../ui/Input";
 import Button from "../ui/Button";
 import { Alert } from "../ui/UI";
+import { getProductCategories } from "../../api/productApi";
+import { Plus } from "lucide-react";
 import styles from "./ProductFormModal.module.css";
 
 /**
@@ -17,22 +19,46 @@ export default function ProductFormModal({ mode = "create", product = null, onCl
 
   const [form, setForm] = useState({
     
-    Code: product?.Code ?? "",
-    Name:  product?.Name  ?? "",
-    Description: product?.Description ?? "",
-    Category:     product?.Category     ?? "",
-    Price:       product?.Price       ?? "",
-    Unit:   product?.Unit   ?? "",
-    DefaultTaxRate:        product?.DefaultTaxRate        ?? "",
-    StockQuantity:        product?.StockQuantity        ?? "",
-    MinStockLevel:       product?.MinStockLevel       ?? "",
-    Barcode:       product?.Barcode       ?? ""
+    Code: product?.code ?? "",
+    Name:  product?.name  ?? "",
+    Description: product?.description ?? "",
+    Category:     product?.category     ?? "",
+    Price:       product?.price       ?? "",
+    Unit:   product?.unit   ?? "",
+    DefaultTaxRate:        product?.defaultTaxRate        ?? "",
+    StockQuantity:        product?.stockQuantity        ?? "",
+    MinStockLevel:       product?.minStockLevel       ?? "",
+    Barcode:       product?.barcode       ?? ""
   });
   
 
-  const [errors, setErrors]     = useState({});
-  const [apiError, setApiError] = useState("");
-  const [loading, setLoading]   = useState(false);
+  const [errors, setErrors]         = useState({});
+  const [apiError, setApiError]     = useState("");
+  const [loading, setLoading]       = useState(false);
+  const [categories, setCategories] = useState([]);
+  const [catOpen, setCatOpen]       = useState(false);
+  const [newCatInput, setNewCatInput] = useState("");
+  const catRef = useRef(null);
+
+  // Load existing categories once
+  useEffect(() => {
+    getProductCategories()
+      .then((res) => setCategories(res.data || []))
+      .catch(() => {});
+  }, []);
+
+  // Close category dropdown on outside click
+  useEffect(() => {
+    if (!catOpen) return;
+    const handler = (e) => {
+      if (catRef.current && !catRef.current.contains(e.target)) {
+        setCatOpen(false);
+        setNewCatInput("");
+      }
+    };
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
+  }, [catOpen]);
 
   // Close on Escape
   useEffect(() => {
@@ -40,6 +66,19 @@ export default function ProductFormModal({ mode = "create", product = null, onCl
     document.addEventListener("keydown", handler);
     return () => document.removeEventListener("keydown", handler);
   }, [onClose]);
+
+  const selectCategory = (cat) => {
+    setForm((prev) => ({ ...prev, Category: cat }));
+    setCatOpen(false);
+    setNewCatInput("");
+  };
+
+  const confirmNewCategory = () => {
+    const trimmed = newCatInput.trim();
+    if (!trimmed) return;
+    if (!categories.includes(trimmed)) setCategories((prev) => [...prev, trimmed]);
+    selectCategory(trimmed);
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -126,10 +165,47 @@ export default function ProductFormModal({ mode = "create", product = null, onCl
             />
 
             <div className={styles.row}>
-              <Input
-                id="Category" name="Category" label="Catégorie"
-                value={form.Category} onChange={handleChange}
-              />
+              {/* Category dropdown */}
+              <div className={styles.fieldGroup} ref={catRef}>
+                <label className={styles.fieldLabel}>Catégorie</label>
+                <button
+                  type="button"
+                  className={styles.catBtn}
+                  onClick={() => setCatOpen((o) => !o)}
+                >
+                  <span>{form.Category || <span className={styles.catPlaceholder}>Sélectionner…</span>}</span>
+                  <span>{catOpen ? "▲" : "▼"}</span>
+                </button>
+                {catOpen && (
+                  <div className={styles.catDropdown}>
+                    {categories.map((cat) => (
+                      <button
+                        key={cat}
+                        type="button"
+                        className={`${styles.catOption} ${form.Category === cat ? styles.catOptionActive : ""}`}
+                        onClick={() => selectCategory(cat)}
+                      >
+                        {cat}
+                      </button>
+                    ))}
+                    {/* Add new category */}
+                    <div className={styles.catAddRow}>
+                      <input
+                        className={styles.catAddInput}
+                        placeholder="Nouvelle catégorie…"
+                        value={newCatInput}
+                        onChange={(e) => setNewCatInput(e.target.value)}
+                        onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); confirmNewCategory(); } }}
+                        autoFocus={categories.length === 0}
+                      />
+                      <button type="button" className={styles.catAddBtn} onClick={confirmNewCategory}>
+                        <Plus size={14} />
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
+
               <Input
                 id="Unit" name="Unit" label="Unité (ex: kg, pc)"
                 value={form.Unit} onChange={handleChange}
