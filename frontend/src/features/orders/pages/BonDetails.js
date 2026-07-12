@@ -133,7 +133,7 @@ export default function BonDetails() {
                   <td>{item.pricePerUnit.toLocaleString("fr-DZ", { minimumFractionDigits: 2 })} DA</td>
                   <td>{item.tva}%</td>
                   <td>{item.priceHorsTaxe.toLocaleString("fr-DZ", { minimumFractionDigits: 2 })} DA</td>
-                  <td className={styles.bold}>{item.priceTtc.toLocaleString("fr-DZ", { minimumFractionDigits: 2 })} DA</td>
+                  <td className={styles.bold}>{item.priceTTC.toLocaleString("fr-DZ", { minimumFractionDigits: 2 })} DA</td>
                 </tr>
               ))}
             </tbody>

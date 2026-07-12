@@ -7,6 +7,7 @@ import styles from "../styles/GenerateInvoice.module.css";
 import { createInvoice } from "../../orders/api/documentApi";
 import ClientSelectionFormModal from "../components/ClientSelectionFormModal";
 import ProductSelectionFormModal from "../components/ProductSelectionFormModal";
+import api from "../../../shared/api/api"
 
 const PAYMENT_METHODS = [
   { value: 0, label: "Espèces" },
@@ -168,9 +169,23 @@ export default function GenerateInvoice() {
     }
   };
 
-  const handleDownloadPdf = () => {
-    const apiBase = process.env.REACT_APP_API_URL || "http://localhost:5000";
-    window.open(apiBase + success.pdfDownloadUrl, "_blank");
+  const handleDownloadPdf = async () => {
+    // const apiBase = process.env.REACT_APP_API_URL || "http://localhost:5000";
+    // window.open(apiBase + success.pdfDownloadUrl, "_blank");
+
+    if (!success?.pdfDownloadUrl) return;
+    // pdfDownloadUrl starts with "/api/..." but the Axios instance baseURL already
+    // includes "/api", so strip the leading "/api" to avoid "/api/api/..." doubling.
+    const path = success.pdfDownloadUrl.replace(/^\/api/, "");
+    const res = await api.get(path, { responseType: "blob" });
+    const url = window.URL.createObjectURL(new Blob([res.data], { type: "application/pdf" }));
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `facture-${success.invoiceNumber}.pdf`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    window.URL.revokeObjectURL(url);
   };
 
   // ── Success state ─────────────────────────────────────────────────────────────

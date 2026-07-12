@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import Input from "../../../shared/components/Input";
 import styles from "./ClientSelectionFormModal.module.css";
-import { getClients } from "../../contacts/api/clientApi"; 
+import { getClients } from "../../contacts"; 
 import {
   PageHeader,
   Card,
