@@ -75,7 +75,7 @@ public class ProductController(IProductService productService) : ControllerBase
     public async Task<ActionResult<ProductPagedResult>> GetAllProducts(
         [FromQuery] string? search = null,
         [FromQuery] string? category = null,
-        [FromQuery] bool? active = true,
+        [FromQuery] bool? active = null,
         [FromQuery] bool lowStockOnly = false,
         [FromQuery] int page = 1,
         [FromQuery] int pageSize = 20)

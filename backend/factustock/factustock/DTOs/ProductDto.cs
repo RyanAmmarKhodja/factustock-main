@@ -70,7 +70,7 @@ namespace factustock.DTOs
     public record ProductQueryRequest(
         string? Search = null,    // name, code, barcode
         string? Category = null,
-        bool? Active = true,    // default: only active products
+        bool? Active = null,    // null = no filter (active + archived)
         bool LowStockOnly = false,
         int Page = 1,
         int PageSize = 20
